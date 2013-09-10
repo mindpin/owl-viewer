@@ -7,14 +7,18 @@
 <body>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script type="text/javascript" src="coffee-script.js"></script>
+  <script type="text/javascript" src="jsw.js"></script>
+  <script type="text/javascript" src="query.js"></script>
   <script type="text/coffeescript" src="js/owl_parser.js.coffee"></script>
 
   <script type="text/coffeescript">
-    owl_data = "blablalbal"
-
-    owl_parser = new OwlParser(owl_data)
-    owl_parser.build_ontology()
-
+    jQuery.ajax
+      url: "/data/annotation.owl",
+      async: false,
+      success: (data)=>
+        window.owl_data = data
+        owl_parser = new OwlParser(data)
+        owl_parser.build_ontology()
     jQuery('<div>加载成功</div>').appendTo(jQuery('body'))
   </script>
 </body>
