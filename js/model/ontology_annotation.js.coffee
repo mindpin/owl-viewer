@@ -20,3 +20,6 @@ class OntologyAnnotation
 
   add_ranges: (range) ->
     @ranges.push(range)
+
+jQuery.extend window,
+  OntologyAnnotation: OntologyAnnotation
