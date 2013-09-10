@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>owl-viewer ui page</title>
+</head>
+<body>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript" src="coffee-script.js"></script>
+  <script type="text/coffeescript" src="js/owl_parser.js.coffee"></script>
+
+  <script type="text/coffeescript">
+    owl_data = "blablalbal"
+
+    owl_parser = new OwlParser(owl_data)
+    owl_parser.build_ontology()
+
+    jQuery('<div>加载成功</div>').appendTo(jQuery('body'))
+  </script>
+</body>
+</html>
