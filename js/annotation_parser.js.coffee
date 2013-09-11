@@ -20,13 +20,13 @@ class AnnotationParser
 
   #######################
   _parse_annotation: ->
-    jQuery(@owl_text).find('Declaration AnnotationProperty').each (i,dom)=>
+    jQuery(@owl_text).find('Declaration AnnotationProperty').each (i,dom)->
       ele = jQuery(dom)
       iri = ele.attr('IRI')
       @_build_annotation(iri)
 
   _parse_related_sub_and_parent_annotation: ->
-    jQuery(@owl_text).find('SubAnnotationPropertyOf').each (i,dom)=>
+    jQuery(@owl_text).find('SubAnnotationPropertyOf').each (i,dom)->
       ele        = jQuery(dom)
       as         = ele.find('AnnotationProperty')
       sub_iri    = jQuery(as[0]).attr('IRI')
@@ -34,14 +34,14 @@ class AnnotationParser
       @_build_related_sub_and_parent_annotation(sub_iri, parent_iri)
 
   _parse_related_domain_thing: ->
-    jQuery(@owl_text).find('AnnotationPropertyDomain').each (i,dom)=>
+    jQuery(@owl_text).find('AnnotationPropertyDomain').each (i,dom)->
       ele            = jQuery(dom)
       annotation_iri = ele.find('AnnotationProperty').attr('IRI')
       thing_iri      = ele.find('IRI').value()
       @_build_related_domain_thing(annotation_iri, thing_iri)
 
   _parse_related_range_thing: ->
-    jQuery(@owl_text).find('AnnotationPropertyRange').each (i,dom)=>
+    jQuery(@owl_text).find('AnnotationPropertyRange').each (i,dom)->
       ele            = jQuery(dom)
       annotation_iri = ele.find('AnnotationProperty').attr('IRI')
       thing_iri      = ele.find('IRI').value()
