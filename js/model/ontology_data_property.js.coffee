@@ -8,8 +8,8 @@ class OntologyDataProperty
     @parent_data_properties = []
     @equivalence_data_properties = []
     @disjoint_data_properties = []
-    @domains = []
-    @ranges = []
+    @domain_things = []
+    @range_things = []
 
   add_sub_data_property: (property) ->
     @sub_data_properties.push(property)
@@ -23,11 +23,11 @@ class OntologyDataProperty
   add_disjoint_data_property: (property) ->
     @disjoint_data_properties.push(property)
 
-  add_domains_thing: (domain) ->
-    @domains.push(domain)
+  add_domain_things: (domain) ->
+    @domain_things.push(domain)
 
-  add_ranges_thing: (range) ->
-    @ranges.push(range)
+  add_range_things: (range) ->
+    @range_things.push(range)
 
 
 

@@ -8,8 +8,8 @@ class OntologyObjectProperty
     @parent_object_properties = []
     @inverse_object_properties = []
     @disjoint_object_properties = []
-    @domains = []
-    @ranges = []
+    @domain_things = []
+    @range_things = []
 
 
   add_sub_object_property: (property) ->
@@ -24,11 +24,11 @@ class OntologyObjectProperty
   add_disjoint_object_property: (property) ->
     @disjoint_object_properties.push(property)
 
-  add_domains_thing: (domain) ->
-    @domains.push(domain)
+  add_domain_things: (domain) ->
+    @domain_things.push(domain)
 
-  add_ranges_thing: (range) ->
-    @ranges.push(range)
+  add_range_things: (range) ->
+    @range_things.push(range)
 
 
 jQuery.extend window,
