@@ -2,7 +2,7 @@ class OntologyThing
   constructor: (iri) ->
     @iri = iri
     @name = iri.substring(1)
-    
+
     @sub_things = []
     @parent_things = []
     @equivalence_things = []
@@ -23,3 +23,6 @@ class OntologyThing
 
   add_individual: (individual) ->
     @individuals.push(individual)
+
+jQuery.extend window,
+  OntologyThing: OntologyThing
