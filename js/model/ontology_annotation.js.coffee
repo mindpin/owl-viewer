@@ -15,10 +15,10 @@ class OntologyAnnotation
   add_parent_annotation: (annotation) ->
     @parent_annotations.push(annotation)
 
-  add_domains: (domain) ->
+  add_domains_thing: (domain) ->
     @domains.push(domain)
 
-  add_ranges: (range) ->
+  add_ranges_thing: (range) ->
     @ranges.push(range)
 
 jQuery.extend window,
