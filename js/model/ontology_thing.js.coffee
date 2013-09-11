@@ -1,16 +1,13 @@
 class OntologyThing
-  constructor: (name) ->
-    @name = name
+  constructor: (iri) ->
+    @iri = iri
+    @name = iri.substring(1)
+    
     @sub_things = []
     @parent_things = []
     @equivalence_things = []
     @disjoint_things = []
     @individuals = []
-
-  build_ontology: (equivalents, disjoints, individuals) ->
-    @equivalents = equivalents
-    @disjoints = disjoints
-    @individuals = individuals
 
   add_sub_thing: (thing) ->
     @sub_things.push(thing)
