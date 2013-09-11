@@ -4,22 +4,18 @@ class OntologyIndividual
     @iri = iri
     @name = iri.substring(1)
 
-    @sub_individuals = []
-    @parent_individuals = []
-    @domains = []
-    @ranges = []
+    @same_individuals = []
+    @different_individuals = []
+    @things = []
 
-  add_sub_individual: (individual) ->
-    @sub_individuals.push(individual)
+  add_same_individual: (individual) ->
+    @same_individuals.push(individual)
 
-  add_parent_annotation: (individual) ->
-    @parent_individuals.push(individual)
+  add_different_individual: (individual) ->
+    @different_individuals.push(individual)
 
-  add_domains_thing: (domain) ->
-    @domains.push(domain)
-
-  add_ranges_thing: (range) ->
-    @ranges.push(range)
+  add_thing: (thing) ->
+    @things.push(thing)
 
 
 jQuery.extend window,
