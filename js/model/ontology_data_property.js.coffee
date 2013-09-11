@@ -23,10 +23,10 @@ class OntologyDataProperty
   add_disjoint_data_property: (property) ->
     @disjoint_data_properties.push(property)
 
-  add_domain_things: (domain) ->
+  add_domain_thing: (domain) ->
     @domain_things.push(domain)
 
-  add_range_things: (range) ->
+  add_range_thing: (range) ->
     @range_things.push(range)
 
 

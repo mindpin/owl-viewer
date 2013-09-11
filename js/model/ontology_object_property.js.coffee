@@ -6,11 +6,12 @@ class OntologyObjectProperty
 
     @sub_object_properties = []
     @parent_object_properties = []
+    @equivalence_object_properties = []
     @inverse_object_properties = []
     @disjoint_object_properties = []
+    @characteristics = []
     @domain_things = []
     @range_things = []
-
 
   add_sub_object_property: (property) ->
     @sub_object_properties.push(property)
@@ -18,16 +19,22 @@ class OntologyObjectProperty
   add_parent_object_property: (property) ->
     @parent_object_properties.push(property)
 
+  add_equivalence_data_property: (property) ->
+    @equivalence_object_properties.push(property)
+
   add_inverse_object_property: (property) ->
     @inverse_object_properties.push(property)
 
   add_disjoint_object_property: (property) ->
     @disjoint_object_properties.push(property)
 
-  add_domain_things: (domain) ->
+  add_characteristic: (characteristic) ->
+    @characteristics.push(characteristic)
+
+  add_domain_thing: (domain) ->
     @domain_things.push(domain)
 
-  add_range_things: (range) ->
+  add_range_thing: (range) ->
     @range_things.push(range)
 
 
