@@ -14,10 +14,7 @@ class OwlParser
 
   _build_related: ->
     @annotation_parser.build_related()
-
-
-
-
+    @thing_parser.build_related()
 
 jQuery.extend window,
   OwlParser: OwlParser
