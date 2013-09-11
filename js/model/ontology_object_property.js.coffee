@@ -24,10 +24,10 @@ class OntologyObjectProperty
   add_disjoint_object_property: (property) ->
     @disjoint_object_properties.push(property)
 
-  add_domain_things: (domain) ->
+  add_domain_thing: (domain) ->
     @domain_things.push(domain)
 
-  add_range_things: (range) ->
+  add_range_thing: (range) ->
     @range_things.push(range)
 
 
