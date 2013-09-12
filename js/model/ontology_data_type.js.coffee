@@ -1,4 +1,4 @@
-class DataType
+class OntologyDataType
   
   constructor: (iri) ->
     @iri = iri
