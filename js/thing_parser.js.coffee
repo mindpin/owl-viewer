@@ -11,6 +11,8 @@ class ThingParser
 
   build_related: ->
     @_parse_related_individual()
+    @_parse_related_object_property()
+    @_parse_related_data_property()
 
   get_model_by_iri: (iri)->
     return null if !@things || @things.length == 0
@@ -84,6 +86,30 @@ class ThingParser
     thing      = @get_model_by_iri(thing_iri)
     individual = @owl_parser.individual_parser.get_model_by_iri(individual_iri)
     thing.add_individual(individual)
-    
+
+  _parse_related_object_property: ->
+    jQuery(@owl_text).find('HasKey').each (i, dom)->
+      ele       = jQuery(dom)
+      thing_iri = ele.find('Class').attr('IRI')
+      op_iri    = ele.find('ObjectProperty').attr('IRI')
+      @_build_related_object_property(thing_iri, op_iri)
+
+  _build_related_object_property: (thing_iri, op_iri)->
+    thing = @get_model_by_iri(thing_iri)
+    op    = @owl_parser.object_property_parser.get_model_by_iri(op_iri)
+    thing.add_object_property(op)
+
+  _parse_related_data_property: ->
+    jQuery(@owl_text).find('HasKey').each (i, dom)->
+      ele       = jQuery(dom)
+      thing_iri = ele.find('Class').attr('IRI')
+      dp_iri    = ele.find('DataProperty').attr('IRI')
+      @_build_related_data_property(thing_iri, dp_iri)
+
+  _build_related_data_property: (thing_iri, dp_iri)->
+    thing = @get_model_by_iri(thing_iri)
+    op    = @owl_parser.data_property_parser.get_model_by_iri(dp_iri)
+    thing.add_data_property(op)
+
 jQuery.extend window,
   ThingParser: ThingParser
