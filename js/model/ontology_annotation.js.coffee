@@ -8,6 +8,7 @@ class OntologyAnnotation
     @parent_annotations = []
     @domain_things = []
     @range_things = []
+    @annotation_values = []
 
   add_sub_annotation: (annotation) ->
     @sub_annotations.push(annotation)
@@ -20,6 +21,10 @@ class OntologyAnnotation
 
   add_range_thing: (range) ->
     @range_things.push(range)
+
+  add_annotation_value: (annotation_value) ->
+    @annotation_values.push(annotation_value)
+    
 
 jQuery.extend window,
   OntologyAnnotation: OntologyAnnotation

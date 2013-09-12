@@ -8,6 +8,7 @@ class OntologyThing
     @equivalence_things = []
     @disjoint_things = []
     @individuals = []
+    @annotation_values = []
 
   add_sub_thing: (thing) ->
     @sub_things.push(thing)
@@ -23,6 +24,9 @@ class OntologyThing
 
   add_individual: (individual) ->
     @individuals.push(individual)
+
+  add_annotation_value: (annotation_value) ->
+    @annotation_values.push(annotation_value)
 
 jQuery.extend window,
   OntologyThing: OntologyThing
