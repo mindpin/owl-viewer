@@ -10,6 +10,7 @@ class AnnotationParser
   build_related: ->
     @_parse_related_domain_thing()
     @_parse_related_range_thing()
+    @_parse_related_annotation_value()
 
   get_model_by_iri: (iri)->
     return null if !@annotations || @annotations.length == 0
@@ -47,6 +48,15 @@ class AnnotationParser
       thing_iri      = ele.find('IRI').value()
       @_build_related_range_thing(annotation_iri, thing_iri)
 
+  _parse_related_annotation_value: ->
+    jQuery(@owl_text).find('AnnotationAssertion').each (i, dom)->
+      ele            = jQuery(dom)
+      annotation_iri = ele.find('AnnotationProperty').attr('IRI')
+      model_iri      = ele.find('IRI').value()
+      data_type_iri  = ele.find('Literal').attr('datatypeIRI')
+      value          = ele.find('Literal').value()
+      @_build_related_annotation_value(model_iri, annotation_iri, data_type_iri, value)
+
   _build_model: (iri)->
     annotation   = new OntologyAnnotation(iri)
     @annotations = [] if !@annotations
@@ -67,6 +77,14 @@ class AnnotationParser
     annotation = @get_model_by_iri(annotation_iri)
     thing      = @owl_parser.thing_parser.get_model_by_iri(thing_iri)
     annotation.add_range_thing(thing)
+
+  _build_related_annotation_value: (model_iri, annotation_iri, data_type_iri, value)->
+    model      = @owl_parser.get_model_by_iri(model_iri)
+    annotation = @get_model_by_iri(annotation_iri)
+    data_type  = @owl_parser.data_type_parser.get_model_by_iri(data_type_iri)
+    dtv        = new OntologyDatatypeValue(data_type, value)
+    av         = new OntologyAnnotationValue(annotation, dtv)
+    model.add_annotation_value(av)
 
 jQuery.extend window,
   AnnotationParser: AnnotationParser
