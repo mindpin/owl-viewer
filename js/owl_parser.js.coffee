@@ -7,10 +7,24 @@ class OwlParser
     @object_property_parser = new ObjectPropertyParser(this, @owl_text)
     @data_property_parser   = new DataPropertyParser(this, @owl_text)
     @data_type_parser       = new DataTypeParser(this, @owl_text)
+    @parsers = [
+      @annotation_parser,
+      @thing_parser,
+      @individual_parser,
+      @object_property_parser,
+      @data_property_parser,
+      @data_type_parser
+    ]
 
   build: ->
     @_build_model()
     @_build_related()
+
+  get_model_by_iri: (iri)->
+    for parser in @parsers
+      model = parser.get_model_by_iri(iri)
+      return model if !!model
+    return null
 
   _build_model: ->
     @annotation_parser.build_model()
