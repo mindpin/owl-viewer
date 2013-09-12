@@ -5,13 +5,13 @@ class IndividualParser
 
   build_model: ->
     @_parse_model()
-    @_parse_related_same_model()
-    @_parse_related_different_model()
+    @_parse_same_model()
+    @_parse_different_model()
 
   build_related: ->
     @_parse_related_thing()
 
-  get_individual_by_iri: (iri)->
+  get_model_by_iri: (iri)->
     return null if !@individuals || @individuals.length == 0
     individuals = @individuals.filter (indi)=>
       indi.iri == iri
@@ -30,31 +30,31 @@ class IndividualParser
     @individuals = [] if !@individuals
     @individuals.push(indi)
 
-  _parse_related_same_model: ->
+  _parse_same_model: ->
     jQuery(@owl_text).find('SameIndividual').each (i, dom)->
       ele        = jQuery(dom)
       indis      = ele.find('NamedIndividual')
       iri        = jQuery(indis[0]).attr('IRI')
       other_iri  = jQuery(indis[1]).attr('IRI')
-      @_build_related_same_model(iri, other_iri)
+      @_build_same_model(iri, other_iri)
 
-  _build_related_same_model: (iri, other_iri)->
-    indi       = @get_individual_by_iri(iri)
-    other_indi = @get_individual_by_iri(other_iri)
+  _build_same_model: (iri, other_iri)->
+    indi       = @get_model_by_iri(iri)
+    other_indi = @get_model_by_iri(other_iri)
     indi.add_same_individual(other_indi)
     other_indi.add_same_individual(indi)
 
-  _parse_related_different_model: ->
+  _parse_different_model: ->
     jQuery(@owl_text).find('DifferentIndividuals').each (i, dom)->
       ele        = jQuery(dom)
       indis      = ele.find('NamedIndividual')
       iri        = jQuery(indis[0]).attr('IRI')
       other_iri  = jQuery(indis[1]).attr('IRI')
-      @_build_related_different_model(iri, other_iri)
+      @_build_different_model(iri, other_iri)
 
-  _build_related_different_model: (iri, other_iri)->
-    indi       = @get_individual_by_iri(iri)
-    other_indi = @get_individual_by_iri(other_iri)
+  _build_different_model: (iri, other_iri)->
+    indi       = @get_model_by_iri(iri)
+    other_indi = @get_model_by_iri(other_iri)
     indi.add_different_individual(other_indi)
     other_indi.add_different_individual(indi)
 
@@ -66,8 +66,8 @@ class IndividualParser
       @_build_related_thing(thing_iri, individual_iri)
 
   _build_related_thing: (thing_iri, individual_iri)->
-    thing      = @owl_parser.thing_parser.get_thing_by_iri(thing_iri)
-    individual = @get_individual_by_iri(individual_iri)
+    thing      = @owl_parser.thing_parser.get_model_by_iri(thing_iri)
+    individual = @get_model_by_iri(individual_iri)
     individual.add_thing(thing)
 
 jQuery.extend window,

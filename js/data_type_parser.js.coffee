@@ -19,7 +19,7 @@ class DataTypeParser
     @data_types = [] if !@data_types
     @data_types.push(dt)
 
-  get_data_type_by_iri: (iri)->
+  get_model_by_iri: (iri)->
     return null if !@data_types || @data_types.length == 0
     dts = @data_types.filter (dt)=>
       dt.iri == iri

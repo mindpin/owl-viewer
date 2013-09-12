@@ -15,7 +15,7 @@ class ObjectPropertyParser
 
   build_model: ->
     @_parse_model()
-    @_parse_related_sub_and_parent_model()
+    @_parse_sub_and_parent_model()
     @_parse_equivalence_model()
     @_parse_inverse_model()
     @_parse_disjoint_model()
@@ -25,7 +25,7 @@ class ObjectPropertyParser
     @_parse_realted_range_thing()
     @_parse_related_characteristic()
 
-  get_object_property_by_iri: (iri)->
+  get_model_by_iri: (iri)->
     return null if !@object_properties || @object_properties.length == 0
     ans = @object_properties.filter (an)=>
       an.iri == iri
@@ -44,17 +44,17 @@ class ObjectPropertyParser
     @object_properties = [] if !@object_properties
     @object_properties.push(odp)
 
-  _parse_related_sub_and_parent_model: ->
+  _parse_sub_and_parent_model: ->
     jQuery(@owl_text).find('SubObjectPropertyOf').each (i,dom)->
       ele        = jQuery(dom)
       ops        = ele.find('ObjectProperty')
       sub_iri    = jQuery(ops[0]).attr('IRI')
       parent_iri = jQuery(ops[1]).attr('IRI')
-      @_build_related_sub_and_parent_model(sub_iri, parent_iri)
+      @_build_sub_and_parent_model(sub_iri, parent_iri)
 
-  _build_related_sub_and_parent_model: (sub_iri, parent_iri)->
-    sub    = @get_object_property_by_iri(sub_iri)
-    parent = @get_object_property_by_iri(parent_iri)
+  _build_sub_and_parent_model: (sub_iri, parent_iri)->
+    sub    = @get_model_by_iri(sub_iri)
+    parent = @get_model_by_iri(parent_iri)
     parent.add_sub_object_property(sub)
     sub.add_parent_object_property(parent)
 
@@ -67,8 +67,8 @@ class ObjectPropertyParser
       @_build_equivalence_model(iri, other_iri)
 
   _build_equivalence_model: (iri, other_iri)->
-    op       = @get_object_property_by_iri(iri)
-    other_op = @get_object_property_by_iri(other_iri)
+    op       = @get_model_by_iri(iri)
+    other_op = @get_model_by_iri(other_iri)
     op.add_equivalence_object_property(other_op)
     other_op.add_equivalence_object_property(op)
 
@@ -81,8 +81,8 @@ class ObjectPropertyParser
       @_build_inverse_model(iri, other_iri)
 
   _build_inverse_model: (iri, other_iri)->
-    op       = @get_object_property_by_iri(iri)
-    other_op = @get_object_property_by_iri(other_iri)
+    op       = @get_model_by_iri(iri)
+    other_op = @get_model_by_iri(other_iri)
     op.add_inverse_object_property(other_op)
     other_op.add_inverse_object_property(op)
 
@@ -95,8 +95,8 @@ class ObjectPropertyParser
       @_build_disjoint_model(iri, other_iri)
 
   _build_disjoint_model: (iri, other_iri)->
-    op       = @get_object_property_by_iri(iri)
-    other_op = @get_object_property_by_iri(other_iri)
+    op       = @get_model_by_iri(iri)
+    other_op = @get_model_by_iri(other_iri)
     op.add_disjoint_object_property(other_op)
     other_op.add_disjoint_object_property(op)
 
@@ -108,8 +108,8 @@ class ObjectPropertyParser
       @_build_related_domain_thing(op_iri, thing_iri)
 
   _build_related_domain_thing: (op_iri, thing_iri)->
-    op    = @get_object_property_by_iri(op_iri)
-    thing = @owl_parser.thing_parser.get_thing_by_iri(thing_iri)
+    op    = @get_model_by_iri(op_iri)
+    thing = @owl_parser.thing_parser.get_model_by_iri(thing_iri)
     op.add_domain_thing(thing)
 
   _parse_realted_range_thing: ->
@@ -120,8 +120,8 @@ class ObjectPropertyParser
       @_build_realted_range_thing(op_iri, thing_iri)
 
   _build_realted_range_thing: (op_iri, thing_iri)->
-    op    = @get_object_property_by_iri(op_iri)
-    thing = @owl_parser.thing_parser.get_thing_by_iri(thing_iri)
+    op    = @get_model_by_iri(op_iri)
+    thing = @owl_parser.thing_parser.get_model_by_iri(thing_iri)
     op.add_range_thing(thing)
 
   _parse_related_characteristic: ->
@@ -131,7 +131,7 @@ class ObjectPropertyParser
         @_build_related_characteristic(iri, characteristic)
 
   _build_related_characteristic: (iri, characteristic)->
-    op = get_object_property_by_iri(iri)
+    op = @get_model_by_iri(iri)
     op.add_characteristic(characteristic)
 
 jQuery.extend window,
