@@ -11,6 +11,7 @@ class OntologyDataProperty
     @characteristics = []
     @domain_things = []
     @range_data_types = []
+    @annotation_values = []
 
   add_sub_data_property: (property) ->
     @sub_data_properties.push(property)
@@ -31,7 +32,10 @@ class OntologyDataProperty
     @domain_things.push(domain)
 
   add_range_data_type: (data_type) ->
-    @range_data_types.push(data_type)    
+    @range_data_types.push(data_type)
+
+  add_annotation_value: (annotation_value) ->
+    @annotation_values.push(annotation_value)  
 
 
 

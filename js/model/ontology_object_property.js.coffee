@@ -12,6 +12,7 @@ class OntologyObjectProperty
     @characteristics = []
     @domain_things = []
     @range_things = []
+    @annotation_values = []
 
   add_sub_object_property: (property) ->
     @sub_object_properties.push(property)
@@ -36,6 +37,9 @@ class OntologyObjectProperty
 
   add_range_thing: (range) ->
     @range_things.push(range)
+
+  add_annotation_value: (annotation_value) ->
+    @annotation_values.push(annotation_value)
 
 
 jQuery.extend window,
