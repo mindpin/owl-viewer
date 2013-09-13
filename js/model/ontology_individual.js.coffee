@@ -1,8 +1,8 @@
-class OntologyIndividual
+class OntologyIndividual extends OntologyBase
   
   constructor: (iri) ->
     @iri = iri
-    @name = iri.substring(1)
+    @name = get_name(iri)
 
     @same_individuals = []
     @different_individuals = []

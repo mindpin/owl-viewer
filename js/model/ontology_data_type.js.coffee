@@ -1,8 +1,8 @@
-class OntologyDataType
+class OntologyDataType extends OntologyBase
   
   constructor: (iri) ->
     @iri = iri
-    @name = iri.substring(1)
+    @name = get_name(iri)
     @annotation_values = []
 
   add_annotation_value: (annotation_value) ->
