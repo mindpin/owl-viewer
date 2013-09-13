@@ -1,8 +1,8 @@
-class OntologyAnnotation
+class OntologyAnnotation extends OntologyBase
 
   constructor: (iri) ->
     @iri = iri
-    @name = iri.substring(1)
+    @name = get_name(iri)
 
     @sub_annotations = []
     @parent_annotations = []
