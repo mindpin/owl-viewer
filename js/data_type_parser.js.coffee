@@ -36,9 +36,8 @@ class DataTypeParser
     "xsd:XMLLiteral"
   ]
 
-  constructor: (owl_parser, owl_text) ->
+  constructor: (owl_parser) ->
     @owl_parser = owl_parser
-    @owl_text   = owl_text
 
   build_model: ->
     @_parse_model()
@@ -61,7 +60,7 @@ class DataTypeParser
     return @_build_model(iri)
 
   _parse_model: ->
-    jQuery(@owl_text).find('Declaration Datatype').each (i, dom)=>
+    @owl_parser.owl_doc.find('Declaration Datatype').each (i, dom)=>
       iri = jQuery(dom).attr('IRI')
       @_build_model(iri)
 

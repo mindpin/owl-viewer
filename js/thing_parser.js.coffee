@@ -1,9 +1,8 @@
 class ThingParser
   @DEFAULT_IRIS = ['owl:Thing']
 
-  constructor: (owl_parser, owl_text) ->
+  constructor: (owl_parser) ->
     @owl_parser = owl_parser
-    @owl_text   = owl_text
 
   build_model: ->
     @_parse_model()
@@ -31,7 +30,7 @@ class ThingParser
     return @_build_model(iri)
 
   _parse_model: ->
-    jQuery(@owl_text).find('Declaration Class').each (i,dom)=>
+    @owl_parser.owl_doc.find('Declaration Class').each (i,dom)=>
       ele = jQuery(dom)
       iri = ele.attr('IRI')
       @_build_model(iri)
@@ -43,7 +42,7 @@ class ThingParser
     return thing
 
   _parse_sub_and_parent_model: ->
-    jQuery(@owl_text).find('SubClassOf').each (i,dom)=>
+    @owl_parser.owl_doc.find('SubClassOf').each (i,dom)=>
       ele        = jQuery(dom)
       thing_eles = ele.find('Class')
       sub_iri    = jQuery(thing_eles[0]).attr('IRI')
@@ -59,7 +58,7 @@ class ThingParser
     sub.add_parent_thing(parent)
 
   _parse_equivalence_model: ->
-    jQuery(@owl_text).find('EquivalentClasses').each (i,dom)=>
+    @owl_parser.owl_doc.find('EquivalentClasses').each (i,dom)=>
       ele        = jQuery(dom)
       thing_eles = ele.find('Class')
       iri        = jQuery(thing_eles[0]).attr('IRI')
@@ -75,7 +74,7 @@ class ThingParser
     other_thing.add_equivalence_thing(thing)
 
   _parse_disjoint_model: ->
-    jQuery(@owl_text).find('DisjointClasses').each (i,dom)=>
+    @owl_parser.owl_doc.find('DisjointClasses').each (i,dom)=>
       ele        = jQuery(dom)
       thing_eles = ele.find('Class')
       iri        = jQuery(thing_eles[0]).attr('IRI')
@@ -91,7 +90,7 @@ class ThingParser
     other_thing.add_disjoint_thing(thing)
 
   _parse_related_individual: ->
-    jQuery(@owl_text).find('ClassAssertion').each (i,dom)=>
+    @owl_parser.owl_doc.find('ClassAssertion').each (i,dom)=>
       ele            = jQuery(dom)
       thing_iri      = ele.find('Class').attr('IRI')
       thing_iri      = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
@@ -104,7 +103,7 @@ class ThingParser
     thing.add_individual(individual)
 
   _parse_related_object_property: ->
-    jQuery(@owl_text).find('HasKey').each (i, dom)=>
+    @owl_parser.owl_doc.find('HasKey').each (i, dom)=>
       ele       = jQuery(dom)
       thing_iri = ele.find('Class').attr('IRI')
       thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
@@ -118,7 +117,7 @@ class ThingParser
     thing.add_object_property(op)
 
   _parse_related_data_property: ->
-    jQuery(@owl_text).find('HasKey').each (i, dom)=>
+    @owl_parser.owl_doc.find('HasKey').each (i, dom)=>
       ele       = jQuery(dom)
       thing_iri = ele.find('Class').attr('IRI')
       thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri

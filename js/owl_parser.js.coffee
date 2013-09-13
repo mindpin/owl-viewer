@@ -1,12 +1,13 @@
 class OwlParser
   constructor: (owl_text) ->
     @owl_text          = owl_text
-    @annotation_parser = new AnnotationParser(this, @owl_text)
-    @thing_parser      = new ThingParser(this, @owl_text)
-    @individual_parser = new IndividualParser(this, @owl_text)
-    @object_property_parser = new ObjectPropertyParser(this, @owl_text)
-    @data_property_parser   = new DataPropertyParser(this, @owl_text)
-    @data_type_parser       = new DataTypeParser(this, @owl_text)
+    @owl_doc           = jQuery(@owl_text)
+    @annotation_parser = new AnnotationParser(this)
+    @thing_parser      = new ThingParser(this)
+    @individual_parser = new IndividualParser(this)
+    @object_property_parser = new ObjectPropertyParser(this)
+    @data_property_parser   = new DataPropertyParser(this)
+    @data_type_parser       = new DataTypeParser(this)
     @parsers = [
       @annotation_parser,
       @thing_parser,

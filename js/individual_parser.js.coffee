@@ -1,7 +1,6 @@
 class IndividualParser
-  constructor: (owl_parser, owl_text) ->
+  constructor: (owl_parser) ->
     @owl_parser = owl_parser
-    @owl_text   = owl_text
 
   build_model: ->
     @_parse_model()
@@ -22,7 +21,7 @@ class IndividualParser
 
   #####
   _parse_model: ->
-    jQuery(@owl_text).find('Declaration NamedIndividual').each (i,dom)=>
+    @owl_parser.owl_doc.find('Declaration NamedIndividual').each (i,dom)=>
       ele = jQuery(dom)
       iri = ele.attr('IRI')
       @_build_model(iri)
@@ -33,7 +32,7 @@ class IndividualParser
     @individuals.push(indi)
 
   _parse_same_model: ->
-    jQuery(@owl_text).find('SameIndividual').each (i, dom)=>
+    @owl_parser.owl_doc.find('SameIndividual').each (i, dom)=>
       ele        = jQuery(dom)
       indis      = ele.find('NamedIndividual')
       iri        = jQuery(indis[0]).attr('IRI')
@@ -47,7 +46,7 @@ class IndividualParser
     other_indi.add_same_individual(indi)
 
   _parse_different_model: ->
-    jQuery(@owl_text).find('DifferentIndividuals').each (i, dom)=>
+    @owl_parser.owl_doc.find('DifferentIndividuals').each (i, dom)=>
       ele        = jQuery(dom)
       indis      = ele.find('NamedIndividual')
       iri        = jQuery(indis[0]).attr('IRI')
@@ -61,7 +60,7 @@ class IndividualParser
     other_indi.add_different_individual(indi)
 
   _parse_related_thing: ->
-    jQuery(@owl_text).find('ClassAssertion').each (i,dom)=>
+    @owl_parser.owl_doc.find('ClassAssertion').each (i,dom)=>
       ele            = jQuery(dom)
       thing_iri      = ele.find('Class').attr('IRI')
       thing_iri      = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
@@ -74,7 +73,7 @@ class IndividualParser
     individual.add_thing(thing)
 
   _parse_related_object_property_value: ->
-    jQuery(@owl_text).find('ObjectPropertyAssertion').each (i, dom)=>
+    @owl_parser.owl_doc.find('ObjectPropertyAssertion').each (i, dom)=>
       ele = jQuery(dom)
       op_iri = ele.find('ObjectProperty').attr('IRI')
       op_iri = ele.find('ObjectProperty').attr('abbreviatedIRI') if !op_iri
@@ -91,7 +90,7 @@ class IndividualParser
     indi.add_object_property_value(opv)
 
   _parse_related_data_property_value: ->
-    jQuery(@owl_text).find('DataPropertyAssertion').each (i, dom)=>
+    @owl_parser.owl_doc.find('DataPropertyAssertion').each (i, dom)=>
       ele = jQuery(dom)
       dp_iri = ele.find('DataProperty').attr('IRI')
       dp_iri = ele.find('DataProperty').attr('abbreviatedIRI') if !dp_iri

@@ -10,9 +10,8 @@ class ObjectPropertyParser
   }
   @DEFAULT_IRIS = ['owl:topObjectProperty']
 
-  constructor: (owl_parser, owl_text) ->
+  constructor: (owl_parser) ->
     @owl_parser = owl_parser
-    @owl_text   = owl_text
 
   build_model: ->
     @_parse_model()
@@ -41,7 +40,7 @@ class ObjectPropertyParser
     return @_build_model(iri)
     
   _parse_model: ->
-    jQuery(@owl_text).find('Declaration ObjectProperty').each (i,dom)=>
+    @owl_parser.owl_doc.find('Declaration ObjectProperty').each (i,dom)=>
       ele = jQuery(dom)
       iri = ele.attr('IRI')
       @_build_model(iri)
@@ -53,7 +52,7 @@ class ObjectPropertyParser
     return odp
 
   _parse_sub_and_parent_model: ->
-    jQuery(@owl_text).find('SubObjectPropertyOf').each (i,dom)=>
+    @owl_parser.owl_doc.find('SubObjectPropertyOf').each (i,dom)=>
       ele        = jQuery(dom)
       ops        = ele.find('ObjectProperty')
       sub_iri    = jQuery(ops[0]).attr('IRI')
@@ -69,7 +68,7 @@ class ObjectPropertyParser
     sub.add_parent_object_property(parent)
 
   _parse_equivalence_model: ->
-    jQuery(@owl_text).find('EquivalentObjectProperties').each (i, dom)=>
+    @owl_parser.owl_doc.find('EquivalentObjectProperties').each (i, dom)=>
       ele       = jQuery(dom)
       ops       = ele.find('ObjectProperty')
       iri       = jQuery(ops[0]).attr('IRI')
@@ -85,7 +84,7 @@ class ObjectPropertyParser
     other_op.add_equivalence_object_property(op)
 
   _parse_inverse_model: ->
-    jQuery(@owl_text).find('InverseObjectProperties').each (i, dom)=>
+    @owl_parser.owl_doc.find('InverseObjectProperties').each (i, dom)=>
       ele = jQuery(dom)
       ops = ele.find('ObjectProperty')
       iri       = jQuery(ops[0]).attr('IRI')
@@ -101,7 +100,7 @@ class ObjectPropertyParser
     other_op.add_inverse_object_property(op)
 
   _parse_disjoint_model: ->
-    jQuery(@owl_text).find('DisjointObjectProperties').each (i, dom)=>
+    @owl_parser.owl_doc.find('DisjointObjectProperties').each (i, dom)=>
       ele = jQuery(dom)
       ops = ele.find('ObjectProperty')
       iri       = jQuery(ops[0]).attr('IRI')
@@ -117,7 +116,7 @@ class ObjectPropertyParser
     other_op.add_disjoint_object_property(op)
 
   _parse_related_domain_thing: ->
-    jQuery(@owl_text).find('ObjectPropertyDomain').each (i, dom)=>
+    @owl_parser.owl_doc.find('ObjectPropertyDomain').each (i, dom)=>
       ele       = jQuery(dom)
       op_iri    = ele.find('ObjectProperty').attr('IRI')
       op_iri    = ele.find('ObjectProperty').attr('abbreviatedIRI') if !op_iri
@@ -131,7 +130,7 @@ class ObjectPropertyParser
     op.add_domain_thing(thing)
 
   _parse_realted_range_thing: ->
-    jQuery(@owl_text).find('ObjectPropertyRange').each (i, dom)=>
+    @owl_parser.owl_doc.find('ObjectPropertyRange').each (i, dom)=>
       ele = jQuery(dom)
       op_iri    = ele.find('ObjectProperty').attr('IRI')
       op_iri    = ele.find('ObjectProperty').attr('abbreviatedIRI') if !op_iri
@@ -146,7 +145,7 @@ class ObjectPropertyParser
 
   _parse_related_characteristic: ->
     for name,value in ObjectPropertyParser.characteristic_data
-      jQuery(@owl_text).find(name).each (i, dom)=>
+      @owl_parser.owl_doc.find(name).each (i, dom)=>
         iri = jQuery('ObjectProperty').attr('IRI')
         iri = jQuery('ObjectProperty').attr('abbreviatedIRI') if !iri
         @_build_related_characteristic(iri, characteristic)
