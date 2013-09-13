@@ -2,6 +2,7 @@ class DataPropertyParser
   @characteristic_data = {
       'FunctionalDataProperty'        : OntologyCharacteristic.FUNCTIONAL
   }
+  @DEFAULT_IRIS = ['owl:topDataProperty']
 
   constructor: (owl_parser, owl_text) ->
     @owl_parser = owl_parser
@@ -22,8 +23,15 @@ class DataPropertyParser
     return null if !@data_properties || @data_properties.length == 0
     dps = @data_properties.filter (dp)=>
       dp.iri == iri
+    dp = dps[0]
+    return dp if !!dp
+    return @_get_default_mode_by_iri(iri)
 
-    return dps[0]
+  ###################
+  _get_default_mode_by_iri: (iri)->
+    i = DataPropertyParser.DEFAULT_IRIS.indexOf(iri)
+    return null if i == -1
+    @_build_model(iri)
 
   _parse_model: ->
     jQuery(@owl_text).find('Declaration DataProperty').each (i, dom)=>

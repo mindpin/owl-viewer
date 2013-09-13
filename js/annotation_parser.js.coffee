@@ -1,4 +1,16 @@
 class AnnotationParser
+  @DEFAULT_IRIS = [
+    "owl:backwardCompatibleWith",
+    "rdfs:comment",
+    "owl:deprecate,d",
+    "owl:incompati,bleWith",
+    "rdfs:isDefine,dBy",
+    "rdfs:label",
+    "owl:priorVe,rsion",
+    "rdfs:seeAlso",
+    "owl:versionInfo"
+  ]
+
   constructor: (owl_parser, owl_text) ->
     @owl_parser = owl_parser
     @owl_text   = owl_text
@@ -16,10 +28,16 @@ class AnnotationParser
     return null if !@annotations || @annotations.length == 0
     ans = @annotations.filter (an)=>
       an.iri == iri
-
-    return ans[0]
-
+    an = ans[0]
+    return an if !!an
+    return @_get_default_mode_by_iri(iri)
+    
   #######################
+  _get_default_mode_by_iri: (iri)->
+    i = AnnotationParser.DEFAULT_IRIS.indexOf(iri)
+    return null if i == -1
+    @_build_model(iri)
+    
   _parse_model: ->
     jQuery(@owl_text).find('Declaration AnnotationProperty').each (i,dom)=>
       ele = jQuery(dom)

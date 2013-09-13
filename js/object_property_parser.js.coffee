@@ -8,6 +8,7 @@ class ObjectPropertyParser
       'ReflexiveObjectProperty'         : OntologyCharacteristic.REFLEXIVE,
       'IrreflexiveObjectProperty'       : OntologyCharacteristic.IRREFLEXIVE
   }
+  @DEFAULT_IRIS = ['owl:topObjectProperty']
 
   constructor: (owl_parser, owl_text) ->
     @owl_parser = owl_parser
@@ -29,10 +30,16 @@ class ObjectPropertyParser
     return null if !@object_properties || @object_properties.length == 0
     ans = @object_properties.filter (an)=>
       an.iri == iri
-
-    return ans[0]
+    an = ans[0]
+    return an if !!an
+    return @_get_default_mode_by_iri(iri)
 
   ################
+  _get_default_mode_by_iri: (iri)->
+    i = ObjectPropertyParser.DEFAULT_IRIS.indexOf(iri)
+    return null if i == -1
+    @_build_model(iri)
+    
   _parse_model: ->
     jQuery(@owl_text).find('Declaration ObjectProperty').each (i,dom)=>
       ele = jQuery(dom)

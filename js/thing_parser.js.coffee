@@ -1,4 +1,6 @@
 class ThingParser
+  @DEFAULT_IRIS = ['owl:Thing']
+
   constructor: (owl_parser, owl_text) ->
     @owl_parser = owl_parser
     @owl_text   = owl_text
@@ -18,10 +20,16 @@ class ThingParser
     return null if !@things || @things.length == 0
     things = @things.filter (thing)=>
       thing.iri == iri
-
-    return things[0]
+    thing = things[0]
+    return thing if !!thing
+    return @_get_default_mode_by_iri(iri)
 
   ######################
+  _get_default_mode_by_iri: (iri)->
+    i = ThingParser.DEFAULT_IRIS.indexOf(iri)
+    return null if i == -1
+    @_build_model(iri)
+
   _parse_model: ->
     jQuery(@owl_text).find('Declaration Class').each (i,dom)=>
       ele = jQuery(dom)
