@@ -19,11 +19,11 @@ class DataPropertyParser
     @_parse_related_characteristic()
 
   get_model_by_iri: (iri)->
-    return null if !@data_properties || @data_properties.length == 0
-    dps = @data_properties.filter (dp)=>
-      dp.iri == iri
-    dp = dps[0]
-    return dp if !!dp
+    if !!@data_properties
+      dps = @data_properties.filter (dp)=>
+        dp.iri == iri
+      dp = dps[0]
+      return dp if !!dp
     return @_get_default_mode_by_iri(iri)
 
   ###################

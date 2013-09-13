@@ -2,11 +2,11 @@ class AnnotationParser
   @DEFAULT_IRIS = [
     "owl:backwardCompatibleWith",
     "rdfs:comment",
-    "owl:deprecate,d",
-    "owl:incompati,bleWith",
-    "rdfs:isDefine,dBy",
+    "owl:deprecated",
+    "owl:incompatibleWith",
+    "rdfs:isDefinedBy",
     "rdfs:label",
-    "owl:priorVe,rsion",
+    "owl:priorVersion",
     "rdfs:seeAlso",
     "owl:versionInfo"
   ]
@@ -24,11 +24,11 @@ class AnnotationParser
     @_parse_related_annotation_value()
 
   get_model_by_iri: (iri)->
-    return null if !@annotations || @annotations.length == 0
-    ans = @annotations.filter (an)=>
-      an.iri == iri
-    an = ans[0]
-    return an if !!an
+    if !!@annotations
+      ans = @annotations.filter (an)=>
+        an.iri == iri
+      an = ans[0]
+      return an if !!an
     return @_get_default_mode_by_iri(iri)
     
   #######################
@@ -58,8 +58,8 @@ class AnnotationParser
       ele            = jQuery(dom)
       annotation_iri = ele.find('AnnotationProperty').attr('IRI')
       annotation_iri = ele.find('AnnotationProperty').attr('abbreviatedIRI') if !annotation_iri
-      thing_iri      = ele.find('IRI').val()
-      thing_iri      = ele.find('abbreviatedIRI').val() if !thing_iri
+      thing_iri      = ele.find('IRI').html()
+      thing_iri      = ele.find('abbreviatedIRI').html() if !thing_iri
       @_build_related_domain_thing(annotation_iri, thing_iri)
 
   _parse_related_range_thing: ->
@@ -67,8 +67,8 @@ class AnnotationParser
       ele            = jQuery(dom)
       annotation_iri = ele.find('AnnotationProperty').attr('IRI')
       annotation_iri = ele.find('AnnotationProperty').attr('abbreviatedIRI') if !annotation_iri
-      thing_iri      = ele.find('IRI').val()
-      thing_iri      = ele.find('abbreviatedIRI').val() if !thing_iri
+      thing_iri      = ele.find('IRI').html()
+      thing_iri      = ele.find('abbreviatedIRI').html() if !thing_iri
       @_build_related_range_thing(annotation_iri, thing_iri)
 
   _parse_related_annotation_value: ->
@@ -76,10 +76,10 @@ class AnnotationParser
       ele            = jQuery(dom)
       annotation_iri = ele.find('AnnotationProperty').attr('IRI')
       annotation_iri = ele.find('AnnotationProperty').attr('abbreviatedIRI') if !annotation_iri
-      model_iri      = ele.find('IRI').val()
-      model_iri      = ele.find('abbreviatedIRI').val() if !model_iri
+      model_iri      = ele.find('IRI').html()
+      model_iri      = ele.find('abbreviatedIRI').html() if !model_iri
       data_type_iri  = ele.find('Literal').attr('datatypeIRI')
-      value          = ele.find('Literal').val()
+      value          = ele.find('Literal').html()
       @_build_related_annotation_value(model_iri, annotation_iri, data_type_iri, value)
 
   _build_model: (iri)->
@@ -108,7 +108,7 @@ class AnnotationParser
     model      = @owl_parser.get_model_by_iri(model_iri)
     annotation = @get_model_by_iri(annotation_iri)
     data_type  = @owl_parser.data_type_parser.get_model_by_iri(data_type_iri)
-    dtv        = new OntologyDatatypeValue(data_type, value)
+    dtv        = new OntologyDataTypeValue(data_type, value)
     av         = new OntologyAnnotationValue(annotation, dtv)
     model.add_annotation_value(av)
 

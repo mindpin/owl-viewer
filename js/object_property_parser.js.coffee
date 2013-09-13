@@ -26,11 +26,11 @@ class ObjectPropertyParser
     @_parse_related_characteristic()
 
   get_model_by_iri: (iri)->
-    return null if !@object_properties || @object_properties.length == 0
-    ans = @object_properties.filter (an)=>
-      an.iri == iri
-    an = ans[0]
-    return an if !!an
+    if !!@object_properties
+      ans = @object_properties.filter (an)=>
+        an.iri == iri
+      an = ans[0]
+      return an if !!an
     return @_get_default_mode_by_iri(iri)
 
   ################

@@ -25,16 +25,6 @@
     </Declaration>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>http://www.semanticweb.org/administrator/ontologies/2013/8/untitled-ontology-18#dt</IRI>
-        <Literal datatypeIRI="&xsd;boolean">false</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#a</IRI>
-        <Literal datatypeIRI="http://www.semanticweb.org/administrator/ontologies/2013/8/untitled-ontology-18#dt"></Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <AbbreviatedIRI>rdfs:label</AbbreviatedIRI>
         <Literal datatypeIRI="&xsd;dateTime"></Literal>
     </AnnotationAssertion>

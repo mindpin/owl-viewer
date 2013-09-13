@@ -46,11 +46,11 @@ class DataTypeParser
 
   get_model_by_iri: (bug_iri)->
     iri = @_get_fix_bug_iri(bug_iri)
-    return null if !@data_types || @data_types.length == 0
-    dts = @data_types.filter (dt)=>
-      dt.iri == iri
-    dt = dts[0]
-    return dt if !!dt
+    if !!@data_types
+      dts = @data_types.filter (dt)=>
+        dt.iri == iri
+      dt = dts[0]
+      return dt if !!dt
     return @_get_default_mode_by_iri(iri)
 
   #######################
@@ -71,6 +71,7 @@ class DataTypeParser
     return dt
 
   _get_fix_bug_iri: (iri)->
+    return null if !iri
     reg = iri.match(/&(\S+);(\S+)/)
     return "#{reg[1]}:#{reg[2]}" if !!reg
 

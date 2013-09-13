@@ -96,7 +96,7 @@ class IndividualParser
       dp_iri = ele.find('DataProperty').attr('abbreviatedIRI') if !dp_iri
       indi_iri = ele.find('NamedIndividual').attr('IRI')
       data_type_iri = ele.find('Literal').attr('datatypeIRI')
-      value = ele.find('Literal').val()
+      value = ele.find('Literal').html()
       @_build_related_data_property_value(indi_iri, dp_iri, data_type_iri, value)
 
   _build_related_data_property_value: (indi_iri, dp_iri, data_type_iri, value)->

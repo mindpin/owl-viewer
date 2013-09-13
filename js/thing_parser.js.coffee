@@ -16,11 +16,11 @@ class ThingParser
     @_parse_related_data_property()
 
   get_model_by_iri: (iri)->
-    return null if !@things || @things.length == 0
-    things = @things.filter (thing)=>
-      thing.iri == iri
-    thing = things[0]
-    return thing if !!thing
+    if !!@things
+      things = @things.filter (thing)=>
+        thing.iri == iri
+      thing = things[0]
+      return thing if !!thing
     return @_get_default_mode_by_iri(iri)
 
   ######################
