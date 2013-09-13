@@ -50,7 +50,9 @@ class DataPropertyParser
       ele        = jQuery(dom)
       dps        = ele.find('DataProperty')
       sub_iri    = jQuery(dps[0]).attr('IRI')
+      sub_iri    = jQuery(dps[0]).attr('abbreviatedIRI') if !sub_iri
       parent_iri = jQuery(dps[1]).attr('IRI')
+      parent_iri = jQuery(dps[1]).attr('abbreviatedIRI') if !parent_iri
       @_build_sub_and_parent_model(sub_iri, parent_iri)
 
   _build_sub_and_parent_model: (sub_iri, parent_iri)->
@@ -64,7 +66,9 @@ class DataPropertyParser
       ele       = jQuery(dom)
       dps       = ele.find('DataProperty')
       iri       = jQuery(dps[0]).attr('IRI')
+      iri       = jQuery(dps[0]).attr('abbreviatedIRI') if !iri
       other_iri = jQuery(dps[1]).attr('IRI')
+      other_iri = jQuery(dps[1]).attr('abbreviatedIRI') if !other_iri
       @_build_equivalence_model(iri, other_iri)
 
   _build_equivalence_model: (iri, other_iri)->
@@ -78,7 +82,9 @@ class DataPropertyParser
       ele       = jQuery(dom)
       dps       = ele.find('DataProperty')
       iri       = jQuery(dps[0]).attr('IRI')
+      iri       = jQuery(dps[0]).attr('abbreviatedIRI') if !iri
       other_iri = jQuery(dps[1]).attr('IRI')
+      other_iri = jQuery(dps[1]).attr('abbreviatedIRI') if !other_iri
       @_build_disjoint_model(iri, other_iri)
 
   _build_disjoint_model: (iri, other_iri)->
@@ -91,6 +97,7 @@ class DataPropertyParser
     jQuery(@owl_text).find('DataPropertyDomain').each (i, dom)=>
       ele       = jQuery(dom)
       iri       = ele.find('DataProperty').attr('IRI')
+      iri       = ele.find('DataProperty').attr('abbreviatedIRI') if !iri
       thing_iri = ele.find('Class').attr('IRI')
       thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
       @_build_related_domain_thing(iri, thing_iri)
@@ -104,6 +111,7 @@ class DataPropertyParser
     jQuery(@owl_text).find('DataPropertyRange').each (i,dom)=>
       ele = jQuery(dom)
       dp_iri = ele.find('DataProperty').attr('IRI')
+      dp_iri = ele.find('DataProperty').attr('abbreviatedIRI') if !dp_iri
       dt_iri = ele.find('Datatype').attr('IRI')
       @_build_related_range_data_type(dp_iri, dt_iri)
 
@@ -116,6 +124,7 @@ class DataPropertyParser
     for name,value in DataPropertyParser.characteristic_data
       jQuery(@owl_text).find(name).each (i, dom)=>
         iri = jQuery('DataProperty').attr('IRI')
+        iri = jQuery('DataProperty').attr('abbreviatedIRI') if !iri
         @_build_characteristic(iri, characteristic)
 
   _build_related_characteristic: (iri, characteristic)->

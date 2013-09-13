@@ -123,6 +123,7 @@ class ThingParser
       thing_iri = ele.find('Class').attr('IRI')
       thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
       dp_iri    = ele.find('DataProperty').attr('IRI')
+      dp_iri    = ele.find('DataProperty').attr('abbreviatedIRI') if !dp_iri
       @_build_related_data_property(thing_iri, dp_iri)
 
   _build_related_data_property: (thing_iri, dp_iri)->

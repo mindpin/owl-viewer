@@ -94,6 +94,7 @@ class IndividualParser
     jQuery(@owl_text).find('DataPropertyAssertion').each (i, dom)=>
       ele = jQuery(dom)
       dp_iri = ele.find('DataProperty').attr('IRI')
+      dp_iri = ele.find('DataProperty').attr('abbreviatedIRI') if !dp_iri
       indi_iri = ele.find('NamedIndividual').attr('IRI')
       data_type_iri = ele.find('Literal').attr('datatypeIRI')
       value = ele.find('Literal').val()
