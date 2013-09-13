@@ -36,7 +36,7 @@ class AnnotationParser
   _get_default_mode_by_iri: (iri)->
     i = AnnotationParser.DEFAULT_IRIS.indexOf(iri)
     return null if i == -1
-    @_build_model(iri)
+    return @_build_model(iri)
     
   _parse_model: ->
     jQuery(@owl_text).find('Declaration AnnotationProperty').each (i,dom)=>
@@ -79,6 +79,7 @@ class AnnotationParser
     annotation   = new OntologyAnnotation(iri)
     @annotations = [] if !@annotations
     @annotations.push(annotation)
+    return annotation
 
   _build_sub_and_parent_model: (sub_iri, parent_iri)->
     sub    = @get_model_by_iri(sub_iri)

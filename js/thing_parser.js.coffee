@@ -28,7 +28,7 @@ class ThingParser
   _get_default_mode_by_iri: (iri)->
     i = ThingParser.DEFAULT_IRIS.indexOf(iri)
     return null if i == -1
-    @_build_model(iri)
+    return @_build_model(iri)
 
   _parse_model: ->
     jQuery(@owl_text).find('Declaration Class').each (i,dom)=>
@@ -40,6 +40,7 @@ class ThingParser
     thing   = new OntologyThing(iri)
     @things = [] if !@things
     @things.push(thing)
+    return thing
 
   _parse_sub_and_parent_model: ->
     jQuery(@owl_text).find('SubClassOf').each (i,dom)=>

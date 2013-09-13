@@ -38,7 +38,7 @@ class ObjectPropertyParser
   _get_default_mode_by_iri: (iri)->
     i = ObjectPropertyParser.DEFAULT_IRIS.indexOf(iri)
     return null if i == -1
-    @_build_model(iri)
+    return @_build_model(iri)
     
   _parse_model: ->
     jQuery(@owl_text).find('Declaration ObjectProperty').each (i,dom)=>
@@ -50,6 +50,7 @@ class ObjectPropertyParser
     odp = new OntologyObjectProperty(iri)
     @object_properties = [] if !@object_properties
     @object_properties.push(odp)
+    return odp
 
   _parse_sub_and_parent_model: ->
     jQuery(@owl_text).find('SubObjectPropertyOf').each (i,dom)=>
