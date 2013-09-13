@@ -102,7 +102,7 @@ class IndividualParser
     dp = @owl_parser.data_property_parser.get_model_by_iri(dp_iri)
     data_type = @owl_parser.data_type_parser.get_model_by_iri(data_type_iri)
 
-    dtv = new OntologyDatatypeValue(data_type, value)
+    dtv = new OntologyDataTypeValue(data_type, value)
     dpv = new OntologyDataPropertyValue(dp, dtv)
     indi.add_data_property_value(dpv)
 

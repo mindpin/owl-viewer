@@ -15,7 +15,7 @@ class DataTypeParser
       @_build_model(iri)
 
   _build_model: (iri)->
-    dt = new OntologyDatatype(iri)
+    dt = new OntologyDataType(iri)
     @data_types = [] if !@data_types
     @data_types.push(dt)
 

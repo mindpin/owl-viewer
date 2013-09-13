@@ -20,7 +20,7 @@ class OntologyObjectProperty
   add_parent_object_property: (property) ->
     @parent_object_properties.push(property)
 
-  add_equivalence_data_property: (property) ->
+  add_equivalence_object_property: (property) ->
     @equivalence_object_properties.push(property)
 
   add_inverse_object_property: (property) ->
