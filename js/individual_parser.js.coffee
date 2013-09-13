@@ -64,6 +64,7 @@ class IndividualParser
     jQuery(@owl_text).find('ClassAssertion').each (i,dom)=>
       ele            = jQuery(dom)
       thing_iri      = ele.find('Class').attr('IRI')
+      thing_iri      = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
       individual_iri = ele.find('NamedIndividual').attr('IRI')
       @_build_related_thing(thing_iri, individual_iri)
 

@@ -47,7 +47,9 @@ class ThingParser
       ele        = jQuery(dom)
       thing_eles = ele.find('Class')
       sub_iri    = jQuery(thing_eles[0]).attr('IRI')
+      sub_iri    = jQuery(thing_eles[0]).attr('abbreviatedIRI') if !sub_iri
       parent_iri = jQuery(thing_eles[1]).attr('IRI')
+      parent_iri = jQuery(thing_eles[1]).attr('abbreviatedIRI') if !parent_iri
       @_build_sub_and_parent_model(sub_iri, parent_iri)
 
   _build_sub_and_parent_model: (sub_iri, parent_iri)->
@@ -61,7 +63,9 @@ class ThingParser
       ele        = jQuery(dom)
       thing_eles = ele.find('Class')
       iri        = jQuery(thing_eles[0]).attr('IRI')
+      iri        = jQuery(thing_eles[0]).attr('abbreviatedIRI') if !iri
       other_iri  = jQuery(thing_eles[1]).attr('IRI')
+      other_iri  = jQuery(thing_eles[1]).attr('abbreviatedIRI') if !other_iri
       @_build_equivalence_model(iri, other_iri)
 
   _build_equivalence_model: (iri, other_iri)->
@@ -75,7 +79,9 @@ class ThingParser
       ele        = jQuery(dom)
       thing_eles = ele.find('Class')
       iri        = jQuery(thing_eles[0]).attr('IRI')
+      iri        = jQuery(thing_eles[0]).attr('abbreviatedIRI') if !iri
       other_iri  = jQuery(thing_eles[1]).attr('IRI')
+      other_iri  = jQuery(thing_eles[1]).attr('abbreviatedIRI') if !other_iri
       @_build_disjoint_model(iri, other_iri)
 
   _build_disjoint_model: (iri, other_iri)->
@@ -88,6 +94,7 @@ class ThingParser
     jQuery(@owl_text).find('ClassAssertion').each (i,dom)=>
       ele            = jQuery(dom)
       thing_iri      = ele.find('Class').attr('IRI')
+      thing_iri      = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
       individual_iri = ele.find('NamedIndividual').attr('IRI')
       @_build_related_individual(thing_iri, individual_iri)
 
@@ -100,6 +107,7 @@ class ThingParser
     jQuery(@owl_text).find('HasKey').each (i, dom)=>
       ele       = jQuery(dom)
       thing_iri = ele.find('Class').attr('IRI')
+      thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
       op_iri    = ele.find('ObjectProperty').attr('IRI')
       @_build_related_object_property(thing_iri, op_iri)
 
@@ -112,6 +120,7 @@ class ThingParser
     jQuery(@owl_text).find('HasKey').each (i, dom)=>
       ele       = jQuery(dom)
       thing_iri = ele.find('Class').attr('IRI')
+      thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
       dp_iri    = ele.find('DataProperty').attr('IRI')
       @_build_related_data_property(thing_iri, dp_iri)
 

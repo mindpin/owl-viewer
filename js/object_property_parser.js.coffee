@@ -113,6 +113,7 @@ class ObjectPropertyParser
       ele       = jQuery(dom)
       op_iri    = ele.find('ObjectProperty').attr('IRI')
       thing_iri = ele.find('Class').attr('IRI')
+      thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
       @_build_related_domain_thing(op_iri, thing_iri)
 
   _build_related_domain_thing: (op_iri, thing_iri)->
@@ -125,6 +126,7 @@ class ObjectPropertyParser
       ele = jQuery(dom)
       op_iri    = ele.find('ObjectProperty').attr('IRI')
       thing_iri = ele.find('Class').attr('IRI')
+      thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
       @_build_realted_range_thing(op_iri, thing_iri)
 
   _build_realted_range_thing: (op_iri, thing_iri)->

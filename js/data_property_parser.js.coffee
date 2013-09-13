@@ -92,6 +92,7 @@ class DataPropertyParser
       ele       = jQuery(dom)
       iri       = ele.find('DataProperty').attr('IRI')
       thing_iri = ele.find('Class').attr('IRI')
+      thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
       @_build_related_domain_thing(iri, thing_iri)
 
   _build_related_domain_thing: (iri, thing_iri)->
