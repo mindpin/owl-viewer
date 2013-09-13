@@ -22,7 +22,7 @@ class IndividualParser
 
   #####
   _parse_model: ->
-    jQuery(@owl_text).find('Declaration NamedIndividual').each (i,dom)->
+    jQuery(@owl_text).find('Declaration NamedIndividual').each (i,dom)=>
       ele = jQuery(dom)
       iri = ele.attr('IRI')
       @_build_model(iri)
@@ -33,7 +33,7 @@ class IndividualParser
     @individuals.push(indi)
 
   _parse_same_model: ->
-    jQuery(@owl_text).find('SameIndividual').each (i, dom)->
+    jQuery(@owl_text).find('SameIndividual').each (i, dom)=>
       ele        = jQuery(dom)
       indis      = ele.find('NamedIndividual')
       iri        = jQuery(indis[0]).attr('IRI')
@@ -47,7 +47,7 @@ class IndividualParser
     other_indi.add_same_individual(indi)
 
   _parse_different_model: ->
-    jQuery(@owl_text).find('DifferentIndividuals').each (i, dom)->
+    jQuery(@owl_text).find('DifferentIndividuals').each (i, dom)=>
       ele        = jQuery(dom)
       indis      = ele.find('NamedIndividual')
       iri        = jQuery(indis[0]).attr('IRI')
@@ -61,7 +61,7 @@ class IndividualParser
     other_indi.add_different_individual(indi)
 
   _parse_related_thing: ->
-    jQuery(@owl_text).find('ClassAssertion').each (i,dom)->
+    jQuery(@owl_text).find('ClassAssertion').each (i,dom)=>
       ele            = jQuery(dom)
       thing_iri      = ele.find('Class').attr('IRI')
       individual_iri = ele.find('NamedIndividual').attr('IRI')
@@ -73,7 +73,7 @@ class IndividualParser
     individual.add_thing(thing)
 
   _parse_related_object_property_value: ->
-    jQuery(@owl_text).find('ObjectPropertyAssertion').each (i, dom)->
+    jQuery(@owl_text).find('ObjectPropertyAssertion').each (i, dom)=>
       ele = jQuery(dom)
       op_iri = ele.find('ObjectProperty').attr('IRI')
       indis = ele.find('NamedIndividual')
@@ -89,12 +89,12 @@ class IndividualParser
     indi.add_object_property_value(opv)
 
   _parse_related_data_property_value: ->
-    jQuery(@owl_text).find('DataPropertyAssertion').each (i, dom)->
+    jQuery(@owl_text).find('DataPropertyAssertion').each (i, dom)=>
       ele = jQuery(dom)
       dp_iri = ele.find('DataProperty').attr('IRI')
       indi_iri = ele.find('NamedIndividual').attr('IRI')
       data_type_iri = ele.find('Literal').attr('datatypeIRI')
-      value = ele.find('Literal').value()
+      value = ele.find('Literal').val()
       @_build_related_data_property_value(indi_iri, dp_iri, data_type_iri, value)
 
   _build_related_data_property_value: (indi_iri, dp_iri, data_type_iri, value)->

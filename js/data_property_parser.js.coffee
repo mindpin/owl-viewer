@@ -26,7 +26,7 @@ class DataPropertyParser
     return dps[0]
 
   _parse_model: ->
-    jQuery(@owl_text).find('Declaration DataProperty').each (i, dom)->
+    jQuery(@owl_text).find('Declaration DataProperty').each (i, dom)=>
       ele = jQuery(dom)
       iri = ele.attr('IRI')
       @_build_model(iri)
@@ -37,7 +37,7 @@ class DataPropertyParser
     @data_properties.push(data_property)
 
   _parse_sub_and_parent_model: ->
-    jQuery(@owl_text).find('SubDataPropertyOf').each (i, dom)->
+    jQuery(@owl_text).find('SubDataPropertyOf').each (i, dom)=>
       ele        = jQuery(dom)
       dps        = ele.find('DataProperty')
       sub_iri    = jQuery(dps[0]).attr('IRI')
@@ -51,7 +51,7 @@ class DataPropertyParser
     sub.add_parent_data_property(parent)
 
   _parse_equivalence_model: ->
-    jQuery(@owl_text).find('EquivalentDataProperties').each (i, dom)->
+    jQuery(@owl_text).find('EquivalentDataProperties').each (i, dom)=>
       ele       = jQuery(dom)
       dps       = ele.find('DataProperty')
       iri       = jQuery(dps[0]).attr('IRI')
@@ -65,7 +65,7 @@ class DataPropertyParser
     other_dp.add_equivalence_data_property(dp)
 
   _parse_disjoint_model: ->
-    jQuery(@owl_text).find('DisjointDataProperties').each (i, dom)->
+    jQuery(@owl_text).find('DisjointDataProperties').each (i, dom)=>
       ele       = jQuery(dom)
       dps       = ele.find('DataProperty')
       iri       = jQuery(dps[0]).attr('IRI')
@@ -79,7 +79,7 @@ class DataPropertyParser
     other_dp.add_disjoint_data_property(dp)
 
   _parse_related_domain_thing: ->
-    jQuery(@owl_text).find('DataPropertyDomain').each (i, dom)->
+    jQuery(@owl_text).find('DataPropertyDomain').each (i, dom)=>
       ele       = jQuery(dom)
       iri       = ele.find('DataProperty').attr('IRI')
       thing_iri = ele.find('Class').attr('IRI')
@@ -91,7 +91,7 @@ class DataPropertyParser
     dp.add_domain_thing(thing)
 
   _parse_related_range_data_type: ->
-    jQuery(@owl_text).find('DataPropertyRange').each (i,dom)->
+    jQuery(@owl_text).find('DataPropertyRange').each (i,dom)=>
       ele = jQuery(dom)
       dp_iri = ele.find('DataProperty').attr('IRI')
       dt_iri = ele.find('Datatype').attr('IRI')
@@ -102,13 +102,13 @@ class DataPropertyParser
     dt = @owl_parser.data_type_parser.get_model_by_iri(dt_iri)
     dp.add_range_data_type(dt)
 
-  _parse_characteristic: ->
+  _parse_related_characteristic: ->
     for name,value in DataPropertyParser.characteristic_data
-      jQuery(@owl_text).find(name).each (i, dom)->
+      jQuery(@owl_text).find(name).each (i, dom)=>
         iri = jQuery('DataProperty').attr('IRI')
         @_build_characteristic(iri, characteristic)
 
-  _build_characteristic: (iri, characteristic)->
+  _build_related_characteristic: (iri, characteristic)->
     dp = @get_model_by_iri(iri)
     dp.add_characteristic(characteristic)
 

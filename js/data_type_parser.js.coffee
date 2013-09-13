@@ -10,7 +10,7 @@ class DataTypeParser
   build_related: ->
 
   _parse_model: ->
-    jQuery(@owl_text).find('Declaration Datatype').each (i, dom)->
+    jQuery(@owl_text).find('Declaration Datatype').each (i, dom)=>
       iri = jQuery(dom).attr('IRI')
       @_build_model(iri)
 
