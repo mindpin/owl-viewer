@@ -113,6 +113,7 @@ class DataPropertyParser
       dp_iri = ele.find('DataProperty').attr('IRI')
       dp_iri = ele.find('DataProperty').attr('abbreviatedIRI') if !dp_iri
       dt_iri = ele.find('Datatype').attr('IRI')
+      dt_iri = ele.find('Datatype').attr('abbreviatedIRI') if !dt_iri
       @_build_related_range_data_type(dp_iri, dt_iri)
 
   _build_related_range_data_type: (dp_iri, dt_iri)->
