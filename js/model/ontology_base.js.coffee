@@ -6,3 +6,7 @@ class OntologyBase
 
     sections = iri.split(':')
     return sections[1]
+
+
+jQuery.extend window,
+  OntologyBase: OntologyBase
