@@ -57,7 +57,9 @@ class ObjectPropertyParser
       ele        = jQuery(dom)
       ops        = ele.find('ObjectProperty')
       sub_iri    = jQuery(ops[0]).attr('IRI')
+      sub_iri    = jQuery(ops[0]).attr('abbreviatedIRI') if !sub_iri
       parent_iri = jQuery(ops[1]).attr('IRI')
+      parent_iri = jQuery(ops[1]).attr('abbreviatedIRI') if !parent_iri
       @_build_sub_and_parent_model(sub_iri, parent_iri)
 
   _build_sub_and_parent_model: (sub_iri, parent_iri)->
@@ -71,7 +73,9 @@ class ObjectPropertyParser
       ele       = jQuery(dom)
       ops       = ele.find('ObjectProperty')
       iri       = jQuery(ops[0]).attr('IRI')
-      other_iri = jQuery(ops[0]).attr('IRI')
+      iri       = jQuery(ops[0]).attr('abbreviatedIRI') if !iri
+      other_iri = jQuery(ops[1]).attr('IRI')
+      other_iri = jQuery(ops[1]).attr('abbreviatedIRI') if !other_iri
       @_build_equivalence_model(iri, other_iri)
 
   _build_equivalence_model: (iri, other_iri)->
@@ -85,7 +89,9 @@ class ObjectPropertyParser
       ele = jQuery(dom)
       ops = ele.find('ObjectProperty')
       iri       = jQuery(ops[0]).attr('IRI')
-      other_iri = jQuery(ops[0]).attr('IRI')
+      iri       = jQuery(ops[0]).attr('abbreviatedIRI') if !iri
+      other_iri = jQuery(ops[1]).attr('IRI')
+      other_iri = jQuery(ops[1]).attr('abbreviatedIRI') if !other_iri
       @_build_inverse_model(iri, other_iri)
 
   _build_inverse_model: (iri, other_iri)->
@@ -99,7 +105,9 @@ class ObjectPropertyParser
       ele = jQuery(dom)
       ops = ele.find('ObjectProperty')
       iri       = jQuery(ops[0]).attr('IRI')
-      other_iri = jQuery(ops[0]).attr('IRI')
+      iri       = jQuery(ops[0]).attr('abbreviatedIRI') if !iri
+      other_iri = jQuery(ops[1]).attr('IRI')
+      other_iri = jQuery(ops[1]).attr('abbreviatedIRI') if !other_iri
       @_build_disjoint_model(iri, other_iri)
 
   _build_disjoint_model: (iri, other_iri)->
@@ -112,6 +120,7 @@ class ObjectPropertyParser
     jQuery(@owl_text).find('ObjectPropertyDomain').each (i, dom)=>
       ele       = jQuery(dom)
       op_iri    = ele.find('ObjectProperty').attr('IRI')
+      op_iri    = ele.find('ObjectProperty').attr('abbreviatedIRI') if !op_iri
       thing_iri = ele.find('Class').attr('IRI')
       thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
       @_build_related_domain_thing(op_iri, thing_iri)
@@ -125,6 +134,7 @@ class ObjectPropertyParser
     jQuery(@owl_text).find('ObjectPropertyRange').each (i, dom)=>
       ele = jQuery(dom)
       op_iri    = ele.find('ObjectProperty').attr('IRI')
+      op_iri    = ele.find('ObjectProperty').attr('abbreviatedIRI') if !op_iri
       thing_iri = ele.find('Class').attr('IRI')
       thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
       @_build_realted_range_thing(op_iri, thing_iri)
@@ -138,6 +148,7 @@ class ObjectPropertyParser
     for name,value in ObjectPropertyParser.characteristic_data
       jQuery(@owl_text).find(name).each (i, dom)=>
         iri = jQuery('ObjectProperty').attr('IRI')
+        iri = jQuery('ObjectProperty').attr('abbreviatedIRI') if !iri
         @_build_related_characteristic(iri, characteristic)
 
   _build_related_characteristic: (iri, characteristic)->
