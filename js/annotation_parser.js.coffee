@@ -49,28 +49,36 @@ class AnnotationParser
       ele        = jQuery(dom)
       as         = ele.find('AnnotationProperty')
       sub_iri    = jQuery(as[0]).attr('IRI')
+      sub_iri    = jQuery(as[0]).attr('abbreviatedIRI') if !sub_iri
       parent_iri = jQuery(as[1]).attr('IRI')
+      parent_iri = jQuery(as[1]).attr('abbreviatedIRI') if !parent_iri
       @_build_sub_and_parent_model(sub_iri, parent_iri)
 
   _parse_related_domain_thing: ->
     jQuery(@owl_text).find('AnnotationPropertyDomain').each (i,dom)=>
       ele            = jQuery(dom)
       annotation_iri = ele.find('AnnotationProperty').attr('IRI')
+      annotation_iri = ele.find('AnnotationProperty').attr('abbreviatedIRI') if !annotation_iri
       thing_iri      = ele.find('IRI').val()
+      thing_iri      = ele.find('abbreviatedIRI').val() if !thing_iri
       @_build_related_domain_thing(annotation_iri, thing_iri)
 
   _parse_related_range_thing: ->
     jQuery(@owl_text).find('AnnotationPropertyRange').each (i,dom)=>
       ele            = jQuery(dom)
       annotation_iri = ele.find('AnnotationProperty').attr('IRI')
+      annotation_iri = ele.find('AnnotationProperty').attr('abbreviatedIRI') if !annotation_iri
       thing_iri      = ele.find('IRI').val()
+      thing_iri      = ele.find('abbreviatedIRI').val() if !thing_iri
       @_build_related_range_thing(annotation_iri, thing_iri)
 
   _parse_related_annotation_value: ->
     jQuery(@owl_text).find('AnnotationAssertion').each (i, dom)=>
       ele            = jQuery(dom)
       annotation_iri = ele.find('AnnotationProperty').attr('IRI')
+      annotation_iri = ele.find('AnnotationProperty').attr('abbreviatedIRI') if !annotation_iri
       model_iri      = ele.find('IRI').val()
+      model_iri      = ele.find('abbreviatedIRI').val() if !model_iri
       data_type_iri  = ele.find('Literal').attr('datatypeIRI')
       value          = ele.find('Literal').val()
       @_build_related_annotation_value(model_iri, annotation_iri, data_type_iri, value)
