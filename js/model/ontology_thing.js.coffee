@@ -1,7 +1,7 @@
 class OntologyThing extends OntologyBase
   constructor: (iri) ->
     @iri = iri
-    @name = get_name(iri)
+    @name = @get_name(iri)
     
     @sub_things = []
     @parent_things = []

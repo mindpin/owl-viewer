@@ -2,7 +2,7 @@ class OntologyAnnotation extends OntologyBase
 
   constructor: (iri) ->
     @iri = iri
-    @name = get_name(iri)
+    @name = @get_name(iri)
 
     @sub_annotations = []
     @parent_annotations = []

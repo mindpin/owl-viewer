@@ -2,7 +2,7 @@ class OntologyObjectProperty extends OntologyBase
   
   constructor: (iri) ->
     @iri = iri
-    @name = get_name(iri)
+    @name = @get_name(iri)
 
     @sub_object_properties = []
     @parent_object_properties = []

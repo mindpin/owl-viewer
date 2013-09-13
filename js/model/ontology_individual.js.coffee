@@ -2,7 +2,7 @@ class OntologyIndividual extends OntologyBase
   
   constructor: (iri) ->
     @iri = iri
-    @name = get_name(iri)
+    @name = @get_name(iri)
 
     @same_individuals = []
     @different_individuals = []

@@ -2,7 +2,7 @@ class OntologyDataProperty extends OntologyBase
   
   constructor: (iri) ->
     @iri = iri
-    @name = get_name(iri)
+    @name = @get_name(iri)
 
     @sub_data_properties = []
     @parent_data_properties = []
