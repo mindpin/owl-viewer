@@ -20,6 +20,7 @@ class OwlParser
   build: ->
     @_build_model()
     @_build_related()
+    return new Ontology(this)
 
   get_model_by_iri: (iri)->
     for parser in @parsers

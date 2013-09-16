@@ -5,7 +5,7 @@
   <title>owl-viewer ui page</title>
 </head>
 <body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script type="text/javascript" src="coffee-script.js"></script>
   <script type="text/coffeescript" src="js/model/ontology_base.js.coffee"></script>
   <script type="text/coffeescript" src="js/model/ontology_thing.js.coffee"></script>
@@ -20,7 +20,7 @@
   <script type="text/coffeescript" src="js/model/ontology_individual.js.coffee"></script>
   <script type="text/coffeescript" src="js/model/ontology_data_type.js.coffee"></script>
   <script type="text/coffeescript" src="js/model/ontology_data_type_value.js.coffee"></script>
-  
+  <script type="text/coffeescript" src="js/model/ontology.js.coffee"></script>
 
   <script type="text/coffeescript" src="js/annotation_parser.js.coffee"></script>
   <script type="text/coffeescript" src="js/thing_parser.js.coffee"></script>
@@ -35,9 +35,13 @@
       url: "/data/annotation.owl",
       async: false,
       success: (data)=>
-        window.owl_data = data
         owl_parser = new OwlParser(data)
-        owl_parser.build()
+        ontology = owl_parser.build()
+        console.log ontology.things
+        console.log ontology.annotations
+        console.log ontology.individuals
+        console.log ontology.data_properties
+        console.log ontology.object_properties
     jQuery('<div>加载成功</div>').appendTo(jQuery('body'))
   </script>
 </body>
