@@ -1,0 +1,48 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <title>owl viewer - Mocha Spec</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./support/mocha.css" />
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="./support/mocha.js"></script>
+    <script src="./support/chai.js"></script>
+    <script src="../coffee-script.js"></script>
+    <script>mocha.setup('bdd')</script>
+    <!-- source files -->
+    <script type="text/coffeescript" src="../js/model/ontology_base.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/model/ontology_thing.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/model/ontology_annotation.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/model/ontology_annotation_value.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/model/ontology_data_property.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/model/ontology_data_property_value.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/model/ontology_object_property.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/model/ontology_object_property_value.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/model/ontology_object_property_value.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/model/ontology_characteristic.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/model/ontology_individual.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/model/ontology_data_type.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/model/ontology_data_type_value.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/model/ontology.js.coffee"></script>
+
+    <script type="text/coffeescript" src="../js/annotation_parser.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/thing_parser.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/individual_parser.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/object_property_parser.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/data_property_parser.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/data_type_parser.js.coffee"></script>
+    <script type="text/coffeescript" src="../js/owl_parser.js.coffee"></script>
+    <!-- spec files -->
+    <script type="text/coffeescript" src="./parser_specs/thing.spec.coffee"></script>
+    <script type="text/coffeescript">
+      window.expect = chai.expect
+      $("#mocha").html("")
+      mocha.checkLeaks()
+      mocha.globals(['jQuery'])
+      mocha.run()
+    </script>
+  </body>
+</html>
