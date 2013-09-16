@@ -9,6 +9,15 @@ describe "owl parser", ->
         owl_parser = new OwlParser(data)
         ontology = owl_parser.build()
 
+    it "ontology.annotations", ->
+      expect(ontology.annotations).to.eql([])
+
+    it "ontology.object_properties", ->
+      expect(ontology.object_properties).to.eql([])
+      
+    it "ontology.data_properties", ->
+      expect(ontology.data_properties).to.eql([])
+
     it "ontology.things", ->
       iris = ontology.things.map (thing)->
         thing.iri
