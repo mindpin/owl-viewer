@@ -1,4 +1,4 @@
-describe "owl parser", ->
+describe "thing parser", ->
   describe "thing.owl", ->
     ontology   = null
     owl_parser = null
@@ -75,6 +75,14 @@ describe "owl parser", ->
       success: (data)->
         owl_parser = new OwlParser(data)
         ontology = owl_parser.build()
+
+    it "ontology.things", ->
+      iris = ontology.things.map (thing)->
+        thing.iri
+      expect(['#A','#B','#C','#D','#E','#F','owl:Thing']).to.eql(iris)
+      names = ontology.things.map (thing)->
+        thing.name
+      expect(['A','B','C','D','E','F','Thing']).to.eql(names)
 
     it "thing.equivalence_things", ->
       thing = owl_parser.get_model_by_iri("owl:Thing")
