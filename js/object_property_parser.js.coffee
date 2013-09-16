@@ -12,6 +12,7 @@ class ObjectPropertyParser
 
   constructor: (owl_parser) ->
     @owl_parser = owl_parser
+    @object_properties = []
 
   build_model: ->
     @_parse_model()
@@ -26,11 +27,10 @@ class ObjectPropertyParser
     @_parse_related_characteristic()
 
   get_model_by_iri: (iri)->
-    if !!@object_properties
-      ans = @object_properties.filter (an)=>
-        an.iri == iri
-      an = ans[0]
-      return an if !!an
+    ans = @object_properties.filter (an)=>
+      an.iri == iri
+    an = ans[0]
+    return an if !!an
     return @_get_default_mode_by_iri(iri)
 
   ################
@@ -47,7 +47,6 @@ class ObjectPropertyParser
 
   _build_model: (iri)->
     odp = new OntologyObjectProperty(iri)
-    @object_properties = [] if !@object_properties
     @object_properties.push(odp)
     return odp
 

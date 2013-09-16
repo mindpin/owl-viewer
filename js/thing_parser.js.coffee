@@ -3,6 +3,7 @@ class ThingParser
 
   constructor: (owl_parser) ->
     @owl_parser = owl_parser
+    @things = []
 
   build_model: ->
     @_parse_model()
@@ -16,11 +17,10 @@ class ThingParser
     @_parse_related_data_property()
 
   get_model_by_iri: (iri)->
-    if !!@things
-      things = @things.filter (thing)=>
-        thing.iri == iri
-      thing = things[0]
-      return thing if !!thing
+    things = @things.filter (thing)=>
+      thing.iri == iri
+    thing = things[0]
+    return thing if !!thing
     return @_get_default_mode_by_iri(iri)
 
   ######################
@@ -37,7 +37,6 @@ class ThingParser
 
   _build_model: (iri)->
     thing   = new OntologyThing(iri)
-    @things = [] if !@things
     @things.push(thing)
     return thing
 

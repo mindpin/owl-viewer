@@ -38,6 +38,7 @@ class DataTypeParser
 
   constructor: (owl_parser) ->
     @owl_parser = owl_parser
+    @data_types = []
 
   build_model: ->
     @_parse_model()
@@ -46,11 +47,10 @@ class DataTypeParser
 
   get_model_by_iri: (bug_iri)->
     iri = @_get_fix_bug_iri(bug_iri)
-    if !!@data_types
-      dts = @data_types.filter (dt)=>
-        dt.iri == iri
-      dt = dts[0]
-      return dt if !!dt
+    dts = @data_types.filter (dt)=>
+      dt.iri == iri
+    dt = dts[0]
+    return dt if !!dt
     return @_get_default_mode_by_iri(iri)
 
   #######################
@@ -66,7 +66,6 @@ class DataTypeParser
 
   _build_model: (iri)->
     dt = new OntologyDataType(iri)
-    @data_types = [] if !@data_types
     @data_types.push(dt)
     return dt
 

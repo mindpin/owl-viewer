@@ -6,6 +6,7 @@ class DataPropertyParser
 
   constructor: (owl_parser) ->
     @owl_parser = owl_parser
+    @data_properties = []
 
   build_model: ->
     @_parse_model()
@@ -19,11 +20,10 @@ class DataPropertyParser
     @_parse_related_characteristic()
 
   get_model_by_iri: (iri)->
-    if !!@data_properties
-      dps = @data_properties.filter (dp)=>
-        dp.iri == iri
-      dp = dps[0]
-      return dp if !!dp
+    dps = @data_properties.filter (dp)=>
+      dp.iri == iri
+    dp = dps[0]
+    return dp if !!dp
     return @_get_default_mode_by_iri(iri)
 
   ###################
@@ -40,7 +40,6 @@ class DataPropertyParser
 
   _build_model: (iri)->
     data_property = new OntologyDataProperty(iri)
-    @data_properties = [] if !@data_properties
     @data_properties.push(data_property)
     return data_property
 

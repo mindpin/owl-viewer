@@ -1,6 +1,7 @@
 class IndividualParser
   constructor: (owl_parser) ->
     @owl_parser = owl_parser
+    @individuals = []
 
   build_model: ->
     @_parse_model()
@@ -13,10 +14,8 @@ class IndividualParser
     @_parse_related_data_property_value()
 
   get_model_by_iri: (iri)->
-    return null if !@individuals || @individuals.length == 0
     individuals = @individuals.filter (indi)=>
       indi.iri == iri
-
     return individuals[0]
 
   #####

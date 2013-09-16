@@ -13,6 +13,7 @@ class AnnotationParser
 
   constructor: (owl_parser) ->
     @owl_parser = owl_parser
+    @annotations = []
 
   build_model: ->
     @_parse_model()
@@ -24,11 +25,10 @@ class AnnotationParser
     @_parse_related_annotation_value()
 
   get_model_by_iri: (iri)->
-    if !!@annotations
-      ans = @annotations.filter (an)=>
-        an.iri == iri
-      an = ans[0]
-      return an if !!an
+    ans = @annotations.filter (an)=>
+      an.iri == iri
+    an = ans[0]
+    return an if !!an
     return @_get_default_mode_by_iri(iri)
     
   #######################
@@ -84,7 +84,6 @@ class AnnotationParser
 
   _build_model: (iri)->
     annotation   = new OntologyAnnotation(iri)
-    @annotations = [] if !@annotations
     @annotations.push(annotation)
     return annotation
 
