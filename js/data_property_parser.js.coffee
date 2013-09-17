@@ -120,11 +120,11 @@ class DataPropertyParser
     dp.add_range_data_type(dt)
 
   _parse_related_characteristic: ->
-    for name,value in DataPropertyParser.characteristic_data
+    for name,value of DataPropertyParser.characteristic_data
       @owl_parser.owl_doc.find(name).each (i, dom)=>
-        iri = jQuery('DataProperty').attr('IRI')
-        iri = jQuery('DataProperty').attr('abbreviatedIRI') if !iri
-        @_build_characteristic(iri, characteristic)
+        iri = jQuery(dom).find('DataProperty').attr('IRI')
+        iri = jQuery(dom).find('DataProperty').attr('abbreviatedIRI') if !iri
+        @_build_related_characteristic(iri, value)
 
   _build_related_characteristic: (iri, characteristic)->
     dp = @get_model_by_iri(iri)
