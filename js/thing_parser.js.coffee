@@ -108,7 +108,8 @@ class ThingParser
       thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
       op_iri    = ele.find('ObjectProperty').attr('IRI')
       op_iri    = ele.find('ObjectProperty').attr('abbreviatedIRI') if !op_iri
-      @_build_related_object_property(thing_iri, op_iri)
+      if !!op_iri
+        @_build_related_object_property(thing_iri, op_iri)
 
   _build_related_object_property: (thing_iri, op_iri)->
     thing = @get_model_by_iri(thing_iri)
@@ -122,7 +123,8 @@ class ThingParser
       thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
       dp_iri    = ele.find('DataProperty').attr('IRI')
       dp_iri    = ele.find('DataProperty').attr('abbreviatedIRI') if !dp_iri
-      @_build_related_data_property(thing_iri, dp_iri)
+      if !!dp_iri
+        @_build_related_data_property(thing_iri, dp_iri)
 
   _build_related_data_property: (thing_iri, dp_iri)->
     thing = @get_model_by_iri(thing_iri)
