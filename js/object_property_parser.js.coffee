@@ -143,11 +143,11 @@ class ObjectPropertyParser
     op.add_range_thing(thing)
 
   _parse_related_characteristic: ->
-    for name,value in ObjectPropertyParser.characteristic_data
+    for name,value of ObjectPropertyParser.characteristic_data
       @owl_parser.owl_doc.find(name).each (i, dom)=>
-        iri = jQuery('ObjectProperty').attr('IRI')
-        iri = jQuery('ObjectProperty').attr('abbreviatedIRI') if !iri
-        @_build_related_characteristic(iri, characteristic)
+        iri = jQuery(dom).find('ObjectProperty').attr('IRI')
+        iri = jQuery(dom).find('ObjectProperty').attr('abbreviatedIRI') if !iri
+        @_build_related_characteristic(iri, value)
 
   _build_related_characteristic: (iri, characteristic)->
     op = @get_model_by_iri(iri)
