@@ -26,7 +26,7 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#a</IRI>
-        <Literal datatypeIRI="http://www.semanticweb.org/administrator/ontologies/2013/8/untitled-ontology-18#dt"></Literal>
+        <Literal datatypeIRI="&xsd;dateTime"></Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
