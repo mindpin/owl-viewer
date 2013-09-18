@@ -23,6 +23,28 @@
     Ontology: Ontology
   });
 
+  OntologyBase = (function() {
+
+    function OntologyBase() {}
+
+    OntologyBase.prototype.get_name = function(iri) {
+      var position, sections;
+      position = iri.indexOf('#');
+      if (position === 0) {
+        return iri.substring(1);
+      }
+      sections = iri.split(':');
+      return sections[1];
+    };
+
+    return OntologyBase;
+
+  })();
+
+  jQuery.extend(window, {
+    OntologyBase: OntologyBase
+  });
+
   OntologyAnnotation = (function(_super) {
 
     __extends(OntologyAnnotation, _super);
@@ -78,28 +100,6 @@
 
   jQuery.extend(window, {
     OntologyAnnotationValue: OntologyAnnotationValue
-  });
-
-  OntologyBase = (function() {
-
-    function OntologyBase() {}
-
-    OntologyBase.prototype.get_name = function(iri) {
-      var position, sections;
-      position = iri.indexOf('#');
-      if (position === 0) {
-        return iri.substring(1);
-      }
-      sections = iri.split(':');
-      return sections[1];
-    };
-
-    return OntologyBase;
-
-  })();
-
-  jQuery.extend(window, {
-    OntologyBase: OntologyBase
   });
 
   OntologyCharacteristic = (function() {
