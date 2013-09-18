@@ -3,6 +3,12 @@ owl-viewer
 
 ## 使用说明
 
+### 打包 js
+
+```
+coffee --join js/ontology.js --compile js/**/*.coffee js/*.coffee
+```
+
 ### 启动 http 服务
 
 ```
