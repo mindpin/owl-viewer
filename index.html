@@ -3,47 +3,25 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>owl-viewer ui page</title>
+  <link href="ui/ui.css" media="screen" rel="stylesheet" type="text/css" />
 </head>
 <body>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script type="text/javascript" src="coffee-script.js"></script>
-  <script type="text/coffeescript" src="js/model/ontology_base.js.coffee"></script>
-  <script type="text/coffeescript" src="js/model/ontology_thing.js.coffee"></script>
-  <script type="text/coffeescript" src="js/model/ontology_annotation.js.coffee"></script>
-  <script type="text/coffeescript" src="js/model/ontology_annotation_value.js.coffee"></script>
-  <script type="text/coffeescript" src="js/model/ontology_data_property.js.coffee"></script>
-  <script type="text/coffeescript" src="js/model/ontology_data_property_value.js.coffee"></script>
-  <script type="text/coffeescript" src="js/model/ontology_object_property.js.coffee"></script>
-  <script type="text/coffeescript" src="js/model/ontology_object_property_value.js.coffee"></script>
-  <script type="text/coffeescript" src="js/model/ontology_object_property_value.js.coffee"></script>
-  <script type="text/coffeescript" src="js/model/ontology_characteristic.js.coffee"></script>
-  <script type="text/coffeescript" src="js/model/ontology_individual.js.coffee"></script>
-  <script type="text/coffeescript" src="js/model/ontology_data_type.js.coffee"></script>
-  <script type="text/coffeescript" src="js/model/ontology_data_type_value.js.coffee"></script>
-  <script type="text/coffeescript" src="js/model/ontology.js.coffee"></script>
+  <script type="text/javascript" src='ui/kinetic-v4.7.0.min.js'></script>
 
-  <script type="text/coffeescript" src="js/annotation_parser.js.coffee"></script>
-  <script type="text/coffeescript" src="js/thing_parser.js.coffee"></script>
-  <script type="text/coffeescript" src="js/individual_parser.js.coffee"></script>
-  <script type="text/coffeescript" src="js/object_property_parser.js.coffee"></script>
-  <script type="text/coffeescript" src="js/data_property_parser.js.coffee"></script>
-  <script type="text/coffeescript" src="js/data_type_parser.js.coffee"></script>
-  <script type="text/coffeescript" src="js/owl_parser.js.coffee"></script>
+  <script type="text/javascript" src="coffee-script.js"></script>
+
+  <script type="text/javascript" src="js/ontology.js"></script>
+
+  <script type="text/coffeescript" src="ui/ui.js.coffee"></script>
 
   <script type="text/coffeescript">
-    jQuery.ajax
-      url: "/data/annotation.owl",
-      async: false,
-      success: (data)=>
-        owl_parser = new OwlParser(data)
-        ontology = owl_parser.build()
-        console.log ontology.things
-        console.log ontology.annotations
-        console.log ontology.individuals
-        console.log ontology.data_properties
-        console.log ontology.object_properties
-        console.log ontology.data_types
-    jQuery('<div>加载成功</div>').appendTo(jQuery('body'))
+
+    jQuery ->
+      window.ui = new OwlViewerUi()
+      // # new OwlViewerUi().load_owl "/data/annotation.owl"
+      ui.load_owl "data/all_declare.owl"
+
   </script>
 </body>
 </html>
