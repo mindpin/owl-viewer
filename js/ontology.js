@@ -4,25 +4,6 @@
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  Ontology = (function() {
-
-    function Ontology(owl_parser) {
-      this.annotations = owl_parser.annotation_parser.annotations;
-      this.things = owl_parser.thing_parser.things;
-      this.individuals = owl_parser.individual_parser.individuals;
-      this.object_properties = owl_parser.object_property_parser.object_properties;
-      this.data_properties = owl_parser.data_property_parser.data_properties;
-      this.data_types = owl_parser.data_type_parser.data_types;
-    }
-
-    return Ontology;
-
-  })();
-
-  jQuery.extend(window, {
-    Ontology: Ontology
-  });
-
   OntologyBase = (function() {
 
     function OntologyBase() {}
@@ -43,6 +24,25 @@
 
   jQuery.extend(window, {
     OntologyBase: OntologyBase
+  });
+
+  Ontology = (function() {
+
+    function Ontology(owl_parser) {
+      this.annotations = owl_parser.annotation_parser.annotations;
+      this.things = owl_parser.thing_parser.things;
+      this.individuals = owl_parser.individual_parser.individuals;
+      this.object_properties = owl_parser.object_property_parser.object_properties;
+      this.data_properties = owl_parser.data_property_parser.data_properties;
+      this.data_types = owl_parser.data_type_parser.data_types;
+    }
+
+    return Ontology;
+
+  })();
+
+  jQuery.extend(window, {
+    Ontology: Ontology
   });
 
   OntologyAnnotation = (function(_super) {
