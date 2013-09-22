@@ -1,4 +1,4 @@
-thing
+class
 individual
 object_property
 data_property
@@ -8,12 +8,12 @@ data_type
 
 demo1
 =====
-一个 thing 
+一个 class 
   "人"
 
 demo2
 =====
-两个 thing 
+两个 class 
   "人"
   "三国人物"
 
@@ -21,7 +21,7 @@ demo2
 
 demo3
 =====
-两个 thing 
+两个 class 
   "软件工程师"
   "程序员"
 
@@ -29,7 +29,7 @@ demo3
 
 demo4
 =====
-两个 thing 
+两个 class 
   "男人"
   "女人"
   
@@ -37,7 +37,7 @@ demo4
   
 demo5
 =====
-一个 thing 
+一个 class 
   "人"
 两个 individual
   "吕布"
@@ -48,7 +48,7 @@ demo5
 
 demo6
 =====
-一个 thing 
+一个 class 
   "人"
 两个 individual
   "孔明"
@@ -60,7 +60,7 @@ demo6
 
 demo7
 =====
-一个 thing 
+一个 class 
   "人"
 两个 individual
   "孔明"
@@ -72,7 +72,7 @@ demo7
 
 demo8
 =====
-一个 thing 
+一个 class 
   "人"
   "三国人物"
   "歌手"
@@ -90,7 +90,7 @@ demo8
 
 demo9
 =====
-一个 thing 
+一个 class 
   "人"
 两个 individual
   "关羽"
@@ -102,7 +102,7 @@ demo9
 
 demo10
 =====
-一个 thing 
+一个 class 
   "人"
 两个 individual
   "关羽"
@@ -116,7 +116,7 @@ demo10
 
 demo11
 ======
-一个 thing 
+一个 class 
   "人"
 两个 individual
   "周瑜"
@@ -132,7 +132,7 @@ demo11
 
 demo12
 ======
-一个 thing 
+一个 class 
   "人"
 两个 individual
   "刘备"
@@ -149,7 +149,7 @@ demo12
 
 demo13
 ========
-两个 thing
+两个 class
  "狮子"
  "兔子"
 两个 individual
@@ -161,8 +161,8 @@ demo13
 "辛巴" 是 "狮子" 的 individual
 "兔八哥" 是 "兔子" 的 individual
 "辛巴" 有个 "吃" 的值是 "兔八哥"
-"狮子" 是 "吃" 的 domain things
-"兔子" 是 "吃" 的 range things
+"狮子" 是 "吃" 的 domain classes
+"兔子" 是 "吃" 的 range classes
 
 demo14
 =======
