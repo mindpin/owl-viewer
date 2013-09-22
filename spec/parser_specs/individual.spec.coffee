@@ -17,11 +17,11 @@ describe "individual parser", ->
         individual.name
       expect(['a','b','c','d']).to.eql(names)
 
-    it "individual.things", ->
-      thing = owl_parser.get_model_by_iri('owl:Thing')
+    it "individual.classes", ->
+      clazz = owl_parser.get_model_by_iri('owl:Thing')
       individual = owl_parser.get_model_by_iri('#a')
-      expect(thing.individuals).to.eql([individual])
-      expect(individual.things).to.eql([thing])
+      expect(clazz.individuals).to.eql([individual])
+      expect(individual.classes).to.eql([clazz])
 
     it "individual.same_individuals", ->
       individual_a = owl_parser.get_model_by_iri('#a')
@@ -47,9 +47,9 @@ describe "individual parser", ->
         owl_parser = new OwlParser(data)
         ontology = owl_parser.build()
 
-    it 'individual.things', ->
+    it 'individual.classes', ->
       individual_a = owl_parser.get_model_by_iri('#a')
-      thing_a = owl_parser.get_model_by_iri('#A')
-      thing   = owl_parser.get_model_by_iri('owl:Thing')
-      expect(individual_a.things).to.eql([thing_a, thing])
-      expect(thing.individuals).to.eql([individual_a])
+      class_a = owl_parser.get_model_by_iri('#A')
+      clazz   = owl_parser.get_model_by_iri('owl:Thing')
+      expect(individual_a.classes).to.eql([class_a, clazz])
+      expect(clazz.individuals).to.eql([individual_a])

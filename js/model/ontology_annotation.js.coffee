@@ -6,8 +6,8 @@ class OntologyAnnotation extends OntologyBase
 
     @sub_annotations = []
     @parent_annotations = []
-    @domain_things = []
-    @range_things = []
+    @domain_classes = []
+    @range_classes = []
     @annotation_values = []
 
   add_sub_annotation: (annotation) ->
@@ -16,11 +16,11 @@ class OntologyAnnotation extends OntologyBase
   add_parent_annotation: (annotation) ->
     @parent_annotations.push(annotation)
 
-  add_domain_thing: (domain) ->
-    @domain_things.push(domain)
+  add_domain_class: (domain) ->
+    @domain_classes.push(domain)
 
-  add_range_thing: (range) ->
-    @range_things.push(range)
+  add_range_class: (range) ->
+    @range_classes.push(range)
 
   add_annotation_value: (annotation_value) ->
     @annotation_values.push(annotation_value)

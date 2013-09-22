@@ -22,8 +22,8 @@ class ObjectPropertyParser
     @_parse_disjoint_model()
 
   build_related: ->
-    @_parse_related_domain_thing()
-    @_parse_realted_range_thing()
+    @_parse_related_domain_class()
+    @_parse_realted_range_class()
     @_parse_related_characteristic()
 
   get_model_by_iri: (iri)->
@@ -114,33 +114,33 @@ class ObjectPropertyParser
     op.add_disjoint_object_property(other_op)
     other_op.add_disjoint_object_property(op)
 
-  _parse_related_domain_thing: ->
+  _parse_related_domain_class: ->
     @owl_parser.owl_doc.find('ObjectPropertyDomain').each (i, dom)=>
       ele       = jQuery(dom)
       op_iri    = ele.find('ObjectProperty').attr('IRI')
       op_iri    = ele.find('ObjectProperty').attr('abbreviatedIRI') if !op_iri
-      thing_iri = ele.find('Class').attr('IRI')
-      thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
-      @_build_related_domain_thing(op_iri, thing_iri)
+      class_iri = ele.find('Class').attr('IRI')
+      class_iri = ele.find('Class').attr('abbreviatedIRI') if !class_iri
+      @_build_related_domain_class(op_iri, class_iri)
 
-  _build_related_domain_thing: (op_iri, thing_iri)->
+  _build_related_domain_class: (op_iri, class_iri)->
     op    = @get_model_by_iri(op_iri)
-    thing = @owl_parser.thing_parser.get_model_by_iri(thing_iri)
-    op.add_domain_thing(thing)
+    clazz = @owl_parser.class_parser.get_model_by_iri(class_iri)
+    op.add_domain_class(clazz)
 
-  _parse_realted_range_thing: ->
+  _parse_realted_range_class: ->
     @owl_parser.owl_doc.find('ObjectPropertyRange').each (i, dom)=>
       ele = jQuery(dom)
       op_iri    = ele.find('ObjectProperty').attr('IRI')
       op_iri    = ele.find('ObjectProperty').attr('abbreviatedIRI') if !op_iri
-      thing_iri = ele.find('Class').attr('IRI')
-      thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
-      @_build_realted_range_thing(op_iri, thing_iri)
+      class_iri = ele.find('Class').attr('IRI')
+      class_iri = ele.find('Class').attr('abbreviatedIRI') if !class_iri
+      @_build_realted_range_class(op_iri, class_iri)
 
-  _build_realted_range_thing: (op_iri, thing_iri)->
+  _build_realted_range_class: (op_iri, class_iri)->
     op    = @get_model_by_iri(op_iri)
-    thing = @owl_parser.thing_parser.get_model_by_iri(thing_iri)
-    op.add_range_thing(thing)
+    clazz = @owl_parser.class_parser.get_model_by_iri(class_iri)
+    op.add_range_class(clazz)
 
   _parse_related_characteristic: ->
     for name,value of ObjectPropertyParser.characteristic_data

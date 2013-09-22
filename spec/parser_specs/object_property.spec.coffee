@@ -17,12 +17,12 @@ describe "object_property parser", ->
         op.name
       expect(["OPA", "OPB", "OPC", "OPD", "OPE"]).to.eql(names)
 
-    it "ontology.things", ->
-      iris = ontology.things.map (thing)->
-        thing.iri
+    it "ontology.classes", ->
+      iris = ontology.classes.map (clazz)->
+        clazz.iri
       expect(["#A", "#B"]).to.eql(iris)
-      names = ontology.things.map (thing)->
-        thing.name
+      names = ontology.classes.map (clazz)->
+        clazz.name
       expect(["A", "B"]).to.eql(names)
 
     it "equivalence_object_properties", ->
@@ -43,15 +43,15 @@ describe "object_property parser", ->
       expect(opd.inverse_object_properties).to.eql([opa])
       expect(opa.inverse_object_properties).to.eql([opd])
 
-    it "domain_things", ->
+    it "domain_classes", ->
       opa = owl_parser.get_model_by_iri("#OPA")
       a = owl_parser.get_model_by_iri("#A")
-      expect(opa.domain_things).to.eql([a])
+      expect(opa.domain_classes).to.eql([a])
 
-    it "range_things", ->
+    it "range_classes", ->
       opa = owl_parser.get_model_by_iri("#OPA")
       b = owl_parser.get_model_by_iri("#B")
-      expect(opa.range_things).to.eql([b])
+      expect(opa.range_classes).to.eql([b])
 
     it "disjoint_object_properties", ->
       opa = owl_parser.get_model_by_iri("#OPA")
@@ -110,15 +110,15 @@ describe "object_property parser", ->
       expect(opb.inverse_object_properties).to.eql([top])
       expect(top.inverse_object_properties).to.eql([opb])
 
-    it "domain_things", ->
+    it "domain_classes", ->
       top   = owl_parser.get_model_by_iri("owl:topObjectProperty")
-      thing = owl_parser.get_model_by_iri("owl:Thing")
-      expect(top.domain_things).to.eql([thing])
+      clazz = owl_parser.get_model_by_iri("owl:Thing")
+      expect(top.domain_classes).to.eql([clazz])
       
-    it "range_things", ->
+    it "range_classes", ->
       top   = owl_parser.get_model_by_iri("owl:topObjectProperty")
-      thing = owl_parser.get_model_by_iri("owl:Thing")
-      expect(top.range_things).to.eql([thing])
+      clazz = owl_parser.get_model_by_iri("owl:Thing")
+      expect(top.range_classes).to.eql([clazz])
 
     it "disjoint_object_properties", ->
       top   = owl_parser.get_model_by_iri("owl:topObjectProperty")
@@ -126,7 +126,7 @@ describe "object_property parser", ->
       expect(top.disjoint_object_properties).to.eql([opd])
       expect(opd.disjoint_object_properties).to.eql([top])
 
-    it "thing.object_properties", ->
+    it "class.object_properties", ->
       top   = owl_parser.get_model_by_iri("owl:topObjectProperty")
-      thing = owl_parser.get_model_by_iri("owl:Thing")
-      expect(thing.object_properties).to.eql([top])
+      clazz = owl_parser.get_model_by_iri("owl:Thing")
+      expect(clazz.object_properties).to.eql([top])

@@ -33,10 +33,10 @@ describe "data_property parser", ->
       dpe = owl_parser.get_model_by_iri("#dpe")
       expect(dpe.characteristics).to.eql([OntologyCharacteristic.FUNCTIONAL])
 
-    it "data_property.domain_things", ->
+    it "data_property.domain_classes", ->
       dpa = owl_parser.get_model_by_iri("#dpa")
-      thing = owl_parser.get_model_by_iri("#A")
-      expect(dpa.domain_things).to.eql([thing])
+      clazz = owl_parser.get_model_by_iri("#A")
+      expect(dpa.domain_classes).to.eql([clazz])
 
     it "range_data_types", ->
       dpe = owl_parser.get_model_by_iri("#dpe")
@@ -88,10 +88,10 @@ describe "data_property parser", ->
       expect(opb.sub_data_properties).to.eql([tdp])
       expect(tdp.parent_data_properties).to.eql([opb])
     
-    it "domain_things", ->
+    it "domain_classes", ->
       tdp = owl_parser.get_model_by_iri("owl:topDataProperty")
-      thing = owl_parser.get_model_by_iri("owl:Thing")
-      expect(tdp.domain_things).to.eql([thing])
+      clazz = owl_parser.get_model_by_iri("owl:Thing")
+      expect(tdp.domain_classes).to.eql([clazz])
       
     it "range_data_types", ->
       tdp = owl_parser.get_model_by_iri("owl:topDataProperty")
@@ -104,9 +104,9 @@ describe "data_property parser", ->
       expect(opc.disjoint_data_properties).to.eql([tdp])
       expect(tdp.disjoint_data_properties).to.eql([opc])
 
-    it "thing.data_properties", ->
-      thing = owl_parser.get_model_by_iri("owl:Thing")
+    it "class.data_properties", ->
+      clazz = owl_parser.get_model_by_iri("owl:Thing")
       tdp = owl_parser.get_model_by_iri("owl:topDataProperty")
-      expect(thing.data_properties).to.eql([tdp])
+      expect(clazz.data_properties).to.eql([tdp])
       
       

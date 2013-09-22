@@ -30,17 +30,17 @@ describe "annotation parser", ->
       expect(annotation_aa.parent_annotations).to.eql([annotation_a])
       expect(annotation_ab.parent_annotations).to.eql([annotation_a])
 
-    it "annotation.range_things", ->
+    it "annotation.range_classes", ->
       annotation_b = owl_parser.get_model_by_iri('#b')
-      thing_c = owl_parser.get_model_by_iri('#C')
-      thing_d = owl_parser.get_model_by_iri('#D')
-      expect(annotation_b.range_things).to.eql([thing_c, thing_d])
+      class_c = owl_parser.get_model_by_iri('#C')
+      class_d = owl_parser.get_model_by_iri('#D')
+      expect(annotation_b.range_classes).to.eql([class_c, class_d])
       
-    it "annotation.domain_things", ->
+    it "annotation.domain_classes", ->
       annotation_b = owl_parser.get_model_by_iri('#b')
-      thing_a = owl_parser.get_model_by_iri('#A')
-      thing_b = owl_parser.get_model_by_iri('#B')
-      expect(annotation_b.domain_things).to.eql([thing_a, thing_b])
+      class_a = owl_parser.get_model_by_iri('#A')
+      class_b = owl_parser.get_model_by_iri('#B')
+      expect(annotation_b.domain_classes).to.eql([class_a, class_b])
 
   describe "annotation2.owl", ->
     ontology   = null
@@ -62,7 +62,7 @@ describe "annotation parser", ->
 
     it "annotation_values", ->
       individual = owl_parser.get_model_by_iri('#a')
-      thing      = owl_parser.get_model_by_iri('owl:Thing')
+      clazz      = owl_parser.get_model_by_iri('owl:Thing')
       annotation_c = owl_parser.get_model_by_iri('rdfs:comment')
       annotation_b = owl_parser.get_model_by_iri('owl:backwardCompatibleWith')
 
@@ -71,8 +71,8 @@ describe "annotation parser", ->
       expect(av.annotation).to.eql(annotation_c)
       expect(av.data_type_value.data_type).to.eql(owl_parser.get_model_by_iri('xsd:dateTime'))
 
-      expect(thing.annotation_values).to.have.length(1)
-      av = thing.annotation_values[0]
+      expect(clazz.annotation_values).to.have.length(1)
+      av = clazz.annotation_values[0]
       expect(av.annotation).to.eql(annotation_c)
       expect(av.data_type_value.data_type).to.eql(owl_parser.get_model_by_iri('rdf:PlainLiteral'))
 
@@ -87,15 +87,15 @@ describe "annotation parser", ->
       expect(an_d.sub_annotations).to.eql([an_c])
       expect(an_c.parent_annotations).to.eql([an_d])
       
-    it "annotation.range_things", ->
+    it "annotation.range_classes", ->
       an_c = owl_parser.get_model_by_iri("rdfs:comment")
-      thing = owl_parser.get_model_by_iri("owl:Thing")
-      expect(an_c.range_things).to.eql([thing])
+      clazz = owl_parser.get_model_by_iri("owl:Thing")
+      expect(an_c.range_classes).to.eql([clazz])
 
-    it "annotation.domain_things", ->
+    it "annotation.domain_classes", ->
       an_c = owl_parser.get_model_by_iri("rdfs:comment")
-      thing = owl_parser.get_model_by_iri("owl:Thing")
-      expect(an_c.domain_things).to.eql([thing])
+      clazz = owl_parser.get_model_by_iri("owl:Thing")
+      expect(an_c.domain_classes).to.eql([clazz])
       
 
   describe "annotation3.owl", ->
@@ -111,7 +111,7 @@ describe "annotation parser", ->
     it "annotation_values", ->
       individual = owl_parser.get_model_by_iri('#a')
 
-      thing      = owl_parser.get_model_by_iri('owl:Thing')
+      clazz      = owl_parser.get_model_by_iri('owl:Thing')
       model_l = owl_parser.get_model_by_iri('rdfs:label')
       model_d = owl_parser.get_model_by_iri('xsd:dateTimeStamp')
       model_td = owl_parser.get_model_by_iri('owl:topDataProperty')
@@ -128,8 +128,8 @@ describe "annotation parser", ->
       expect(av.annotation).to.eql(annotation_c)
       expect(av.data_type_value.data_type).to.eql(owl_parser.get_model_by_iri('xsd:boolean'))
 
-      expect(thing.annotation_values).to.have.length(1)
-      av = thing.annotation_values[0]
+      expect(clazz.annotation_values).to.have.length(1)
+      av = clazz.annotation_values[0]
       expect(av.annotation).to.eql(annotation_c)
       expect(av.data_type_value.data_type).to.eql(owl_parser.get_model_by_iri('rdf:PlainLiteral'))
 

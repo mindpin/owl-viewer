@@ -9,7 +9,7 @@ class IndividualParser
     @_parse_different_model()
 
   build_related: ->
-    @_parse_related_thing()
+    @_parse_related_class()
     @_parse_related_object_property_value()
     @_parse_related_data_property_value()
 
@@ -58,18 +58,18 @@ class IndividualParser
     indi.add_different_individual(other_indi)
     other_indi.add_different_individual(indi)
 
-  _parse_related_thing: ->
+  _parse_related_class: ->
     @owl_parser.owl_doc.find('ClassAssertion').each (i,dom)=>
       ele            = jQuery(dom)
-      thing_iri      = ele.find('Class').attr('IRI')
-      thing_iri      = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
+      class_iri      = ele.find('Class').attr('IRI')
+      class_iri      = ele.find('Class').attr('abbreviatedIRI') if !class_iri
       individual_iri = ele.find('NamedIndividual').attr('IRI')
-      @_build_related_thing(thing_iri, individual_iri)
+      @_build_related_class(class_iri, individual_iri)
 
-  _build_related_thing: (thing_iri, individual_iri)->
-    thing      = @owl_parser.thing_parser.get_model_by_iri(thing_iri)
+  _build_related_class: (class_iri, individual_iri)->
+    clazz      = @owl_parser.class_parser.get_model_by_iri(class_iri)
     individual = @get_model_by_iri(individual_iri)
-    individual.add_thing(thing)
+    individual.add_class(clazz)
 
   _parse_related_object_property_value: ->
     @owl_parser.owl_doc.find('ObjectPropertyAssertion').each (i, dom)=>

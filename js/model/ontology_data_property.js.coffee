@@ -9,7 +9,7 @@ class OntologyDataProperty extends OntologyBase
     @equivalence_data_properties = []
     @disjoint_data_properties = []
     @characteristics = []
-    @domain_things = []
+    @domain_classes = []
     @range_data_types = []
     @annotation_values = []
 
@@ -28,8 +28,8 @@ class OntologyDataProperty extends OntologyBase
   add_characteristic: (characteristic) ->
     @characteristics.push(characteristic)
 
-  add_domain_thing: (domain) ->
-    @domain_things.push(domain)
+  add_domain_class: (domain) ->
+    @domain_classes.push(domain)
 
   add_range_data_type: (data_type) ->
     @range_data_types.push(data_type)

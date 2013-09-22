@@ -15,7 +15,7 @@ class DataPropertyParser
     @_parse_disjoint_model()
 
   build_related: ->
-    @_parse_related_domain_thing()
+    @_parse_related_domain_class()
     @_parse_related_range_data_type()
     @_parse_related_characteristic()
 
@@ -91,19 +91,19 @@ class DataPropertyParser
     dp.add_disjoint_data_property(other_dp)
     other_dp.add_disjoint_data_property(dp)
 
-  _parse_related_domain_thing: ->
+  _parse_related_domain_class: ->
     @owl_parser.owl_doc.find('DataPropertyDomain').each (i, dom)=>
       ele       = jQuery(dom)
       iri       = ele.find('DataProperty').attr('IRI')
       iri       = ele.find('DataProperty').attr('abbreviatedIRI') if !iri
-      thing_iri = ele.find('Class').attr('IRI')
-      thing_iri = ele.find('Class').attr('abbreviatedIRI') if !thing_iri
-      @_build_related_domain_thing(iri, thing_iri)
+      class_iri = ele.find('Class').attr('IRI')
+      class_iri = ele.find('Class').attr('abbreviatedIRI') if !class_iri
+      @_build_related_domain_class(iri, class_iri)
 
-  _build_related_domain_thing: (iri, thing_iri)->
+  _build_related_domain_class: (iri, class_iri)->
     dp    = @get_model_by_iri(iri)
-    thing = @owl_parser.thing_parser.get_model_by_iri(thing_iri)
-    dp.add_domain_thing(thing)
+    clazz = @owl_parser.class_parser.get_model_by_iri(class_iri)
+    dp.add_domain_class(clazz)
 
   _parse_related_range_data_type: ->
     @owl_parser.owl_doc.find('DataPropertyRange').each (i,dom)=>

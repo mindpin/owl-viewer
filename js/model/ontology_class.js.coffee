@@ -1,28 +1,28 @@
-class OntologyThing extends OntologyBase
+class OntologyClass extends OntologyBase
   constructor: (iri) ->
     @iri = iri
     @name = @get_name(iri)
     
-    @sub_things = []
-    @parent_things = []
-    @equivalence_things = []
-    @disjoint_things = []
+    @sub_classes = []
+    @parent_classes = []
+    @equivalence_classes = []
+    @disjoint_classes = []
     @individuals = []
     @annotation_values = []
     @object_properties = []
     @data_properties = []
 
-  add_sub_thing: (thing) ->
-    @sub_things.push(thing)
+  add_sub_class: (clazz) ->
+    @sub_classes.push(clazz)
 
-  add_parent_thing: (thing) ->
-    @parent_things.push(thing)
+  add_parent_class: (clazz) ->
+    @parent_classes.push(clazz)
 
-  add_equivalence_thing: (thing) ->
-    @equivalence_things.push(thing)
+  add_equivalence_class: (clazz) ->
+    @equivalence_classes.push(clazz)
 
-  add_disjoint_thing: (thing) ->
-    @disjoint_things.push(thing)
+  add_disjoint_class: (clazz) ->
+    @disjoint_classes.push(clazz)
 
   add_individual: (individual) ->
     @individuals.push(individual)
@@ -37,4 +37,4 @@ class OntologyThing extends OntologyBase
     @data_properties.push(data_property)
 
 jQuery.extend window,
-  OntologyThing: OntologyThing
+  OntologyClass: OntologyClass

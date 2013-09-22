@@ -11,10 +11,10 @@ describe "annotation value parser", ->
 
     it "annotation_values", ->
       ano     = owl_parser.get_model_by_iri("#aname")
-      thing_a = owl_parser.get_model_by_iri("#A")
+      class_a = owl_parser.get_model_by_iri("#A")
       dt      = owl_parser.get_model_by_iri("#dt")
-      expect(thing_a.annotation_values).to.length(1)
-      av = thing_a.annotation_values[0]
+      expect(class_a.annotation_values).to.length(1)
+      av = class_a.annotation_values[0]
       expect(av.annotation).to.eql(ano)
       expect(av.data_type_value.data_type).to.eql(dt)
       expect(av.data_type_value.value).to.eql("1")

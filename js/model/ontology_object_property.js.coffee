@@ -10,8 +10,8 @@ class OntologyObjectProperty extends OntologyBase
     @inverse_object_properties = []
     @disjoint_object_properties = []
     @characteristics = []
-    @domain_things = []
-    @range_things = []
+    @domain_classes = []
+    @range_classes = []
     @annotation_values = []
 
   add_sub_object_property: (property) ->
@@ -32,11 +32,11 @@ class OntologyObjectProperty extends OntologyBase
   add_characteristic: (characteristic) ->
     @characteristics.push(characteristic)
 
-  add_domain_thing: (domain) ->
-    @domain_things.push(domain)
+  add_domain_class: (domain) ->
+    @domain_classes.push(domain)
 
-  add_range_thing: (range) ->
-    @range_things.push(range)
+  add_range_class: (range) ->
+    @range_classes.push(range)
 
   add_annotation_value: (annotation_value) ->
     @annotation_values.push(annotation_value)

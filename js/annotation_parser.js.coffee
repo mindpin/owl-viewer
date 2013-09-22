@@ -20,8 +20,8 @@ class AnnotationParser
     @_parse_sub_and_parent_model()
 
   build_related: ->
-    @_parse_related_domain_thing()
-    @_parse_related_range_thing()
+    @_parse_related_domain_class()
+    @_parse_related_range_class()
     @_parse_related_annotation_value()
 
   get_model_by_iri: (iri)->
@@ -53,23 +53,23 @@ class AnnotationParser
       parent_iri = jQuery(as[1]).attr('abbreviatedIRI') if !parent_iri
       @_build_sub_and_parent_model(sub_iri, parent_iri)
 
-  _parse_related_domain_thing: ->
+  _parse_related_domain_class: ->
     @owl_parser.owl_doc.find('AnnotationPropertyDomain').each (i,dom)=>
       ele            = jQuery(dom)
       annotation_iri = ele.find('AnnotationProperty').attr('IRI')
       annotation_iri = ele.find('AnnotationProperty').attr('abbreviatedIRI') if !annotation_iri
-      thing_iri      = ele.find('IRI').html()
-      thing_iri      = ele.find('abbreviatedIRI').html() if !thing_iri
-      @_build_related_domain_thing(annotation_iri, thing_iri)
+      class_iri      = ele.find('IRI').html()
+      class_iri      = ele.find('abbreviatedIRI').html() if !class_iri
+      @_build_related_domain_class(annotation_iri, class_iri)
 
-  _parse_related_range_thing: ->
+  _parse_related_range_class: ->
     @owl_parser.owl_doc.find('AnnotationPropertyRange').each (i,dom)=>
       ele            = jQuery(dom)
       annotation_iri = ele.find('AnnotationProperty').attr('IRI')
       annotation_iri = ele.find('AnnotationProperty').attr('abbreviatedIRI') if !annotation_iri
-      thing_iri      = ele.find('IRI').html()
-      thing_iri      = ele.find('abbreviatedIRI').html() if !thing_iri
-      @_build_related_range_thing(annotation_iri, thing_iri)
+      class_iri      = ele.find('IRI').html()
+      class_iri      = ele.find('abbreviatedIRI').html() if !class_iri
+      @_build_related_range_class(annotation_iri, class_iri)
 
   _parse_related_annotation_value: ->
     @owl_parser.owl_doc.find('AnnotationAssertion').each (i, dom)=>
@@ -93,15 +93,15 @@ class AnnotationParser
     parent.add_sub_annotation(sub)
     sub.add_parent_annotation(parent)
 
-  _build_related_domain_thing: (annotation_iri, thing_iri)->
+  _build_related_domain_class: (annotation_iri, class_iri)->
     annotation = @get_model_by_iri(annotation_iri)
-    thing      = @owl_parser.thing_parser.get_model_by_iri(thing_iri)
-    annotation.add_domain_thing(thing)
+    clazz      = @owl_parser.class_parser.get_model_by_iri(class_iri)
+    annotation.add_domain_class(clazz)
 
-  _build_related_range_thing: (annotation_iri, thing_iri)->
+  _build_related_range_class: (annotation_iri, class_iri)->
     annotation = @get_model_by_iri(annotation_iri)
-    thing      = @owl_parser.thing_parser.get_model_by_iri(thing_iri)
-    annotation.add_range_thing(thing)
+    clazz      = @owl_parser.class_parser.get_model_by_iri(class_iri)
+    annotation.add_range_class(clazz)
 
   _build_related_annotation_value: (model_iri, annotation_iri, data_type_iri, value)->
     model      = @owl_parser.get_model_by_iri(model_iri)
