@@ -34,30 +34,57 @@ describe "class parser", ->
         individual.name
       expect(['b','bb']).to.eql(names)
 
-    it "class.equivalent_classes", ->
+    it "equivalent_classes", ->
       class_a = owl_parser.get_model_by_iri("#A")
       class_b = owl_parser.get_model_by_iri("#B")
-      expect(class_a.equivalence_classes).to.have.include(class_b)
-      expect(class_b.equivalence_classes).to.have.include(class_a)
+      a_relations = class_a.relations.filter (relation)=>
+        relation.type == 'equivalent'
+      b_relations = class_b.relations.filter (relation)=>
+        relation.type == 'equivalent'
+      relation_a = a_relations[0]
+      relation_b = b_relations[0]
 
-    it "class.sub_classes", ->
+      expect(relation_a).to.eql(relation_b)
+      expect(relation_a.classes).to.eql(relation_b.classes)
+      expect(relation_a.classes).to.eql([class_a, class_b])
+
+
+    it "sub_classes", ->
       class_a = owl_parser.get_model_by_iri("#A")
       class_aa = owl_parser.get_model_by_iri("#AA")
       class_ab = owl_parser.get_model_by_iri("#AB")
-      expect(class_a.sub_classes).to.have.members([class_aa, class_ab])
 
-    it "class.parent_classes", ->
-      class_a = owl_parser.get_model_by_iri("#A")
-      class_aa = owl_parser.get_model_by_iri("#AA")
-      class_ab = owl_parser.get_model_by_iri("#AB")
-      expect(class_aa.parent_classes).to.have.include(class_a)
-      expect(class_ab.parent_classes).to.have.include(class_a)
+      a_relations = class_a.relations.filter (relation)=>
+        relation.type == 'parent-sub'
+      aa_relations = class_aa.relations.filter (relation)=>
+        relation.type == 'parent-sub'
+      ab_relations = class_ab.relations.filter (relation)=>
+        relation.type == 'parent-sub'
 
-    it "class.disjoint_classes", ->
+      relation_aa = aa_relations[0]
+      relation_ab = ab_relations[0]
+
+      expect(relation_aa).to.eql(a_relations[0])
+      expect(relation_aa.sub).to.eql(class_aa)
+      expect(relation_aa.parent).to.eql(class_a)
+
+      expect(relation_ab).to.eql(a_relations[1])
+      expect(relation_ab.sub).to.eql(class_ab)
+      expect(relation_ab.parent).to.eql(class_a)
+
+    it "disjoint_classes", ->
       class_a = owl_parser.get_model_by_iri("#A")
       class_c = owl_parser.get_model_by_iri("#C")
-      expect(class_a.disjoint_classes).to.have.include(class_c)
-      expect(class_c.disjoint_classes).to.have.include(class_a)
+      a_relations = class_a.relations.filter (relation)=>
+        relation.type == 'disjoint'
+      c_relations = class_c.relations.filter (relation)=>
+        relation.type == 'disjoint'
+      relation_a = a_relations[0]
+      relation_c = c_relations[0]
+
+      expect(relation_a).to.eql(relation_c)
+      expect(relation_a.classes).to.eql(relation_c.classes)
+      expect(relation_a.classes).to.eql([class_a, class_c])
 
     it "class.individuals", ->
       class_b = owl_parser.get_model_by_iri("#B")
@@ -84,34 +111,69 @@ describe "class parser", ->
         clazz.name
       expect(['A','B','C','D','E','F','Thing']).to.eql(names)
 
-    it "class.equivalence_classes", ->
+    it "equivalence_classes", ->
       clazz = owl_parser.get_model_by_iri("owl:Thing")
       class_b = owl_parser.get_model_by_iri("#B")
       class_d = owl_parser.get_model_by_iri("#D")
-      expect(clazz.equivalence_classes).to.have.include(class_b)
-      expect(clazz.equivalence_classes).to.have.include(class_d)
-      expect(class_b.equivalence_classes).to.have.include(clazz)
-      expect(class_d.equivalence_classes).to.have.include(clazz)
 
-    it "class.sub_classes", ->
+      relations = clazz.relations.filter (relation)=>
+        relation.type == 'equivalent'
+      b_relations = class_b.relations.filter (relation)=>
+        relation.type == 'equivalent'
+      d_relations = class_d.relations.filter (relation)=>
+        relation.type == 'equivalent'
+      relation_b = b_relations[0]
+      relation_d = d_relations[0]
+      
+      expect(relations[0]).to.eql(relation_b)
+      expect(relation_b.classes).to.eql(relations[0].classes)
+      expect(relation_b.classes).to.eql([class_b, clazz])
+      
+      expect(relations[1]).to.eql(relation_d)
+      expect(relation_d.classes).to.eql(relations[1].classes)
+      expect(relation_d.classes).to.eql([class_d, clazz])
+
+    it "sub_classes", ->
       clazz = owl_parser.get_model_by_iri("owl:Thing")
       class_a = owl_parser.get_model_by_iri("#A")
       class_e = owl_parser.get_model_by_iri("#E")
-      expect(clazz.sub_classes).to.have.include(class_e)
-      expect(class_a.sub_classes).to.have.include(clazz)
 
-    it "class.parent_classes", ->
-      clazz = owl_parser.get_model_by_iri("owl:Thing")
-      class_a = owl_parser.get_model_by_iri("#A")
-      class_e = owl_parser.get_model_by_iri("#E")
-      expect(class_e.parent_classes).to.have.include(clazz)
-      expect(clazz.parent_classes).to.have.include(class_a)
+      relations = clazz.relations.filter (relation)=>
+        relation.type == 'parent-sub'
+      a_relations = class_a.relations.filter (relation)=>
+        relation.type == 'parent-sub'
+      e_relations = class_e.relations.filter (relation)=>
+        relation.type == 'parent-sub'
 
-    it "class.disjoint_classes", ->
+      relation_a = a_relations[0]
+      relation_e = e_relations[0]
+      expect(relation_a).to.eql(relations[1])
+      expect(relation_a.sub).to.eql(clazz)
+      expect(relation_a.parent).to.eql(class_a)
+
+      expect(relation_e).to.eql(relations[0])
+      expect(relation_e.sub).to.eql(class_e)
+      expect(relation_e.parent).to.eql(clazz)
+
+    it "disjoint_classes", ->
       clazz = owl_parser.get_model_by_iri("owl:Thing")
       class_c = owl_parser.get_model_by_iri("#C")
       class_f = owl_parser.get_model_by_iri("#F")
-      expect(clazz.disjoint_classes).to.have.include(class_c)
-      expect(clazz.disjoint_classes).to.have.include(class_f)
-      expect(class_c.disjoint_classes).to.have.include(clazz)
-      expect(class_f.disjoint_classes).to.have.include(clazz)
+
+      relations = clazz.relations.filter (relation)=>
+        relation.type == 'disjoint'
+      c_relations = class_c.relations.filter (relation)=>
+        relation.type == 'disjoint'
+      f_relations = class_f.relations.filter (relation)=>
+        relation.type == 'disjoint'
+
+      relation_c = c_relations[0]
+      relation_f = f_relations[0]
+
+      expect(relation_c).to.eql(relations[0])
+      expect(relation_c.classes).to.eql(relations[0].classes)
+      expect(relation_c.classes).to.eql([class_c, clazz])
+
+      expect(relation_f).to.eql(relations[1])
+      expect(relation_f.classes).to.eql(relations[1].classes)
+      expect(relation_f.classes).to.eql([class_f, clazz])

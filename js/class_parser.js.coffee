@@ -53,8 +53,9 @@ class ClassParser
   _build_sub_and_parent_model: (sub_iri, parent_iri)->
     sub    = @get_model_by_iri(sub_iri)
     parent = @get_model_by_iri(parent_iri)
-    parent.add_sub_class(sub)
-    sub.add_parent_class(parent)
+    relation = new OntologyClassParentSubRelation(parent, sub)
+    parent.add_relation(relation)
+    sub.add_relation(relation)
 
   _parse_equivalence_model: ->
     @owl_parser.owl_doc.find('EquivalentClasses').each (i,dom)=>
@@ -69,8 +70,9 @@ class ClassParser
   _build_equivalence_model: (iri, other_iri)->
     clazz       = @get_model_by_iri(iri)
     other_class = @get_model_by_iri(other_iri)
-    clazz.add_equivalence_class(other_class)
-    other_class.add_equivalence_class(clazz)
+    relation = new OntologyClassEquivalentRelation([clazz, other_class])
+    clazz.add_relation(relation)
+    other_class.add_relation(relation)
 
   _parse_disjoint_model: ->
     @owl_parser.owl_doc.find('DisjointClasses').each (i,dom)=>
@@ -85,8 +87,9 @@ class ClassParser
   _build_disjoint_model: (iri, other_iri)->
     clazz       = @get_model_by_iri(iri)
     other_class = @get_model_by_iri(other_iri)
-    clazz.add_disjoint_class(other_class)
-    other_class.add_disjoint_class(clazz)
+    relation = new OntologyClassDisjointRelation([clazz, other_class])
+    clazz.add_relation(relation)
+    other_class.add_relation(relation)
 
   _parse_related_individual: ->
     @owl_parser.owl_doc.find('ClassAssertion').each (i,dom)=>

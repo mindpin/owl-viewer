@@ -2,27 +2,16 @@ class OntologyClass extends OntologyBase
   constructor: (iri) ->
     @iri = iri
     @name = @get_name(iri)
+
+    @relations = []
     
-    @sub_classes = []
-    @parent_classes = []
-    @equivalence_classes = []
-    @disjoint_classes = []
     @individuals = []
     @annotation_values = []
     @object_properties = []
     @data_properties = []
 
-  add_sub_class: (clazz) ->
-    @sub_classes.push(clazz)
-
-  add_parent_class: (clazz) ->
-    @parent_classes.push(clazz)
-
-  add_equivalence_class: (clazz) ->
-    @equivalence_classes.push(clazz)
-
-  add_disjoint_class: (clazz) ->
-    @disjoint_classes.push(clazz)
+  add_relation: (relation) ->
+    @relations.push(relation)
 
   add_individual: (individual) ->
     @individuals.push(individual)
