@@ -48,6 +48,39 @@ class OntologyAnnotationRangeClassRelation
     @annotation = annotation
     @type = "annotation-range-class"
 
+class OntologyObjectPropertyParentSubRelation
+  constructor: (parent, sub) ->
+    @parent = parent
+    @sub = sub
+    @type = "object-property-parent-sub"
+
+class OntologyObjectPropertyEquivalentRelation
+  constructor: (object_properties) ->
+    @object_properties = object_properties
+    @type = "object-property-equivalent"
+
+class OntologyObjectPropertyInverseRelation
+  constructor: (object_properties) ->
+    @object_properties = object_properties
+    @type = "object-property-inverse"
+
+class OntologyObjectPropertyDisjointRelation
+  constructor: (object_properties) ->
+    @object_properties = object_properties
+    @type = "object-property-disjoint"
+
+class OntologyObjectPropertyDomainClassRelation
+  constructor: (object_property, clazz) ->
+    @object_property = object_property
+    @class = clazz
+    @type = "object-property-domain-class"
+
+class OntologyObjectPropertyRangeClassRelation
+  constructor: (object_property, clazz) ->
+    @object_property = object_property
+    @class = clazz
+    @type = "object-property-range-class"
+
 jQuery.extend window,
   OntologyClassParentSubRelation: OntologyClassParentSubRelation
   OntologyClassEquivalentRelation: OntologyClassEquivalentRelation
@@ -58,3 +91,9 @@ jQuery.extend window,
   OntologyAnnotationParentSubRelation: OntologyAnnotationParentSubRelation
   OntologyAnnotationDomainClassRelation: OntologyAnnotationDomainClassRelation
   OntologyAnnotationRangeClassRelation: OntologyAnnotationRangeClassRelation
+  OntologyObjectPropertyParentSubRelation: OntologyObjectPropertyParentSubRelation
+  OntologyObjectPropertyEquivalentRelation: OntologyObjectPropertyEquivalentRelation
+  OntologyObjectPropertyInverseRelation: OntologyObjectPropertyInverseRelation
+  OntologyObjectPropertyDisjointRelation: OntologyObjectPropertyDisjointRelation
+  OntologyObjectPropertyDomainClassRelation: OntologyObjectPropertyDomainClassRelation
+  OntologyObjectPropertyRangeClassRelation: OntologyObjectPropertyRangeClassRelation

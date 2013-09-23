@@ -63,8 +63,10 @@ class ObjectPropertyParser
   _build_sub_and_parent_model: (sub_iri, parent_iri)->
     sub    = @get_model_by_iri(sub_iri)
     parent = @get_model_by_iri(parent_iri)
-    parent.add_sub_object_property(sub)
-    sub.add_parent_object_property(parent)
+
+    relation = new OntologyObjectPropertyParentSubRelation(parent, sub)
+    parent.add_relation(relation)
+    sub.add_relation(relation)
 
   _parse_equivalence_model: ->
     @owl_parser.owl_doc.find('EquivalentObjectProperties').each (i, dom)=>
@@ -79,8 +81,10 @@ class ObjectPropertyParser
   _build_equivalence_model: (iri, other_iri)->
     op       = @get_model_by_iri(iri)
     other_op = @get_model_by_iri(other_iri)
-    op.add_equivalence_object_property(other_op)
-    other_op.add_equivalence_object_property(op)
+
+    relation = new OntologyObjectPropertyEquivalentRelation([op, other_op])
+    op.add_relation(relation)
+    other_op.add_relation(relation)
 
   _parse_inverse_model: ->
     @owl_parser.owl_doc.find('InverseObjectProperties').each (i, dom)=>
@@ -95,8 +99,9 @@ class ObjectPropertyParser
   _build_inverse_model: (iri, other_iri)->
     op       = @get_model_by_iri(iri)
     other_op = @get_model_by_iri(other_iri)
-    op.add_inverse_object_property(other_op)
-    other_op.add_inverse_object_property(op)
+    relation = new OntologyObjectPropertyInverseRelation([op, other_op])
+    op.add_relation(relation)
+    other_op.add_relation(relation)
 
   _parse_disjoint_model: ->
     @owl_parser.owl_doc.find('DisjointObjectProperties').each (i, dom)=>
@@ -111,8 +116,9 @@ class ObjectPropertyParser
   _build_disjoint_model: (iri, other_iri)->
     op       = @get_model_by_iri(iri)
     other_op = @get_model_by_iri(other_iri)
-    op.add_disjoint_object_property(other_op)
-    other_op.add_disjoint_object_property(op)
+    relation = new OntologyObjectPropertyDisjointRelation([op, other_op])
+    op.add_relation(relation)
+    other_op.add_relation(relation)
 
   _parse_related_domain_class: ->
     @owl_parser.owl_doc.find('ObjectPropertyDomain').each (i, dom)=>
@@ -126,7 +132,10 @@ class ObjectPropertyParser
   _build_related_domain_class: (op_iri, class_iri)->
     op    = @get_model_by_iri(op_iri)
     clazz = @owl_parser.class_parser.get_model_by_iri(class_iri)
-    op.add_domain_class(clazz)
+    
+    relation = new OntologyObjectPropertyDomainClassRelation(op, clazz)
+    op.add_relation(relation)
+    clazz.add_relation(relation)
 
   _parse_realted_range_class: ->
     @owl_parser.owl_doc.find('ObjectPropertyRange').each (i, dom)=>
@@ -140,7 +149,10 @@ class ObjectPropertyParser
   _build_realted_range_class: (op_iri, class_iri)->
     op    = @get_model_by_iri(op_iri)
     clazz = @owl_parser.class_parser.get_model_by_iri(class_iri)
-    op.add_range_class(clazz)
+      
+    relation = new OntologyObjectPropertyRangeClassRelation(op, clazz)
+    op.add_relation(relation)
+    clazz.add_relation(relation)
 
   _parse_related_characteristic: ->
     for name,value of ObjectPropertyParser.characteristic_data
