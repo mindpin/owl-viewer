@@ -90,18 +90,26 @@ class AnnotationParser
   _build_sub_and_parent_model: (sub_iri, parent_iri)->
     sub    = @get_model_by_iri(sub_iri)
     parent = @get_model_by_iri(parent_iri)
-    parent.add_sub_annotation(sub)
-    sub.add_parent_annotation(parent)
+
+    relation = new OntologyAnnotationParentSubRelation(parent, sub)
+    parent.add_relation(relation)
+    sub.add_relation(relation)
 
   _build_related_domain_class: (annotation_iri, class_iri)->
     annotation = @get_model_by_iri(annotation_iri)
     clazz      = @owl_parser.class_parser.get_model_by_iri(class_iri)
-    annotation.add_domain_class(clazz)
-
+    
+    relation = new OntologyAnnotationDomainClassRelation(clazz, annotation)
+    annotation.add_relation(relation)
+    clazz.add_relation(relation)
+    
   _build_related_range_class: (annotation_iri, class_iri)->
     annotation = @get_model_by_iri(annotation_iri)
     clazz      = @owl_parser.class_parser.get_model_by_iri(class_iri)
-    annotation.add_range_class(clazz)
+
+    relation = new OntologyAnnotationRangeClassRelation(clazz, annotation)
+    annotation.add_relation(relation)
+    clazz.add_relation(relation)
 
   _build_related_annotation_value: (model_iri, annotation_iri, data_type_iri, value)->
     model      = @owl_parser.get_model_by_iri(model_iri)

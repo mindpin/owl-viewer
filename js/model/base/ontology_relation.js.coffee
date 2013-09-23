@@ -23,12 +23,30 @@ class OntologyClassIndividualRelation
 class OntologyIndividualSameRelation
   constructor: (individuals) ->
     @individuals = individuals
-    @type       = "same"
+    @type       = "individual-same"
 
 class OntologyIndividualDifferentRelation
   constructor: (individuals) ->
     @individuals = individuals
-    @type       = "different"
+    @type       = "individual-different"
+
+class OntologyAnnotationParentSubRelation
+  constructor: (parent, sub) ->
+    @parent = parent
+    @sub    = sub
+    @type   = "annotation-parent-sub"
+
+class OntologyAnnotationDomainClassRelation
+  constructor: (clazz, annotation) ->
+    @class = clazz
+    @annotation = annotation
+    @type = "annotation-domain-class"
+
+class OntologyAnnotationRangeClassRelation  
+  constructor: (clazz, annotation) ->
+    @class = clazz
+    @annotation = annotation
+    @type = "annotation-range-class"
 
 jQuery.extend window,
   OntologyClassParentSubRelation: OntologyClassParentSubRelation
@@ -37,3 +55,6 @@ jQuery.extend window,
   OntologyClassIndividualRelation: OntologyClassIndividualRelation
   OntologyIndividualSameRelation: OntologyIndividualSameRelation
   OntologyIndividualDifferentRelation: OntologyIndividualDifferentRelation
+  OntologyAnnotationParentSubRelation: OntologyAnnotationParentSubRelation
+  OntologyAnnotationDomainClassRelation: OntologyAnnotationDomainClassRelation
+  OntologyAnnotationRangeClassRelation: OntologyAnnotationRangeClassRelation

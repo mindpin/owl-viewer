@@ -38,9 +38,9 @@ describe "individual parser", ->
       individual_b = owl_parser.get_model_by_iri('#b')
 
       a_relations = individual_a.relations.filter (relation)=>
-        relation.type == 'same'
+        relation.type == 'individual-same'
       b_relations = individual_b.relations.filter (relation)=>
-        relation.type == 'same'
+        relation.type == 'individual-same'
 
       relation_a = a_relations[0]
       relation_b = b_relations[0]
@@ -53,9 +53,9 @@ describe "individual parser", ->
       individual_c = owl_parser.get_model_by_iri('#c')
 
       a_relations = individual_a.relations.filter (relation)=>
-        relation.type == 'different'
+        relation.type == 'individual-different'
       c_relations = individual_c.relations.filter (relation)=>
-        relation.type == 'different'
+        relation.type == 'individual-different'
 
       relation_a = a_relations[0]
       relation_c = c_relations[0]
