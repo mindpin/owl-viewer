@@ -6,19 +6,19 @@ class OntologyIndividual extends OntologyBase
 
     @same_individuals = []
     @different_individuals = []
-    @classes = []
+    @relations = []
     @annotation_values = []
     @object_property_values = []
     @data_property_values = []
+
+  add_relation: (relation) ->
+    @relations.push(relation)
 
   add_same_individual: (individual) ->
     @same_individuals.push(individual)
 
   add_different_individual: (individual) ->
     @different_individuals.push(individual)
-
-  add_class: (clazz) ->
-    @classes.push(clazz)
 
   add_annotation_value: (annotation_value) ->
     @annotation_values.push(annotation_value)

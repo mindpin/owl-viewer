@@ -86,12 +86,35 @@ describe "class parser", ->
       expect(relation_a.classes).to.eql(relation_c.classes)
       expect(relation_a.classes).to.eql([class_a, class_c])
 
-    it "class.individuals", ->
+    it "class-individual", ->
       class_b = owl_parser.get_model_by_iri("#B")
       individual_b = owl_parser.get_model_by_iri("#b")
       individual_bb = owl_parser.get_model_by_iri("#bb")
-      expect(class_b.individuals).to.have.include(individual_b)
-      expect(class_b.individuals).to.have.include(individual_bb)
+
+      class_b_relations = class_b.relations.filter (relation)=>
+        relation.type == 'class-individual'
+      individual_b_relations = individual_b.relations.filter (relation)=>
+        relation.type == 'class-individual'
+      individual_bb_relations = individual_bb.relations.filter (relation)=>
+        relation.type == 'class-individual'
+
+      individual_b_relation = individual_b_relations[0]
+      individual_bb_relation = individual_bb_relations[0]
+
+      expect(individual_b_relation.individual).to.eql(individual_b)
+      expect(individual_b_relation.class).to.eql(class_b)
+
+      expect(individual_bb_relation.individual).to.eql(individual_bb)
+      expect(individual_bb_relation.class).to.eql(class_b)
+
+      expect(class_b_relations[0]).to.eql(individual_b_relation)
+      expect(class_b_relations[0].individual).to.eql(individual_b_relation.individual)
+      expect(class_b_relations[0].class).to.eql(individual_b_relation.class)
+
+      expect(class_b_relations[1]).to.eql(individual_bb_relation)
+      expect(class_b_relations[1].individual).to.eql(individual_bb_relation.individual)
+      expect(class_b_relations[1].class).to.eql(individual_bb_relation.class)
+      
 
   describe "class2.owl", ->
     ontology   = null

@@ -102,7 +102,10 @@ class ClassParser
   _build_related_individual: (class_iri, individual_iri)->
     clazz      = @get_model_by_iri(class_iri)
     individual = @owl_parser.individual_parser.get_model_by_iri(individual_iri)
-    clazz.add_individual(individual)
+
+    relation = new OntologyClassIndividualRelation(clazz, individual)
+    clazz.add_relation(relation)
+    individual.add_relation(relation)    
 
   _parse_related_object_property: ->
     @owl_parser.owl_doc.find('HasKey').each (i, dom)=>
