@@ -5,6 +5,11 @@ class OntologyDataType extends OntologyBase
     @name = @get_name(iri)
     @annotation_values = []
 
+    @relations = []
+
+  add_relation: (relation) ->
+    @relations.push(relation)
+
   add_annotation_value: (annotation_value) ->
     @annotation_values.push(annotation_value)
 

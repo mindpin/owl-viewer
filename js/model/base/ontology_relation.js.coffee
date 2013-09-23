@@ -81,6 +81,34 @@ class OntologyObjectPropertyRangeClassRelation
     @class = clazz
     @type = "object-property-range-class"
 
+class OntologyDataPropertyEquivalentRelation
+  constructor: (data_properties) ->
+    @data_properties = data_properties
+    @type = "data-property-equivalent"
+
+class OntologyDataPropertyParentSubRelation
+  constructor: (parent, sub) ->
+    @parent = parent
+    @sub = sub
+    @type = "data-property-parent-sub"
+
+class OntologyDataPropertyDisjointRelation
+  constructor: (data_properties) ->
+    @data_properties = data_properties
+    @type = "data-property-disjoint"
+
+class OntologyDataPropertyDomainClassRelation
+  constructor: (data_property, clazz) ->
+    @data_property = data_property
+    @class = clazz
+    @type = "data-property-domain-class"
+
+class OntologyDataPropertyRangeDataTypeRelation
+  constructor: (data_property, data_type) ->
+    @data_property = data_property
+    @data_type = data_type
+    @type = "data-property-range-data-type"
+
 jQuery.extend window,
   OntologyClassParentSubRelation: OntologyClassParentSubRelation
   OntologyClassEquivalentRelation: OntologyClassEquivalentRelation
@@ -97,3 +125,8 @@ jQuery.extend window,
   OntologyObjectPropertyDisjointRelation: OntologyObjectPropertyDisjointRelation
   OntologyObjectPropertyDomainClassRelation: OntologyObjectPropertyDomainClassRelation
   OntologyObjectPropertyRangeClassRelation: OntologyObjectPropertyRangeClassRelation
+  OntologyDataPropertyEquivalentRelation: OntologyDataPropertyEquivalentRelation
+  OntologyDataPropertyParentSubRelation: OntologyDataPropertyParentSubRelation
+  OntologyDataPropertyDisjointRelation: OntologyDataPropertyDisjointRelation
+  OntologyDataPropertyDomainClassRelation: OntologyDataPropertyDomainClassRelation
+  OntologyDataPropertyRangeDataTypeRelation: OntologyDataPropertyRangeDataTypeRelation
