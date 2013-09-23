@@ -109,6 +109,14 @@ class OntologyDataPropertyRangeDataTypeRelation
     @data_type = data_type
     @type = "data-property-range-data-type"
 
+class OntologyAnnotationValueRelation
+  constructor: (host, annotation, data_type, value) ->
+    @host = host
+    @annotation = annotation
+    @data_type = data_type
+    @value = value
+    @type = "annotation-value"
+
 jQuery.extend window,
   OntologyClassParentSubRelation: OntologyClassParentSubRelation
   OntologyClassEquivalentRelation: OntologyClassEquivalentRelation
@@ -130,3 +138,4 @@ jQuery.extend window,
   OntologyDataPropertyDisjointRelation: OntologyDataPropertyDisjointRelation
   OntologyDataPropertyDomainClassRelation: OntologyDataPropertyDomainClassRelation
   OntologyDataPropertyRangeDataTypeRelation: OntologyDataPropertyRangeDataTypeRelation
+  OntologyAnnotationValueRelation: OntologyAnnotationValueRelation

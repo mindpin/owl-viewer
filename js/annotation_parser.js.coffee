@@ -115,9 +115,9 @@ class AnnotationParser
     model      = @owl_parser.get_model_by_iri(model_iri)
     annotation = @get_model_by_iri(annotation_iri)
     data_type  = @owl_parser.data_type_parser.get_model_by_iri(data_type_iri)
-    dtv        = new OntologyDataTypeValue(data_type, value)
-    av         = new OntologyAnnotationValue(annotation, dtv)
-    model.add_annotation_value(av)
 
+    relation = new OntologyAnnotationValueRelation(model, annotation, data_type, value)
+    model.add_relation(relation)
+    
 jQuery.extend window,
   AnnotationParser: AnnotationParser

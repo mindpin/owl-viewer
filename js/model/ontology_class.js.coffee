@@ -5,15 +5,11 @@ class OntologyClass extends OntologyBase
 
     @relations = []
     
-    @annotation_values = []
     @object_properties = []
     @data_properties = []
 
   add_relation: (relation) ->
     @relations.push(relation)
-
-  add_annotation_value: (annotation_value) ->
-    @annotation_values.push(annotation_value)
 
   add_object_property: (object_property) ->
     @object_properties.push(object_property)

@@ -5,7 +5,6 @@ class OntologyObjectProperty extends OntologyBase
     @name = @get_name(iri)
 
     @characteristics = []
-    @annotation_values = []
 
     @relations = []
 
@@ -14,10 +13,6 @@ class OntologyObjectProperty extends OntologyBase
 
   add_characteristic: (characteristic) ->
     @characteristics.push(characteristic)
-
-  add_annotation_value: (annotation_value) ->
-    @annotation_values.push(annotation_value)
-
 
 jQuery.extend window,
   OntologyObjectProperty: OntologyObjectProperty

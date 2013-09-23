@@ -111,20 +111,35 @@ describe "annotation parser", ->
       annotation_c = owl_parser.get_model_by_iri('rdfs:comment')
       annotation_b = owl_parser.get_model_by_iri('owl:backwardCompatibleWith')
 
-      expect(individual.annotation_values).to.have.length(1)
-      av = individual.annotation_values[0]
-      expect(av.annotation).to.eql(annotation_c)
-      expect(av.data_type_value.data_type).to.eql(owl_parser.get_model_by_iri('xsd:dateTime'))
 
-      expect(clazz.annotation_values).to.have.length(1)
-      av = clazz.annotation_values[0]
-      expect(av.annotation).to.eql(annotation_c)
-      expect(av.data_type_value.data_type).to.eql(owl_parser.get_model_by_iri('rdf:PlainLiteral'))
+      #
+      individual_relations = individual.relations.filter (clazz)=>
+        clazz.type == "annotation-value"
+      
+      individual_relation = individual_relations[0]
+      expect(individual_relation.host).to.eql(individual)
+      expect(individual_relation.annotation).to.eql(annotation_c)
+      expect(individual_relation.data_type).to.eql(owl_parser.get_model_by_iri('xsd:dateTime'))
+      #
 
-      expect(annotation_b.annotation_values).to.have.length(1)
-      av = annotation_b.annotation_values[0]
-      expect(av.annotation).to.eql(annotation_c)
-      expect(av.data_type_value.data_type).to.eql(owl_parser.get_model_by_iri('xsd:dateTime'))
+      #
+      clazz_relations = clazz.relations.filter (clazz)=>
+        clazz.type == "annotation-value"
+      
+      clazz_relation = clazz_relations[0]
+      expect(clazz_relation.host).to.eql(clazz)
+      expect(clazz_relation.annotation).to.eql(annotation_c)
+      expect(clazz_relation.data_type).to.eql(owl_parser.get_model_by_iri('rdf:PlainLiteral'))
+      #
+      #
+      annotation_b_relations = annotation_b.relations.filter (clazz)=>
+        clazz.type == "annotation-value"
+      
+      annotation_b_relation = annotation_b_relations[0]
+      expect(annotation_b_relation.host).to.eql(annotation_b)
+      expect(annotation_b_relation.annotation).to.eql(annotation_c)
+      expect(annotation_b_relation.data_type).to.eql(owl_parser.get_model_by_iri('xsd:dateTime'))
+      #
 
     it "annotation-parent-sub", ->
       an_c = owl_parser.get_model_by_iri("rdfs:comment")
@@ -194,27 +209,53 @@ describe "annotation parser", ->
       model_to = owl_parser.get_model_by_iri('owl:topObjectProperty')
       annotation_c = owl_parser.get_model_by_iri('rdfs:comment')
 
-      expect(model_l.annotation_values).to.have.length(1)
-      av = model_l.annotation_values[0]
-      expect(av.annotation).to.eql(annotation_c)
-      expect(av.data_type_value.data_type).to.eql(owl_parser.get_model_by_iri('xsd:dateTime'))
 
-      expect(model_d.annotation_values).to.have.length(1)
-      av = model_d.annotation_values[0]
-      expect(av.annotation).to.eql(annotation_c)
-      expect(av.data_type_value.data_type).to.eql(owl_parser.get_model_by_iri('xsd:boolean'))
+      #
+      model_l_relations = model_l.relations.filter (clazz)=>
+        clazz.type == "annotation-value"
+      
+      model_l_relation = model_l_relations[0]
+      expect(model_l_relation.host).to.eql(model_l)
+      expect(model_l_relation.annotation).to.eql(annotation_c)
+      expect(model_l_relation.data_type).to.eql(owl_parser.get_model_by_iri('xsd:dateTime'))
+      #
 
-      expect(clazz.annotation_values).to.have.length(1)
-      av = clazz.annotation_values[0]
-      expect(av.annotation).to.eql(annotation_c)
-      expect(av.data_type_value.data_type).to.eql(owl_parser.get_model_by_iri('rdf:PlainLiteral'))
+      #
+      model_d_relations = model_d.relations.filter (clazz)=>
+        clazz.type == "annotation-value"
+      
+      model_d_relation = model_d_relations[0]
+      expect(model_d_relation.host).to.eql(model_d)
+      expect(model_d_relation.annotation).to.eql(annotation_c)
+      expect(model_d_relation.data_type).to.eql(owl_parser.get_model_by_iri('xsd:boolean'))
+      #
 
-      expect(model_td.annotation_values).to.have.length(1)
-      av = model_td.annotation_values[0]
-      expect(av.annotation).to.eql(annotation_c)
-      expect(av.data_type_value.data_type).to.eql(owl_parser.get_model_by_iri('rdf:PlainLiteral'))
+      #
+      clazz_relations = clazz.relations.filter (clazz)=>
+        clazz.type == "annotation-value"
+      
+      clazz_relation = clazz_relations[0]
+      expect(clazz_relation.host).to.eql(clazz)
+      expect(clazz_relation.annotation).to.eql(annotation_c)
+      expect(clazz_relation.data_type).to.eql(owl_parser.get_model_by_iri('rdf:PlainLiteral'))
+      #
 
-      expect(model_to.annotation_values).to.have.length(1)
-      av = model_to.annotation_values[0]
-      expect(av.annotation).to.eql(annotation_c)
-      expect(av.data_type_value.data_type).to.eql(owl_parser.get_model_by_iri('rdf:PlainLiteral'))
+      #
+      model_td_relations = model_td.relations.filter (clazz)=>
+        clazz.type == "annotation-value"
+      
+      model_td_relation = model_td_relations[0]
+      expect(model_td_relation.host).to.eql(model_td)
+      expect(model_td_relation.annotation).to.eql(annotation_c)
+      expect(model_td_relation.data_type).to.eql(owl_parser.get_model_by_iri('rdf:PlainLiteral'))
+      #
+
+      #
+      model_to_relations = model_to.relations.filter (clazz)=>
+        clazz.type == "annotation-value"
+      
+      model_to_relation = model_to_relations[0]
+      expect(model_to_relation.host).to.eql(model_to)
+      expect(model_to_relation.annotation).to.eql(annotation_c)
+      expect(model_to_relation.data_type).to.eql(owl_parser.get_model_by_iri('rdf:PlainLiteral'))
+      #
