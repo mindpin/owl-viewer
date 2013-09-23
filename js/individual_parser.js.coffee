@@ -40,8 +40,10 @@ class IndividualParser
   _build_same_model: (iri, other_iri)->
     indi       = @get_model_by_iri(iri)
     other_indi = @get_model_by_iri(other_iri)
-    indi.add_same_individual(other_indi)
-    other_indi.add_same_individual(indi)
+
+    relation = new OntologyIndividualSameRelation([indi, other_indi])
+    indi.add_relation(relation)
+    other_indi.add_relation(relation)
 
   _parse_different_model: ->
     @owl_parser.owl_doc.find('DifferentIndividuals').each (i, dom)=>
@@ -54,8 +56,10 @@ class IndividualParser
   _build_different_model: (iri, other_iri)->
     indi       = @get_model_by_iri(iri)
     other_indi = @get_model_by_iri(other_iri)
-    indi.add_different_individual(other_indi)
-    other_indi.add_different_individual(indi)
+
+    relation = new OntologyIndividualDifferentRelation([indi, other_indi])
+    indi.add_relation(relation)
+    other_indi.add_relation(relation)
 
   _parse_related_object_property_value: ->
     @owl_parser.owl_doc.find('ObjectPropertyAssertion').each (i, dom)=>

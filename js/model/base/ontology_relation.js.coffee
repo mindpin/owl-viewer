@@ -20,8 +20,20 @@ class OntologyClassIndividualRelation
     @individual = individual
     @type       = "class-individual"
 
+class OntologyIndividualSameRelation
+  constructor: (individuals) ->
+    @individuals = individuals
+    @type       = "same"
+
+class OntologyIndividualDifferentRelation
+  constructor: (individuals) ->
+    @individuals = individuals
+    @type       = "different"
+
 jQuery.extend window,
   OntologyClassParentSubRelation: OntologyClassParentSubRelation
   OntologyClassEquivalentRelation: OntologyClassEquivalentRelation
   OntologyClassDisjointRelation: OntologyClassDisjointRelation
   OntologyClassIndividualRelation: OntologyClassIndividualRelation
+  OntologyIndividualSameRelation: OntologyIndividualSameRelation
+  OntologyIndividualDifferentRelation: OntologyIndividualDifferentRelation

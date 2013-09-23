@@ -17,7 +17,7 @@ describe "individual parser", ->
         individual.name
       expect(['a','b','c','d']).to.eql(names)
 
-    it "individual.classes", ->
+    it "class-individual", ->
       clazz = owl_parser.get_model_by_iri('owl:Thing')
       individual = owl_parser.get_model_by_iri('#a')
 
@@ -33,19 +33,35 @@ describe "individual parser", ->
       expect(clazz_relation.individual).to.eql(individual_relation.individual)
       expect(clazz_relation.class).to.eql(individual_relation.class)
 
-    it "individual.same_individuals", ->
+    it "same_individuals", ->
       individual_a = owl_parser.get_model_by_iri('#a')
       individual_b = owl_parser.get_model_by_iri('#b')
-      expect(individual_a.same_individuals).to.eql([individual_b])
-      expect(individual_b.same_individuals).to.eql([individual_a])
 
-    it "individual.different_individuals", ->
+      a_relations = individual_a.relations.filter (relation)=>
+        relation.type == 'same'
+      b_relations = individual_b.relations.filter (relation)=>
+        relation.type == 'same'
+
+      relation_a = a_relations[0]
+      relation_b = b_relations[0]
+
+      expect(relation_a).to.eql(relation_b)
+      expect(relation_a.individuals).to.eql([individual_a, individual_b])
+
+    it "different_individuals", ->
       individual_a = owl_parser.get_model_by_iri('#a')
       individual_c = owl_parser.get_model_by_iri('#c')
-      expect(individual_a.different_individuals).to.eql([individual_c])
-      expect(individual_c.different_individuals).to.eql([individual_a])
 
-    
+      a_relations = individual_a.relations.filter (relation)=>
+        relation.type == 'different'
+      c_relations = individual_c.relations.filter (relation)=>
+        relation.type == 'different'
+
+      relation_a = a_relations[0]
+      relation_c = c_relations[0]
+
+      expect(relation_a).to.eql(relation_c)
+      expect(relation_a.individuals).to.eql([individual_a, individual_c])
 
   describe "individual2.owl", ->
     ontology   = null
