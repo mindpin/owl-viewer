@@ -8,7 +8,10 @@ describe "class parser", ->
       success: (data)->
         owl_parser = new OwlParser(data)
         ontology = owl_parser.build()
-
+    it "ontology.top_classes", ->
+      names = ontology.top_classes.map (clazz)->
+        clazz.name
+      expect(['A','B','C','D']).to.eql(names)
     it "ontology.annotations", ->
       expect(ontology.annotations).to.eql([])
 

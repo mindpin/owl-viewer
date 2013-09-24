@@ -8,7 +8,10 @@ describe "individual parser", ->
       success: (data)->
         owl_parser = new OwlParser(data)
         ontology = owl_parser.build()
-
+    it "ontology.top_individuals", ->
+      names = ontology.top_individuals.map (individual)->
+        individual.name
+      expect(['b','c','d']).to.eql(names)
     it "ontology.individuals", ->
       iris = ontology.individuals.map (individual)->
         individual.iri

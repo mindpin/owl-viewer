@@ -333,7 +333,17 @@
       this.object_properties = owl_parser.object_property_parser.object_properties;
       this.data_properties = owl_parser.data_property_parser.data_properties;
       this.data_types = owl_parser.data_type_parser.data_types;
+      this._build_top_attr();
     }
+
+    Ontology.prototype._build_top_attr = function() {
+      this.top_classes = this.classes.filter(function(clazz) {
+        return clazz.is_top();
+      });
+      return this.top_individuals = this.individuals.filter(function(individual) {
+        return individual.is_top();
+      });
+    };
 
     return Ontology;
 
@@ -417,6 +427,15 @@
       return this.data_properties.push(data_property);
     };
 
+    OntologyClass.prototype.is_top = function() {
+      var relations,
+        _this = this;
+      relations = this.relations.filter(function(re) {
+        return re.type === "parent-sub" && re.sub === _this;
+      });
+      return relations.length === 0;
+    };
+
     return OntologyClass;
 
   })(OntologyBase);
@@ -491,6 +510,14 @@
 
     OntologyIndividual.prototype.add_data_property_value = function(data_property_value) {
       return this.data_property_values.push(data_property_value);
+    };
+
+    OntologyIndividual.prototype.is_top = function() {
+      var relations;
+      relations = this.relations.filter(function(re) {
+        return re.type === "class-individual";
+      });
+      return relations.length === 0;
     };
 
     return OntologyIndividual;
