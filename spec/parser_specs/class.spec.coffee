@@ -34,7 +34,7 @@ describe "class parser", ->
         individual.name
       expect(['b','bb']).to.eql(names)
 
-    it "equivalent_classes", ->
+    it "equivalent", ->
       class_a = owl_parser.get_model_by_iri("#A")
       class_b = owl_parser.get_model_by_iri("#B")
       a_relations = class_a.relations.filter (relation)=>
@@ -49,7 +49,7 @@ describe "class parser", ->
       expect(relation_a.classes).to.eql([class_a, class_b])
 
 
-    it "sub_classes", ->
+    it "parent-sub", ->
       class_a = owl_parser.get_model_by_iri("#A")
       class_aa = owl_parser.get_model_by_iri("#AA")
       class_ab = owl_parser.get_model_by_iri("#AB")
@@ -72,7 +72,7 @@ describe "class parser", ->
       expect(relation_ab.sub).to.eql(class_ab)
       expect(relation_ab.parent).to.eql(class_a)
 
-    it "disjoint_classes", ->
+    it "disjoint", ->
       class_a = owl_parser.get_model_by_iri("#A")
       class_c = owl_parser.get_model_by_iri("#C")
       a_relations = class_a.relations.filter (relation)=>
@@ -134,7 +134,7 @@ describe "class parser", ->
         clazz.name
       expect(['A','B','C','D','E','F','Thing']).to.eql(names)
 
-    it "equivalence_classes", ->
+    it "equivalent", ->
       clazz = owl_parser.get_model_by_iri("owl:Thing")
       class_b = owl_parser.get_model_by_iri("#B")
       class_d = owl_parser.get_model_by_iri("#D")
@@ -156,7 +156,7 @@ describe "class parser", ->
       expect(relation_d.classes).to.eql(relations[1].classes)
       expect(relation_d.classes).to.eql([class_d, clazz])
 
-    it "sub_classes", ->
+    it "parent-sub", ->
       clazz = owl_parser.get_model_by_iri("owl:Thing")
       class_a = owl_parser.get_model_by_iri("#A")
       class_e = owl_parser.get_model_by_iri("#E")
@@ -178,7 +178,7 @@ describe "class parser", ->
       expect(relation_e.sub).to.eql(class_e)
       expect(relation_e.parent).to.eql(clazz)
 
-    it "disjoint_classes", ->
+    it "disjoint", ->
       clazz = owl_parser.get_model_by_iri("owl:Thing")
       class_c = owl_parser.get_model_by_iri("#C")
       class_f = owl_parser.get_model_by_iri("#F")

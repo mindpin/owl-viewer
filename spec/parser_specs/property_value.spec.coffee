@@ -9,23 +9,33 @@ describe "property value parser", ->
         owl_parser = new OwlParser(data)
         ontology = owl_parser.build()
 
-    it "object_property_values", ->
+    it "object-property-value", ->
       opa = owl_parser.get_model_by_iri("#opa")
       a = owl_parser.get_model_by_iri("#a")
       b = owl_parser.get_model_by_iri("#b")
-      expect(a.object_property_values).to.have.length(1)
-      opv = a.object_property_values[0]
-      expect(opv.object_property).to.eql(opa)
-      expect(opv.individual).to.eql(b)
-      
-    it "data_property_values", ->
+
+      relations = a.relations.filter (relation)->
+        relation.type == "object-property-value"
+
+      relation = relations[0]
+
+      expect(relation.host).to.eql(a)
+      expect(relation.value).to.eql(b)
+      expect(relation.object_property).to.eql(opa)
+
+    it "data-property-value", ->
       dpa = owl_parser.get_model_by_iri("#dpa")
       a = owl_parser.get_model_by_iri("#a")
       dt = owl_parser.get_model_by_iri("rdf:PlainLiteral")
-      expect(a.data_property_values).to.have.length(1)
-      dpv = a.data_property_values[0]
-      expect(dpv.data_property).to.eql(dpa)
-      expect(dpv.data_type_value.data_type).to.eql(dt)
+
+      relations = a.relations.filter (relation) ->
+        relation.type == "data-property-value"
+
+      relation = relations[0]
+
+      expect(relation.host).to.eql(a)
+      expect(relation.data_property).to.eql(dpa)
+      expect(relation.data_type).to.eql(dt)
 
     it "object_properties data_properties", ->
       a   = owl_parser.get_model_by_iri("#A")

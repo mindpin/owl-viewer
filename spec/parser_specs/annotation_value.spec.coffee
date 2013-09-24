@@ -9,7 +9,7 @@ describe "annotation value parser", ->
         owl_parser = new OwlParser(data)
         ontology = owl_parser.build()
 
-    it "annotation_values", ->
+    it "annotation-value", ->
       ano     = owl_parser.get_model_by_iri("#aname")
       class_a = owl_parser.get_model_by_iri("#A")
       dt      = owl_parser.get_model_by_iri("#dt")

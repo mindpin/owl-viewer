@@ -142,14 +142,18 @@ describe "object_property parser", ->
         owl_parser = new OwlParser(data)
         ontology = owl_parser.build()
 
-    it "object_property_value", ->
+    it "object-property-value", ->
       top          = owl_parser.get_model_by_iri("owl:topObjectProperty")
       individual_a = owl_parser.get_model_by_iri("#a")
 
-      expect(individual_a.object_property_values).to.have.length(1)
-      opv = individual_a.object_property_values[0]
-      expect(opv.object_property).to.eql(top)
-      expect(opv.individual).to.eql(individual_a)
+      relations = individual_a.relations.filter (relation)->
+        relation.type == 'object-property-value'
+
+      relation = relations[0]
+
+      expect(relation.host).to.eql(individual_a)
+      expect(relation.object_property).to.eql(top)
+      expect(relation.value).to.eql(individual_a)
       
     it "object-property-equivalent", ->
       opa = owl_parser.get_model_by_iri("#opa")

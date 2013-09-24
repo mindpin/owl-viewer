@@ -117,6 +117,21 @@ class OntologyAnnotationValueRelation
     @value = value
     @type = "annotation-value"
 
+class OntologyIndividualObjectPropertyValueRelation
+  constructor: (host, object_property, value) ->
+    @host = host
+    @object_property = object_property
+    @value = value
+    @type = "object-property-value"
+
+class OntologyIndividualDataPropertyValueRelation
+  constructor: (host, data_property, data_type, value) ->
+    @host = host
+    @data_property = data_property
+    @data_type = data_type
+    @value = value
+    @type = "data-property-value"
+
 jQuery.extend window,
   OntologyClassParentSubRelation: OntologyClassParentSubRelation
   OntologyClassEquivalentRelation: OntologyClassEquivalentRelation
@@ -139,3 +154,5 @@ jQuery.extend window,
   OntologyDataPropertyDomainClassRelation: OntologyDataPropertyDomainClassRelation
   OntologyDataPropertyRangeDataTypeRelation: OntologyDataPropertyRangeDataTypeRelation
   OntologyAnnotationValueRelation: OntologyAnnotationValueRelation
+  OntologyIndividualObjectPropertyValueRelation: OntologyIndividualObjectPropertyValueRelation
+  OntologyIndividualDataPropertyValueRelation: OntologyIndividualDataPropertyValueRelation

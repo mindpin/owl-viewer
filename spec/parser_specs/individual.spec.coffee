@@ -33,7 +33,7 @@ describe "individual parser", ->
       expect(clazz_relation.individual).to.eql(individual_relation.individual)
       expect(clazz_relation.class).to.eql(individual_relation.class)
 
-    it "same_individuals", ->
+    it "individual-same", ->
       individual_a = owl_parser.get_model_by_iri('#a')
       individual_b = owl_parser.get_model_by_iri('#b')
 
@@ -48,7 +48,7 @@ describe "individual parser", ->
       expect(relation_a).to.eql(relation_b)
       expect(relation_a.individuals).to.eql([individual_a, individual_b])
 
-    it "different_individuals", ->
+    it "individual-different", ->
       individual_a = owl_parser.get_model_by_iri('#a')
       individual_c = owl_parser.get_model_by_iri('#c')
 

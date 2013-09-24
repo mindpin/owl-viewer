@@ -119,16 +119,20 @@ describe "data_property parser", ->
         owl_parser = new OwlParser(data)
         ontology = owl_parser.build()
 
-    it "data_property_values", ->
+    it "data-property-value", ->
       dp = owl_parser.get_model_by_iri('owl:topDataProperty')
       individual = owl_parser.get_model_by_iri('#a')
       dt = owl_parser.get_model_by_iri("rdf:PlainLiteral")
 
-      expect(individual.data_property_values).to.have.length(1)
-      dpv = individual.data_property_values[0]
-      expect(dpv.data_property).to.eql(dp)
-      expect(dpv.data_type_value.data_type).to.eql(dt)
-    
+      relations = individual.relations.filter (relation) ->
+        relation.type == "data-property-value"
+
+      relation = relations[0]
+
+      expect(relation.host).to.eql(individual)
+      expect(relation.data_property).to.eql(dp)
+      expect(relation.data_type).to.eql(dt)
+
     it "data-property-equivalent", ->
       opa = owl_parser.get_model_by_iri('#opa')
       dp  = owl_parser.get_model_by_iri('owl:topDataProperty')

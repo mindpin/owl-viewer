@@ -105,7 +105,7 @@ describe "annotation parser", ->
         annotation.name
       expect(['comment','deprecated','backwardCompatibleWith']).to.eql(names)
 
-    it "annotation_values", ->
+    it "annotation-value", ->
       individual = owl_parser.get_model_by_iri('#a')
       clazz      = owl_parser.get_model_by_iri('owl:Thing')
       annotation_c = owl_parser.get_model_by_iri('rdfs:comment')
@@ -199,7 +199,7 @@ describe "annotation parser", ->
         owl_parser = new OwlParser(data)
         ontology = owl_parser.build()
 
-    it "annotation_values", ->
+    it "annotation-value", ->
       individual = owl_parser.get_model_by_iri('#a')
 
       clazz      = owl_parser.get_model_by_iri('owl:Thing')

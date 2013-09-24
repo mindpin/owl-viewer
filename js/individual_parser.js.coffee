@@ -75,8 +75,9 @@ class IndividualParser
     indi  = @get_model_by_iri(indi_iri)
     value = @get_model_by_iri(value_indi_iri)
     op    = @owl_parser.object_property_parser.get_model_by_iri(op_iri)
-    opv = new OntologyObjectPropertyValue(op, value)
-    indi.add_object_property_value(opv)
+
+    relation = new OntologyIndividualObjectPropertyValueRelation(indi, op, value)
+    indi.add_relation(relation)
 
   _parse_related_data_property_value: ->
     @owl_parser.owl_doc.find('DataPropertyAssertion').each (i, dom)=>
@@ -93,9 +94,9 @@ class IndividualParser
     dp = @owl_parser.data_property_parser.get_model_by_iri(dp_iri)
     data_type = @owl_parser.data_type_parser.get_model_by_iri(data_type_iri)
 
-    dtv = new OntologyDataTypeValue(data_type, value)
-    dpv = new OntologyDataPropertyValue(dp, dtv)
-    indi.add_data_property_value(dpv)
+    relation = new OntologyIndividualDataPropertyValueRelation(indi, dp, data_type, value)
+
+    indi.add_relation(relation)
 
 jQuery.extend window,
   IndividualParser: IndividualParser
