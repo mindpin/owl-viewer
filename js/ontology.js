@@ -436,6 +436,30 @@
       return relations.length === 0;
     };
 
+    OntologyClass.prototype.sub_classes = function() {
+      var relations, subs,
+        _this = this;
+      relations = this.relations.filter(function(re) {
+        return re.type === "parent-sub" && re.parent === _this;
+      });
+      subs = relations.map(function(re) {
+        return re.sub;
+      });
+      return subs;
+    };
+
+    OntologyClass.prototype.parent_classes = function() {
+      var parents, relations,
+        _this = this;
+      relations = this.relations.filter(function(re) {
+        return re.type === "parent-sub" && re.sub === _this;
+      });
+      parents = relations.map(function(re) {
+        return re.parent;
+      });
+      return parents;
+    };
+
     return OntologyClass;
 
   })(OntologyBase);

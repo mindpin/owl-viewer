@@ -23,5 +23,19 @@ class OntologyClass extends OntologyBase
       
     relations.length == 0
 
+  sub_classes: () ->
+    relations = @relations.filter (re) =>
+      re.type == "parent-sub" && re.parent == this
+    subs = relations.map (re) =>
+      re.sub
+    subs
+
+  parent_classes: () ->
+    relations = @relations.filter (re) =>
+      re.type == "parent-sub" && re.sub == this
+    parents = relations.map (re) =>
+      re.parent
+    parents
+
 jQuery.extend window,
   OntologyClass: OntologyClass

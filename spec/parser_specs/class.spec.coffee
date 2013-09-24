@@ -75,6 +75,11 @@ describe "class parser", ->
       expect(relation_ab.sub).to.eql(class_ab)
       expect(relation_ab.parent).to.eql(class_a)
 
+      expect(class_a.sub_classes()).to.eql([class_aa, class_ab])
+      expect(class_aa.parent_classes()).to.eql([class_a])
+      expect(class_ab.parent_classes()).to.eql([class_a])
+      
+
     it "disjoint", ->
       class_a = owl_parser.get_model_by_iri("#A")
       class_c = owl_parser.get_model_by_iri("#C")
