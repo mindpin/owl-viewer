@@ -15,6 +15,7 @@ body {
   .owl-viewer-page .stage {
     position: absolute;
     left: 304px;
+    border: solid 1px #e7e7e7;
     top: 0;
     right: 0;
     bottom: 0;
