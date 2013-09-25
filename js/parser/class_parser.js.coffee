@@ -1,9 +1,9 @@
-class ClassParser
+class ClassParser extends BaseParser
   @DEFAULT_IRIS = ['owl:Thing']
 
   constructor: (owl_parser) ->
     @owl_parser = owl_parser
-    @classes = []
+    @models = []
 
   build_model: ->
     @_parse_model()
@@ -18,9 +18,9 @@ class ClassParser
 
   get_model_by_iri: (bug_iri)->
     iri = @_get_fix_bug_iri(bug_iri)
-    classes = @classes.filter (clazz)=>
+    models = @models.filter (clazz)=>
       clazz.iri == iri
-    clazz = classes[0]
+    clazz = models[0]
     return clazz if !!clazz
     return @_get_default_mode_by_iri(iri)
 
@@ -38,7 +38,7 @@ class ClassParser
 
   _build_model: (iri)->
     clazz   = new OntologyClass(iri)
-    @classes.push(clazz)
+    @models.push(clazz)
     return clazz
 
   _parse_sub_and_parent_model: ->
@@ -137,16 +137,6 @@ class ClassParser
     clazz = @get_model_by_iri(class_iri)
     op    = @owl_parser.data_property_parser.get_model_by_iri(dp_iri)
     clazz.add_data_property(op)
-
-  _get_fix_bug_iri: (iri)->
-    return null if !iri
-    reg = iri.match(/&(\S+);(\S+)/)
-    return "#{reg[1]}:#{reg[2]}" if !!reg
-
-    reg = iri.match(/\S+(#\S+)/)
-    return reg[1] if !!reg
-
-    return iri
 
 jQuery.extend window,
   ClassParser: ClassParser

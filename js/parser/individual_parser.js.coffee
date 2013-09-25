@@ -1,7 +1,7 @@
-class IndividualParser
+class IndividualParser extends BaseParser
   constructor: (owl_parser) ->
     @owl_parser = owl_parser
-    @individuals = []
+    @models = []
 
   build_model: ->
     @_parse_model()
@@ -14,9 +14,9 @@ class IndividualParser
 
   get_model_by_iri: (bug_iri)->
     iri = @_get_fix_bug_iri(bug_iri)
-    individuals = @individuals.filter (indi)=>
+    models = @models.filter (indi)=>
       indi.iri == iri
-    return individuals[0]
+    return models[0]
 
   #####
   _parse_model: ->
@@ -27,8 +27,8 @@ class IndividualParser
 
   _build_model: (iri)->
     indi         = new OntologyIndividual(iri)
-    @individuals = [] if !@individuals
-    @individuals.push(indi)
+    @models = [] if !@models
+    @models.push(indi)
 
   _parse_same_model: ->
     @owl_parser.owl_doc.find('SameIndividual').each (i, dom)=>
@@ -98,16 +98,6 @@ class IndividualParser
     relation = new OntologyIndividualDataPropertyValueRelation(indi, dp, data_type, value)
 
     indi.add_relation(relation)
-
-  _get_fix_bug_iri: (iri)->
-    return null if !iri
-    reg = iri.match(/&(\S+);(\S+)/)
-    return "#{reg[1]}:#{reg[2]}" if !!reg
-
-    reg = iri.match(/\S+(#\S+)/)
-    return reg[1] if !!reg
-
-    return iri
 
 jQuery.extend window,
   IndividualParser: IndividualParser

@@ -1,4 +1,4 @@
-class AnnotationParser
+class AnnotationParser extends BaseParser
   @DEFAULT_IRIS = [
     "owl:backwardCompatibleWith",
     "rdfs:comment",
@@ -13,7 +13,7 @@ class AnnotationParser
 
   constructor: (owl_parser) ->
     @owl_parser = owl_parser
-    @annotations = []
+    @models = []
 
   build_model: ->
     @_parse_model()
@@ -26,7 +26,7 @@ class AnnotationParser
 
   get_model_by_iri: (bug_iri)->
     iri = @_get_fix_bug_iri(bug_iri)
-    ans = @annotations.filter (an)=>
+    ans = @models.filter (an)=>
       an.iri == iri
     an = ans[0]
     return an if !!an
@@ -85,7 +85,7 @@ class AnnotationParser
 
   _build_model: (iri)->
     annotation   = new OntologyAnnotation(iri)
-    @annotations.push(annotation)
+    @models.push(annotation)
     return annotation
 
   _build_sub_and_parent_model: (sub_iri, parent_iri)->
@@ -119,16 +119,6 @@ class AnnotationParser
 
     relation = new OntologyAnnotationValueRelation(model, annotation, data_type, value)
     model.add_relation(relation)
-    
-  _get_fix_bug_iri: (iri)->
-    return null if !iri
-    reg = iri.match(/&(\S+);(\S+)/)
-    return "#{reg[1]}:#{reg[2]}" if !!reg
-
-    reg = iri.match(/\S+(#\S+)/)
-    return reg[1] if !!reg
-
-    return iri
     
 jQuery.extend window,
   AnnotationParser: AnnotationParser

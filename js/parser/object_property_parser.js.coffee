@@ -1,4 +1,4 @@
-class ObjectPropertyParser
+class ObjectPropertyParser extends BaseParser
   @characteristic_data = {
       'FunctionalObjectProperty'        : OntologyCharacteristic.FUNCTIONAL,
       'InverseFunctionalObjectProperty' : OntologyCharacteristic.INVERSE_FUNCTIONAL,
@@ -12,7 +12,7 @@ class ObjectPropertyParser
 
   constructor: (owl_parser) ->
     @owl_parser = owl_parser
-    @object_properties = []
+    @models = []
 
   build_model: ->
     @_parse_model()
@@ -28,7 +28,7 @@ class ObjectPropertyParser
 
   get_model_by_iri: (bug_iri)->
     iri = @_get_fix_bug_iri(bug_iri)
-    ans = @object_properties.filter (an)=>
+    ans = @models.filter (an)=>
       an.iri == iri
     an = ans[0]
     return an if !!an
@@ -48,7 +48,7 @@ class ObjectPropertyParser
 
   _build_model: (iri)->
     odp = new OntologyObjectProperty(iri)
-    @object_properties.push(odp)
+    @models.push(odp)
     return odp
 
   _parse_sub_and_parent_model: ->
@@ -165,16 +165,6 @@ class ObjectPropertyParser
   _build_related_characteristic: (iri, characteristic)->
     op = @get_model_by_iri(iri)
     op.add_characteristic(characteristic)
-
-  _get_fix_bug_iri: (iri)->
-    return null if !iri
-    reg = iri.match(/&(\S+);(\S+)/)
-    return "#{reg[1]}:#{reg[2]}" if !!reg
-
-    reg = iri.match(/\S+(#\S+)/)
-    return reg[1] if !!reg
-
-    return iri
 
 jQuery.extend window,
   ObjectPropertyParser: ObjectPropertyParser

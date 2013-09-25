@@ -1,4 +1,4 @@
-class DataTypeParser
+class DataTypeParser extends BaseParser
   @DEFAULT_IRIS = [
     "rdf:PlainLiteral",
     "xsd:anyURI",
@@ -38,7 +38,7 @@ class DataTypeParser
 
   constructor: (owl_parser) ->
     @owl_parser = owl_parser
-    @data_types = []
+    @models = []
 
   build_model: ->
     @_parse_model()
@@ -47,7 +47,7 @@ class DataTypeParser
 
   get_model_by_iri: (bug_iri)->
     iri = @_get_fix_bug_iri(bug_iri)
-    dts = @data_types.filter (dt)=>
+    dts = @models.filter (dt)=>
       dt.iri == iri
     dt = dts[0]
     return dt if !!dt
@@ -66,18 +66,8 @@ class DataTypeParser
 
   _build_model: (iri)->
     dt = new OntologyDataType(iri)
-    @data_types.push(dt)
+    @models.push(dt)
     return dt
-
-  _get_fix_bug_iri: (iri)->
-    return null if !iri
-    reg = iri.match(/&(\S+);(\S+)/)
-    return "#{reg[1]}:#{reg[2]}" if !!reg
-
-    reg = iri.match(/\S+(#\S+)/)
-    return reg[1] if !!reg
-
-    return iri
 
 jQuery.extend window,
   DataTypeParser: DataTypeParser

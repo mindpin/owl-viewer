@@ -1,4 +1,4 @@
-class DataPropertyParser
+class DataPropertyParser extends BaseParser
   @characteristic_data = {
       'FunctionalDataProperty'        : OntologyCharacteristic.FUNCTIONAL
   }
@@ -6,7 +6,7 @@ class DataPropertyParser
 
   constructor: (owl_parser) ->
     @owl_parser = owl_parser
-    @data_properties = []
+    @models = []
 
   build_model: ->
     @_parse_model()
@@ -21,7 +21,7 @@ class DataPropertyParser
 
   get_model_by_iri: (bug_iri)->
     iri = @_get_fix_bug_iri(bug_iri)
-    dps = @data_properties.filter (dp)=>
+    dps = @models.filter (dp)=>
       dp.iri == iri
     dp = dps[0]
     return dp if !!dp
@@ -41,7 +41,7 @@ class DataPropertyParser
 
   _build_model: (iri)->
     data_property = new OntologyDataProperty(iri)
-    @data_properties.push(data_property)
+    @models.push(data_property)
     return data_property
 
   _parse_sub_and_parent_model: ->
@@ -142,16 +142,6 @@ class DataPropertyParser
   _build_related_characteristic: (iri, characteristic)->
     dp = @get_model_by_iri(iri)
     dp.add_characteristic(characteristic)
-
-  _get_fix_bug_iri: (iri)->
-    return null if !iri
-    reg = iri.match(/&(\S+);(\S+)/)
-    return "#{reg[1]}:#{reg[2]}" if !!reg
-
-    reg = iri.match(/\S+(#\S+)/)
-    return reg[1] if !!reg
-
-    return iri
 
 jQuery.extend window,
   DataPropertyParser: DataPropertyParser

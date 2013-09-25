@@ -6,7 +6,7 @@ owl-viewer
 ### 打包 js
 
 ```
-coffee --join js/ontology.js --compile js/model/base/*.coffee js/model/*.coffee js/*.coffee
+coffee --join js/ontology.js --compile js/model/base/*.coffee js/model/*.coffee js/parser/base/*.coffee js/parser/*.coffee
 ```
 
 ### 启动 http 服务

@@ -1,12 +1,12 @@
 class Ontology
 
   constructor: (owl_parser) ->
-    @annotations       = owl_parser.annotation_parser.annotations
-    @classes            = owl_parser.class_parser.classes
-    @individuals       = owl_parser.individual_parser.individuals
-    @object_properties = owl_parser.object_property_parser.object_properties
-    @data_properties   = owl_parser.data_property_parser.data_properties
-    @data_types        = owl_parser.data_type_parser.data_types
+    @annotations       = owl_parser.annotation_parser.models
+    @classes            = owl_parser.class_parser.models
+    @individuals       = owl_parser.individual_parser.models
+    @object_properties = owl_parser.object_property_parser.models
+    @data_properties   = owl_parser.data_property_parser.models
+    @data_types        = owl_parser.data_type_parser.models
     @_build_top_attr()
 
   _build_top_attr: () ->
