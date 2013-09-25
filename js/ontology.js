@@ -599,9 +599,10 @@
       return this._parse_related_annotation_value();
     };
 
-    AnnotationParser.prototype.get_model_by_iri = function(iri) {
-      var an, ans,
+    AnnotationParser.prototype.get_model_by_iri = function(bug_iri) {
+      var an, ans, iri,
         _this = this;
+      iri = this._get_fix_bug_iri(bug_iri);
       ans = this.annotations.filter(function(an) {
         return an.iri === iri;
       });
@@ -745,6 +746,22 @@
       return model.add_relation(relation);
     };
 
+    AnnotationParser.prototype._get_fix_bug_iri = function(iri) {
+      var reg;
+      if (!iri) {
+        return null;
+      }
+      reg = iri.match(/&(\S+);(\S+)/);
+      if (!!reg) {
+        return "" + reg[1] + ":" + reg[2];
+      }
+      reg = iri.match(/\S+(#\S+)/);
+      if (!!reg) {
+        return reg[1];
+      }
+      return iri;
+    };
+
     return AnnotationParser;
 
   })();
@@ -775,9 +792,10 @@
       return this._parse_related_data_property();
     };
 
-    ClassParser.prototype.get_model_by_iri = function(iri) {
-      var classes, clazz,
+    ClassParser.prototype.get_model_by_iri = function(bug_iri) {
+      var classes, clazz, iri,
         _this = this;
+      iri = this._get_fix_bug_iri(bug_iri);
       classes = this.classes.filter(function(clazz) {
         return clazz.iri === iri;
       });
@@ -970,6 +988,22 @@
       return clazz.add_data_property(op);
     };
 
+    ClassParser.prototype._get_fix_bug_iri = function(iri) {
+      var reg;
+      if (!iri) {
+        return null;
+      }
+      reg = iri.match(/&(\S+);(\S+)/);
+      if (!!reg) {
+        return "" + reg[1] + ":" + reg[2];
+      }
+      reg = iri.match(/\S+(#\S+)/);
+      if (!!reg) {
+        return reg[1];
+      }
+      return iri;
+    };
+
     return ClassParser;
 
   })();
@@ -1004,9 +1038,10 @@
       return this._parse_related_characteristic();
     };
 
-    DataPropertyParser.prototype.get_model_by_iri = function(iri) {
-      var dp, dps,
+    DataPropertyParser.prototype.get_model_by_iri = function(bug_iri) {
+      var dp, dps, iri,
         _this = this;
+      iri = this._get_fix_bug_iri(bug_iri);
       dps = this.data_properties.filter(function(dp) {
         return dp.iri === iri;
       });
@@ -1201,6 +1236,22 @@
       return dp.add_characteristic(characteristic);
     };
 
+    DataPropertyParser.prototype._get_fix_bug_iri = function(iri) {
+      var reg;
+      if (!iri) {
+        return null;
+      }
+      reg = iri.match(/&(\S+);(\S+)/);
+      if (!!reg) {
+        return "" + reg[1] + ":" + reg[2];
+      }
+      reg = iri.match(/\S+(#\S+)/);
+      if (!!reg) {
+        return reg[1];
+      }
+      return iri;
+    };
+
     return DataPropertyParser;
 
   })();
@@ -1305,9 +1356,10 @@
       return this._parse_related_data_property_value();
     };
 
-    IndividualParser.prototype.get_model_by_iri = function(iri) {
-      var individuals,
+    IndividualParser.prototype.get_model_by_iri = function(bug_iri) {
+      var individuals, iri,
         _this = this;
+      iri = this._get_fix_bug_iri(bug_iri);
       individuals = this.individuals.filter(function(indi) {
         return indi.iri === iri;
       });
@@ -1425,6 +1477,22 @@
       return indi.add_relation(relation);
     };
 
+    IndividualParser.prototype._get_fix_bug_iri = function(iri) {
+      var reg;
+      if (!iri) {
+        return null;
+      }
+      reg = iri.match(/&(\S+);(\S+)/);
+      if (!!reg) {
+        return "" + reg[1] + ":" + reg[2];
+      }
+      reg = iri.match(/\S+(#\S+)/);
+      if (!!reg) {
+        return reg[1];
+      }
+      return iri;
+    };
+
     return IndividualParser;
 
   })();
@@ -1466,9 +1534,10 @@
       return this._parse_related_characteristic();
     };
 
-    ObjectPropertyParser.prototype.get_model_by_iri = function(iri) {
-      var an, ans,
+    ObjectPropertyParser.prototype.get_model_by_iri = function(bug_iri) {
+      var an, ans, iri,
         _this = this;
+      iri = this._get_fix_bug_iri(bug_iri);
       ans = this.object_properties.filter(function(an) {
         return an.iri === iri;
       });
@@ -1688,6 +1757,22 @@
       var op;
       op = this.get_model_by_iri(iri);
       return op.add_characteristic(characteristic);
+    };
+
+    ObjectPropertyParser.prototype._get_fix_bug_iri = function(iri) {
+      var reg;
+      if (!iri) {
+        return null;
+      }
+      reg = iri.match(/&(\S+);(\S+)/);
+      if (!!reg) {
+        return "" + reg[1] + ":" + reg[2];
+      }
+      reg = iri.match(/\S+(#\S+)/);
+      if (!!reg) {
+        return reg[1];
+      }
+      return iri;
     };
 
     return ObjectPropertyParser;

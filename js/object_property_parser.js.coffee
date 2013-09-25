@@ -26,7 +26,8 @@ class ObjectPropertyParser
     @_parse_realted_range_class()
     @_parse_related_characteristic()
 
-  get_model_by_iri: (iri)->
+  get_model_by_iri: (bug_iri)->
+    iri = @_get_fix_bug_iri(bug_iri)
     ans = @object_properties.filter (an)=>
       an.iri == iri
     an = ans[0]
@@ -164,6 +165,16 @@ class ObjectPropertyParser
   _build_related_characteristic: (iri, characteristic)->
     op = @get_model_by_iri(iri)
     op.add_characteristic(characteristic)
+
+  _get_fix_bug_iri: (iri)->
+    return null if !iri
+    reg = iri.match(/&(\S+);(\S+)/)
+    return "#{reg[1]}:#{reg[2]}" if !!reg
+
+    reg = iri.match(/\S+(#\S+)/)
+    return reg[1] if !!reg
+
+    return iri
 
 jQuery.extend window,
   ObjectPropertyParser: ObjectPropertyParser

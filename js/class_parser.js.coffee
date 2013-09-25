@@ -16,7 +16,8 @@ class ClassParser
     @_parse_related_object_property()
     @_parse_related_data_property()
 
-  get_model_by_iri: (iri)->
+  get_model_by_iri: (bug_iri)->
+    iri = @_get_fix_bug_iri(bug_iri)
     classes = @classes.filter (clazz)=>
       clazz.iri == iri
     clazz = classes[0]
@@ -136,6 +137,16 @@ class ClassParser
     clazz = @get_model_by_iri(class_iri)
     op    = @owl_parser.data_property_parser.get_model_by_iri(dp_iri)
     clazz.add_data_property(op)
+
+  _get_fix_bug_iri: (iri)->
+    return null if !iri
+    reg = iri.match(/&(\S+);(\S+)/)
+    return "#{reg[1]}:#{reg[2]}" if !!reg
+
+    reg = iri.match(/\S+(#\S+)/)
+    return reg[1] if !!reg
+
+    return iri
 
 jQuery.extend window,
   ClassParser: ClassParser

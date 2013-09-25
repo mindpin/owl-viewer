@@ -24,7 +24,8 @@ class AnnotationParser
     @_parse_related_range_class()
     @_parse_related_annotation_value()
 
-  get_model_by_iri: (iri)->
+  get_model_by_iri: (bug_iri)->
+    iri = @_get_fix_bug_iri(bug_iri)
     ans = @annotations.filter (an)=>
       an.iri == iri
     an = ans[0]
@@ -118,6 +119,16 @@ class AnnotationParser
 
     relation = new OntologyAnnotationValueRelation(model, annotation, data_type, value)
     model.add_relation(relation)
+    
+  _get_fix_bug_iri: (iri)->
+    return null if !iri
+    reg = iri.match(/&(\S+);(\S+)/)
+    return "#{reg[1]}:#{reg[2]}" if !!reg
+
+    reg = iri.match(/\S+(#\S+)/)
+    return reg[1] if !!reg
+
+    return iri
     
 jQuery.extend window,
   AnnotationParser: AnnotationParser

@@ -12,7 +12,8 @@ class IndividualParser
     @_parse_related_object_property_value()
     @_parse_related_data_property_value()
 
-  get_model_by_iri: (iri)->
+  get_model_by_iri: (bug_iri)->
+    iri = @_get_fix_bug_iri(bug_iri)
     individuals = @individuals.filter (indi)=>
       indi.iri == iri
     return individuals[0]
@@ -97,6 +98,16 @@ class IndividualParser
     relation = new OntologyIndividualDataPropertyValueRelation(indi, dp, data_type, value)
 
     indi.add_relation(relation)
+
+  _get_fix_bug_iri: (iri)->
+    return null if !iri
+    reg = iri.match(/&(\S+);(\S+)/)
+    return "#{reg[1]}:#{reg[2]}" if !!reg
+
+    reg = iri.match(/\S+(#\S+)/)
+    return reg[1] if !!reg
+
+    return iri
 
 jQuery.extend window,
   IndividualParser: IndividualParser

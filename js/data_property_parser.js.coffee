@@ -19,7 +19,8 @@ class DataPropertyParser
     @_parse_related_range_data_type()
     @_parse_related_characteristic()
 
-  get_model_by_iri: (iri)->
+  get_model_by_iri: (bug_iri)->
+    iri = @_get_fix_bug_iri(bug_iri)
     dps = @data_properties.filter (dp)=>
       dp.iri == iri
     dp = dps[0]
@@ -141,6 +142,16 @@ class DataPropertyParser
   _build_related_characteristic: (iri, characteristic)->
     dp = @get_model_by_iri(iri)
     dp.add_characteristic(characteristic)
+
+  _get_fix_bug_iri: (iri)->
+    return null if !iri
+    reg = iri.match(/&(\S+);(\S+)/)
+    return "#{reg[1]}:#{reg[2]}" if !!reg
+
+    reg = iri.match(/\S+(#\S+)/)
+    return reg[1] if !!reg
+
+    return iri
 
 jQuery.extend window,
   DataPropertyParser: DataPropertyParser
