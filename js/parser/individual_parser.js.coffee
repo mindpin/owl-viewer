@@ -20,10 +20,15 @@ class IndividualParser extends BaseParser
 
   #####
   _parse_model: ->
-    @owl_parser.owl_doc.find('Declaration NamedIndividual').each (i,dom)=>
+    @owl_parser.owl_doc.find('NamedIndividual').each (i,dom)=>
       ele = jQuery(dom)
       iri = ele.attr('IRI')
-      @_build_model(iri)
+      a_iri = ele.attr('abbreviatedIRI')
+      if !!iri && !@iri_is_created(iri)
+        @_build_model(iri)
+      if !!a_iri && !@iri_is_created(a_iri)
+        iri = @_get_fix_bug_iri(iri)
+        @_get_default_mode_by_iri(iri)
 
   _build_model: (iri)->
     indi         = new OntologyIndividual(iri)

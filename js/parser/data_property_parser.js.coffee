@@ -34,10 +34,15 @@ class DataPropertyParser extends BaseParser
     return @_build_model(iri)
 
   _parse_model: ->
-    @owl_parser.owl_doc.find('Declaration DataProperty').each (i, dom)=>
+    @owl_parser.owl_doc.find('DataProperty').each (i, dom)=>
       ele = jQuery(dom)
       iri = ele.attr('IRI')
-      @_build_model(iri)
+      a_iri = ele.attr('abbreviatedIRI')
+      if !!iri && !@iri_is_created(iri)
+        @_build_model(iri)
+      if !!a_iri && !@iri_is_created(a_iri)
+        iri = @_get_fix_bug_iri(iri)
+        @_get_default_mode_by_iri(iri)
 
   _build_model: (iri)->
     data_property = new OntologyDataProperty(iri)

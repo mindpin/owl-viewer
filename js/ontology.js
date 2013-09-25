@@ -599,6 +599,16 @@
       return iri;
     };
 
+    BaseParser.prototype.iri_is_created = function(iri) {
+      var models,
+        _this = this;
+      iri = this._get_fix_bug_iri(iri);
+      models = this.models.filter(function(m) {
+        return m.iri === iri;
+      });
+      return models.length !== 0;
+    };
+
     return BaseParser;
 
   })();
@@ -654,11 +664,18 @@
 
     AnnotationParser.prototype._parse_model = function() {
       var _this = this;
-      return this.owl_parser.owl_doc.find('Declaration AnnotationProperty').each(function(i, dom) {
-        var ele, iri;
+      return this.owl_parser.owl_doc.find('AnnotationProperty').each(function(i, dom) {
+        var a_iri, ele, iri;
         ele = jQuery(dom);
         iri = ele.attr('IRI');
-        return _this._build_model(iri);
+        a_iri = ele.attr('abbreviatedIRI');
+        if (!!iri && !_this.iri_is_created(iri)) {
+          _this._build_model(iri);
+        }
+        if (!!a_iri && !_this.iri_is_created(a_iri)) {
+          iri = _this._get_fix_bug_iri(iri);
+          return _this._get_default_mode_by_iri(iri);
+        }
       });
     };
 
@@ -833,11 +850,18 @@
 
     ClassParser.prototype._parse_model = function() {
       var _this = this;
-      return this.owl_parser.owl_doc.find('Declaration Class').each(function(i, dom) {
-        var ele, iri;
+      return this.owl_parser.owl_doc.find('Class').each(function(i, dom) {
+        var a_iri, ele, iri;
         ele = jQuery(dom);
         iri = ele.attr('IRI');
-        return _this._build_model(iri);
+        a_iri = ele.attr('abbreviatedIRI');
+        if (!!iri && !_this.iri_is_created(iri)) {
+          _this._build_model(iri);
+        }
+        if (!!a_iri && !_this.iri_is_created(a_iri)) {
+          iri = _this._get_fix_bug_iri(iri);
+          return _this._get_default_mode_by_iri(iri);
+        }
       });
     };
 
@@ -1065,11 +1089,18 @@
 
     DataPropertyParser.prototype._parse_model = function() {
       var _this = this;
-      return this.owl_parser.owl_doc.find('Declaration DataProperty').each(function(i, dom) {
-        var ele, iri;
+      return this.owl_parser.owl_doc.find('DataProperty').each(function(i, dom) {
+        var a_iri, ele, iri;
         ele = jQuery(dom);
         iri = ele.attr('IRI');
-        return _this._build_model(iri);
+        a_iri = ele.attr('abbreviatedIRI');
+        if (!!iri && !_this.iri_is_created(iri)) {
+          _this._build_model(iri);
+        }
+        if (!!a_iri && !_this.iri_is_created(a_iri)) {
+          iri = _this._get_fix_bug_iri(iri);
+          return _this._get_default_mode_by_iri(iri);
+        }
       });
     };
 
@@ -1288,10 +1319,18 @@
 
     DataTypeParser.prototype._parse_model = function() {
       var _this = this;
-      return this.owl_parser.owl_doc.find('Declaration Datatype').each(function(i, dom) {
-        var iri;
-        iri = jQuery(dom).attr('IRI');
-        return _this._build_model(iri);
+      return this.owl_parser.owl_doc.find('Datatype').each(function(i, dom) {
+        var a_iri, ele, iri;
+        ele = jQuery(dom);
+        iri = ele.attr('IRI');
+        a_iri = ele.attr('abbreviatedIRI');
+        if (!!iri && !_this.iri_is_created(iri)) {
+          _this._build_model(iri);
+        }
+        if (!!a_iri && !_this.iri_is_created(a_iri)) {
+          iri = _this._get_fix_bug_iri(iri);
+          return _this._get_default_mode_by_iri(iri);
+        }
       });
     };
 
@@ -1342,11 +1381,18 @@
 
     IndividualParser.prototype._parse_model = function() {
       var _this = this;
-      return this.owl_parser.owl_doc.find('Declaration NamedIndividual').each(function(i, dom) {
-        var ele, iri;
+      return this.owl_parser.owl_doc.find('NamedIndividual').each(function(i, dom) {
+        var a_iri, ele, iri;
         ele = jQuery(dom);
         iri = ele.attr('IRI');
-        return _this._build_model(iri);
+        a_iri = ele.attr('abbreviatedIRI');
+        if (!!iri && !_this.iri_is_created(iri)) {
+          _this._build_model(iri);
+        }
+        if (!!a_iri && !_this.iri_is_created(a_iri)) {
+          iri = _this._get_fix_bug_iri(iri);
+          return _this._get_default_mode_by_iri(iri);
+        }
       });
     };
 
@@ -1519,11 +1565,18 @@
 
     ObjectPropertyParser.prototype._parse_model = function() {
       var _this = this;
-      return this.owl_parser.owl_doc.find('Declaration ObjectProperty').each(function(i, dom) {
-        var ele, iri;
+      return this.owl_parser.owl_doc.find('ObjectProperty').each(function(i, dom) {
+        var a_iri, ele, iri;
         ele = jQuery(dom);
         iri = ele.attr('IRI');
-        return _this._build_model(iri);
+        a_iri = ele.attr('abbreviatedIRI');
+        if (!!iri && !_this.iri_is_created(iri)) {
+          _this._build_model(iri);
+        }
+        if (!!a_iri && !_this.iri_is_created(a_iri)) {
+          iri = _this._get_fix_bug_iri(iri);
+          return _this._get_default_mode_by_iri(iri);
+        }
       });
     };
 

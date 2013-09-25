@@ -60,9 +60,15 @@ class DataTypeParser extends BaseParser
     return @_build_model(iri)
 
   _parse_model: ->
-    @owl_parser.owl_doc.find('Declaration Datatype').each (i, dom)=>
-      iri = jQuery(dom).attr('IRI')
-      @_build_model(iri)
+    @owl_parser.owl_doc.find('Datatype').each (i, dom)=>
+      ele = jQuery(dom)
+      iri = ele.attr('IRI')
+      a_iri = ele.attr('abbreviatedIRI')
+      if !!iri && !@iri_is_created(iri)
+        @_build_model(iri)
+      if !!a_iri && !@iri_is_created(a_iri)
+        iri = @_get_fix_bug_iri(iri)
+        @_get_default_mode_by_iri(iri)
 
   _build_model: (iri)->
     dt = new OntologyDataType(iri)
