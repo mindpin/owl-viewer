@@ -46,10 +46,11 @@ class ObjectPropertyParser extends BaseParser
       iri = ele.attr('IRI')
       a_iri = ele.attr('abbreviatedIRI')
       if !!iri && !@iri_is_created(iri)
+        iri = @_get_fix_bug_iri(iri)
         @_build_model(iri)
       if !!a_iri && !@iri_is_created(a_iri)
-        iri = @_get_fix_bug_iri(iri)
-        @_get_default_mode_by_iri(iri)
+        a_iri = @_get_fix_bug_iri(a_iri)
+        @_get_default_mode_by_iri(a_iri)
 
   _build_model: (iri)->
     odp = new OntologyObjectProperty(iri)
@@ -69,10 +70,10 @@ class ObjectPropertyParser extends BaseParser
   _build_sub_and_parent_model: (sub_iri, parent_iri)->
     sub    = @get_model_by_iri(sub_iri)
     parent = @get_model_by_iri(parent_iri)
-
-    relation = new OntologyObjectPropertyParentSubRelation(parent, sub)
-    parent.add_relation(relation)
-    sub.add_relation(relation)
+    if !!sub && !!parent
+      relation = new OntologyObjectPropertyParentSubRelation(parent, sub)
+      parent.add_relation(relation)
+      sub.add_relation(relation)
 
   _parse_equivalence_model: ->
     @owl_parser.owl_doc.find('EquivalentObjectProperties').each (i, dom)=>
@@ -87,10 +88,10 @@ class ObjectPropertyParser extends BaseParser
   _build_equivalence_model: (iri, other_iri)->
     op       = @get_model_by_iri(iri)
     other_op = @get_model_by_iri(other_iri)
-
-    relation = new OntologyObjectPropertyEquivalentRelation([op, other_op])
-    op.add_relation(relation)
-    other_op.add_relation(relation)
+    if !!op && !!other_op
+      relation = new OntologyObjectPropertyEquivalentRelation([op, other_op])
+      op.add_relation(relation)
+      other_op.add_relation(relation)
 
   _parse_inverse_model: ->
     @owl_parser.owl_doc.find('InverseObjectProperties').each (i, dom)=>
@@ -105,9 +106,11 @@ class ObjectPropertyParser extends BaseParser
   _build_inverse_model: (iri, other_iri)->
     op       = @get_model_by_iri(iri)
     other_op = @get_model_by_iri(other_iri)
-    relation = new OntologyObjectPropertyInverseRelation([op, other_op])
-    op.add_relation(relation)
-    other_op.add_relation(relation)
+
+    if !!op && !!other_op
+      relation = new OntologyObjectPropertyInverseRelation([op, other_op])
+      op.add_relation(relation)
+      other_op.add_relation(relation)
 
   _parse_disjoint_model: ->
     @owl_parser.owl_doc.find('DisjointObjectProperties').each (i, dom)=>
@@ -122,9 +125,11 @@ class ObjectPropertyParser extends BaseParser
   _build_disjoint_model: (iri, other_iri)->
     op       = @get_model_by_iri(iri)
     other_op = @get_model_by_iri(other_iri)
-    relation = new OntologyObjectPropertyDisjointRelation([op, other_op])
-    op.add_relation(relation)
-    other_op.add_relation(relation)
+
+    if !!op && !!other_op
+      relation = new OntologyObjectPropertyDisjointRelation([op, other_op])
+      op.add_relation(relation)
+      other_op.add_relation(relation)
 
   _parse_related_domain_class: ->
     @owl_parser.owl_doc.find('ObjectPropertyDomain').each (i, dom)=>
@@ -139,9 +144,10 @@ class ObjectPropertyParser extends BaseParser
     op    = @get_model_by_iri(op_iri)
     clazz = @owl_parser.class_parser.get_model_by_iri(class_iri)
     
-    relation = new OntologyObjectPropertyDomainClassRelation(op, clazz)
-    op.add_relation(relation)
-    clazz.add_relation(relation)
+    if !!op && !!clazz
+      relation = new OntologyObjectPropertyDomainClassRelation(op, clazz)
+      op.add_relation(relation)
+      clazz.add_relation(relation)
 
   _parse_realted_range_class: ->
     @owl_parser.owl_doc.find('ObjectPropertyRange').each (i, dom)=>
@@ -156,9 +162,10 @@ class ObjectPropertyParser extends BaseParser
     op    = @get_model_by_iri(op_iri)
     clazz = @owl_parser.class_parser.get_model_by_iri(class_iri)
       
-    relation = new OntologyObjectPropertyRangeClassRelation(op, clazz)
-    op.add_relation(relation)
-    clazz.add_relation(relation)
+    if !!op && !!clazz
+      relation = new OntologyObjectPropertyRangeClassRelation(op, clazz)
+      op.add_relation(relation)
+      clazz.add_relation(relation)
 
   _parse_related_characteristic: ->
     for name,value of ObjectPropertyParser.characteristic_data

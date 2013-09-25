@@ -44,10 +44,11 @@ class AnnotationParser extends BaseParser
       iri = ele.attr('IRI')
       a_iri = ele.attr('abbreviatedIRI')
       if !!iri && !@iri_is_created(iri)
+        iri = @_get_fix_bug_iri(iri)
         @_build_model(iri)
       if !!a_iri && !@iri_is_created(a_iri)
-        iri = @_get_fix_bug_iri(iri)
-        @_get_default_mode_by_iri(iri)
+        a_iri = @_get_fix_bug_iri(a_iri)
+        @_get_default_mode_by_iri(a_iri)
 
   _parse_sub_and_parent_model: ->
     @owl_parser.owl_doc.find('SubAnnotationPropertyOf').each (i,dom)=>
@@ -97,33 +98,37 @@ class AnnotationParser extends BaseParser
     sub    = @get_model_by_iri(sub_iri)
     parent = @get_model_by_iri(parent_iri)
 
-    relation = new OntologyAnnotationParentSubRelation(parent, sub)
-    parent.add_relation(relation)
-    sub.add_relation(relation)
+    if !!sub && !!parent
+      relation = new OntologyAnnotationParentSubRelation(parent, sub)
+      parent.add_relation(relation)
+      sub.add_relation(relation)
 
   _build_related_domain_class: (annotation_iri, class_iri)->
     annotation = @get_model_by_iri(annotation_iri)
     clazz      = @owl_parser.class_parser.get_model_by_iri(class_iri)
     
-    relation = new OntologyAnnotationDomainClassRelation(clazz, annotation)
-    annotation.add_relation(relation)
-    clazz.add_relation(relation)
+    if !!annotation && !!clazz
+      relation = new OntologyAnnotationDomainClassRelation(clazz, annotation)
+      annotation.add_relation(relation)
+      clazz.add_relation(relation)
     
   _build_related_range_class: (annotation_iri, class_iri)->
     annotation = @get_model_by_iri(annotation_iri)
     clazz      = @owl_parser.class_parser.get_model_by_iri(class_iri)
 
-    relation = new OntologyAnnotationRangeClassRelation(clazz, annotation)
-    annotation.add_relation(relation)
-    clazz.add_relation(relation)
+    if !!annotation && !!clazz
+      relation = new OntologyAnnotationRangeClassRelation(clazz, annotation)
+      annotation.add_relation(relation)
+      clazz.add_relation(relation)
 
   _build_related_annotation_value: (model_iri, annotation_iri, data_type_iri, value)->
     model      = @owl_parser.get_model_by_iri(model_iri)
     annotation = @get_model_by_iri(annotation_iri)
     data_type  = @owl_parser.data_type_parser.get_model_by_iri(data_type_iri)
 
-    relation = new OntologyAnnotationValueRelation(model, annotation, data_type, value)
-    model.add_relation(relation)
+    if !!model && !!annotation && !!data_type
+      relation = new OntologyAnnotationValueRelation(model, annotation, data_type, value)
+      model.add_relation(relation)
     
 jQuery.extend window,
   AnnotationParser: AnnotationParser

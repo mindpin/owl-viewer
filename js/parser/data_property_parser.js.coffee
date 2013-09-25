@@ -39,10 +39,11 @@ class DataPropertyParser extends BaseParser
       iri = ele.attr('IRI')
       a_iri = ele.attr('abbreviatedIRI')
       if !!iri && !@iri_is_created(iri)
+        iri = @_get_fix_bug_iri(iri)
         @_build_model(iri)
       if !!a_iri && !@iri_is_created(a_iri)
-        iri = @_get_fix_bug_iri(iri)
-        @_get_default_mode_by_iri(iri)
+        a_iri = @_get_fix_bug_iri(a_iri)
+        @_get_default_mode_by_iri(a_iri)
 
   _build_model: (iri)->
     data_property = new OntologyDataProperty(iri)
@@ -63,9 +64,10 @@ class DataPropertyParser extends BaseParser
     sub    = @get_model_by_iri(sub_iri)
     parent = @get_model_by_iri(parent_iri)
 
-    relation = new OntologyDataPropertyParentSubRelation(parent, sub)
-    parent.add_relation(relation)
-    sub.add_relation(relation)
+    if !!sub && !!parent
+      relation = new OntologyDataPropertyParentSubRelation(parent, sub)
+      parent.add_relation(relation)
+      sub.add_relation(relation)
 
   _parse_equivalence_model: ->
     @owl_parser.owl_doc.find('EquivalentDataProperties').each (i, dom)=>
@@ -81,9 +83,10 @@ class DataPropertyParser extends BaseParser
     dp       = @get_model_by_iri(iri)
     other_dp = @get_model_by_iri(other_iri)
 
-    relation = new OntologyDataPropertyEquivalentRelation([dp, other_dp])
-    dp.add_relation(relation)
-    other_dp.add_relation(relation)
+    if !!dp && !!other_dp
+      relation = new OntologyDataPropertyEquivalentRelation([dp, other_dp])
+      dp.add_relation(relation)
+      other_dp.add_relation(relation)
 
   _parse_disjoint_model: ->
     @owl_parser.owl_doc.find('DisjointDataProperties').each (i, dom)=>
@@ -99,9 +102,10 @@ class DataPropertyParser extends BaseParser
     dp       = @get_model_by_iri(iri)
     other_dp = @get_model_by_iri(other_iri)
 
-    relation = new OntologyDataPropertyDisjointRelation([dp, other_dp])
-    dp.add_relation(relation)
-    other_dp.add_relation(relation)
+    if !!dp && !!other_dp
+      relation = new OntologyDataPropertyDisjointRelation([dp, other_dp])
+      dp.add_relation(relation)
+      other_dp.add_relation(relation)
 
   _parse_related_domain_class: ->
     @owl_parser.owl_doc.find('DataPropertyDomain').each (i, dom)=>
@@ -116,9 +120,10 @@ class DataPropertyParser extends BaseParser
     dp    = @get_model_by_iri(iri)
     clazz = @owl_parser.class_parser.get_model_by_iri(class_iri)
 
-    relation = new OntologyDataPropertyDomainClassRelation(dp, clazz)
-    dp.add_relation(relation)
-    clazz.add_relation(relation)
+    if !!dp && !!clazz
+      relation = new OntologyDataPropertyDomainClassRelation(dp, clazz)
+      dp.add_relation(relation)
+      clazz.add_relation(relation)
 
   _parse_related_range_data_type: ->
     @owl_parser.owl_doc.find('DataPropertyRange').each (i,dom)=>
@@ -133,9 +138,10 @@ class DataPropertyParser extends BaseParser
     dp = @get_model_by_iri(dp_iri)
     dt = @owl_parser.data_type_parser.get_model_by_iri(dt_iri)
     
-    relation = new OntologyDataPropertyRangeDataTypeRelation(dp, dt)
-    dp.add_relation(relation)
-    dt.add_relation(relation)
+    if !!dp && !!dt
+      relation = new OntologyDataPropertyRangeDataTypeRelation(dp, dt)
+      dp.add_relation(relation)
+      dt.add_relation(relation)
 
   _parse_related_characteristic: ->
     for name,value of DataPropertyParser.characteristic_data

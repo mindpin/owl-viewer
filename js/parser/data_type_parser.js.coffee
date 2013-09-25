@@ -65,10 +65,11 @@ class DataTypeParser extends BaseParser
       iri = ele.attr('IRI')
       a_iri = ele.attr('abbreviatedIRI')
       if !!iri && !@iri_is_created(iri)
+        iri = @_get_fix_bug_iri(iri)
         @_build_model(iri)
       if !!a_iri && !@iri_is_created(a_iri)
-        iri = @_get_fix_bug_iri(iri)
-        @_get_default_mode_by_iri(iri)
+        a_iri = @_get_fix_bug_iri(a_iri)
+        @_get_default_mode_by_iri(a_iri)
 
   _build_model: (iri)->
     dt = new OntologyDataType(iri)

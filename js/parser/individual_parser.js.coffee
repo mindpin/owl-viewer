@@ -25,10 +25,11 @@ class IndividualParser extends BaseParser
       iri = ele.attr('IRI')
       a_iri = ele.attr('abbreviatedIRI')
       if !!iri && !@iri_is_created(iri)
+        iri = @_get_fix_bug_iri(iri)
         @_build_model(iri)
       if !!a_iri && !@iri_is_created(a_iri)
-        iri = @_get_fix_bug_iri(iri)
-        @_get_default_mode_by_iri(iri)
+        a_iri = @_get_fix_bug_iri(a_iri)
+        @_get_default_mode_by_iri(a_iri)
 
   _build_model: (iri)->
     indi         = new OntologyIndividual(iri)
@@ -47,9 +48,10 @@ class IndividualParser extends BaseParser
     indi       = @get_model_by_iri(iri)
     other_indi = @get_model_by_iri(other_iri)
 
-    relation = new OntologyIndividualSameRelation([indi, other_indi])
-    indi.add_relation(relation)
-    other_indi.add_relation(relation)
+    if !!indi && !!other_indi
+      relation = new OntologyIndividualSameRelation([indi, other_indi])
+      indi.add_relation(relation)
+      other_indi.add_relation(relation)
 
   _parse_different_model: ->
     @owl_parser.owl_doc.find('DifferentIndividuals').each (i, dom)=>
@@ -63,9 +65,10 @@ class IndividualParser extends BaseParser
     indi       = @get_model_by_iri(iri)
     other_indi = @get_model_by_iri(other_iri)
 
-    relation = new OntologyIndividualDifferentRelation([indi, other_indi])
-    indi.add_relation(relation)
-    other_indi.add_relation(relation)
+    if !!indi && !!other_indi
+      relation = new OntologyIndividualDifferentRelation([indi, other_indi])
+      indi.add_relation(relation)
+      other_indi.add_relation(relation)
 
   _parse_related_object_property_value: ->
     @owl_parser.owl_doc.find('ObjectPropertyAssertion').each (i, dom)=>
@@ -82,8 +85,9 @@ class IndividualParser extends BaseParser
     value = @get_model_by_iri(value_indi_iri)
     op    = @owl_parser.object_property_parser.get_model_by_iri(op_iri)
 
-    relation = new OntologyIndividualObjectPropertyValueRelation(indi, op, value)
-    indi.add_relation(relation)
+    if !!indi && !!op && !!value
+      relation = new OntologyIndividualObjectPropertyValueRelation(indi, op, value)
+      indi.add_relation(relation)
 
   _parse_related_data_property_value: ->
     @owl_parser.owl_doc.find('DataPropertyAssertion').each (i, dom)=>
@@ -100,9 +104,9 @@ class IndividualParser extends BaseParser
     dp = @owl_parser.data_property_parser.get_model_by_iri(dp_iri)
     data_type = @owl_parser.data_type_parser.get_model_by_iri(data_type_iri)
 
-    relation = new OntologyIndividualDataPropertyValueRelation(indi, dp, data_type, value)
-
-    indi.add_relation(relation)
+    if !!indi && !!dp && !!data_type
+      relation = new OntologyIndividualDataPropertyValueRelation(indi, dp, data_type, value)
+      indi.add_relation(relation)
 
 jQuery.extend window,
   IndividualParser: IndividualParser

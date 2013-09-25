@@ -670,11 +670,12 @@
         iri = ele.attr('IRI');
         a_iri = ele.attr('abbreviatedIRI');
         if (!!iri && !_this.iri_is_created(iri)) {
+          iri = _this._get_fix_bug_iri(iri);
           _this._build_model(iri);
         }
         if (!!a_iri && !_this.iri_is_created(a_iri)) {
-          iri = _this._get_fix_bug_iri(iri);
-          return _this._get_default_mode_by_iri(iri);
+          a_iri = _this._get_fix_bug_iri(a_iri);
+          return _this._get_default_mode_by_iri(a_iri);
         }
       });
     };
@@ -761,27 +762,33 @@
       var parent, relation, sub;
       sub = this.get_model_by_iri(sub_iri);
       parent = this.get_model_by_iri(parent_iri);
-      relation = new OntologyAnnotationParentSubRelation(parent, sub);
-      parent.add_relation(relation);
-      return sub.add_relation(relation);
+      if (!!sub && !!parent) {
+        relation = new OntologyAnnotationParentSubRelation(parent, sub);
+        parent.add_relation(relation);
+        return sub.add_relation(relation);
+      }
     };
 
     AnnotationParser.prototype._build_related_domain_class = function(annotation_iri, class_iri) {
       var annotation, clazz, relation;
       annotation = this.get_model_by_iri(annotation_iri);
       clazz = this.owl_parser.class_parser.get_model_by_iri(class_iri);
-      relation = new OntologyAnnotationDomainClassRelation(clazz, annotation);
-      annotation.add_relation(relation);
-      return clazz.add_relation(relation);
+      if (!!annotation && !!clazz) {
+        relation = new OntologyAnnotationDomainClassRelation(clazz, annotation);
+        annotation.add_relation(relation);
+        return clazz.add_relation(relation);
+      }
     };
 
     AnnotationParser.prototype._build_related_range_class = function(annotation_iri, class_iri) {
       var annotation, clazz, relation;
       annotation = this.get_model_by_iri(annotation_iri);
       clazz = this.owl_parser.class_parser.get_model_by_iri(class_iri);
-      relation = new OntologyAnnotationRangeClassRelation(clazz, annotation);
-      annotation.add_relation(relation);
-      return clazz.add_relation(relation);
+      if (!!annotation && !!clazz) {
+        relation = new OntologyAnnotationRangeClassRelation(clazz, annotation);
+        annotation.add_relation(relation);
+        return clazz.add_relation(relation);
+      }
     };
 
     AnnotationParser.prototype._build_related_annotation_value = function(model_iri, annotation_iri, data_type_iri, value) {
@@ -789,8 +796,10 @@
       model = this.owl_parser.get_model_by_iri(model_iri);
       annotation = this.get_model_by_iri(annotation_iri);
       data_type = this.owl_parser.data_type_parser.get_model_by_iri(data_type_iri);
-      relation = new OntologyAnnotationValueRelation(model, annotation, data_type, value);
-      return model.add_relation(relation);
+      if (!!model && !!annotation && !!data_type) {
+        relation = new OntologyAnnotationValueRelation(model, annotation, data_type, value);
+        return model.add_relation(relation);
+      }
     };
 
     return AnnotationParser;
@@ -805,7 +814,7 @@
 
     __extends(ClassParser, _super);
 
-    ClassParser.DEFAULT_IRIS = ['owl:Thing'];
+    ClassParser.DEFAULT_IRIS = ['owl:Thing', 'owl:Nothing'];
 
     function ClassParser(owl_parser) {
       this.owl_parser = owl_parser;
@@ -856,11 +865,12 @@
         iri = ele.attr('IRI');
         a_iri = ele.attr('abbreviatedIRI');
         if (!!iri && !_this.iri_is_created(iri)) {
+          iri = _this._get_fix_bug_iri(iri);
           _this._build_model(iri);
         }
         if (!!a_iri && !_this.iri_is_created(a_iri)) {
-          iri = _this._get_fix_bug_iri(iri);
-          return _this._get_default_mode_by_iri(iri);
+          a_iri = _this._get_fix_bug_iri(a_iri);
+          return _this._get_default_mode_by_iri(a_iri);
         }
       });
     };
@@ -894,9 +904,11 @@
       var parent, relation, sub;
       sub = this.get_model_by_iri(sub_iri);
       parent = this.get_model_by_iri(parent_iri);
-      relation = new OntologyClassParentSubRelation(parent, sub);
-      parent.add_relation(relation);
-      return sub.add_relation(relation);
+      if (!!sub && !!parent) {
+        relation = new OntologyClassParentSubRelation(parent, sub);
+        parent.add_relation(relation);
+        return sub.add_relation(relation);
+      }
     };
 
     ClassParser.prototype._parse_equivalence_model = function() {
@@ -921,9 +933,11 @@
       var clazz, other_class, relation;
       clazz = this.get_model_by_iri(iri);
       other_class = this.get_model_by_iri(other_iri);
-      relation = new OntologyClassEquivalentRelation([clazz, other_class]);
-      clazz.add_relation(relation);
-      return other_class.add_relation(relation);
+      if (!!clazz && !!other_class) {
+        relation = new OntologyClassEquivalentRelation([clazz, other_class]);
+        clazz.add_relation(relation);
+        return other_class.add_relation(relation);
+      }
     };
 
     ClassParser.prototype._parse_disjoint_model = function() {
@@ -948,9 +962,11 @@
       var clazz, other_class, relation;
       clazz = this.get_model_by_iri(iri);
       other_class = this.get_model_by_iri(other_iri);
-      relation = new OntologyClassDisjointRelation([clazz, other_class]);
-      clazz.add_relation(relation);
-      return other_class.add_relation(relation);
+      if (!!clazz && !!other_class) {
+        relation = new OntologyClassDisjointRelation([clazz, other_class]);
+        clazz.add_relation(relation);
+        return other_class.add_relation(relation);
+      }
     };
 
     ClassParser.prototype._parse_related_individual = function() {
@@ -971,9 +987,11 @@
       var clazz, individual, relation;
       clazz = this.get_model_by_iri(class_iri);
       individual = this.owl_parser.individual_parser.get_model_by_iri(individual_iri);
-      relation = new OntologyClassIndividualRelation(clazz, individual);
-      clazz.add_relation(relation);
-      return individual.add_relation(relation);
+      if (!!clazz && !!individual) {
+        relation = new OntologyClassIndividualRelation(clazz, individual);
+        clazz.add_relation(relation);
+        return individual.add_relation(relation);
+      }
     };
 
     ClassParser.prototype._parse_related_object_property = function() {
@@ -999,7 +1017,9 @@
       var clazz, op;
       clazz = this.get_model_by_iri(class_iri);
       op = this.owl_parser.object_property_parser.get_model_by_iri(op_iri);
-      return clazz.add_object_property(op);
+      if (!!clazz && !!op) {
+        return clazz.add_object_property(op);
+      }
     };
 
     ClassParser.prototype._parse_related_data_property = function() {
@@ -1025,7 +1045,9 @@
       var clazz, op;
       clazz = this.get_model_by_iri(class_iri);
       op = this.owl_parser.data_property_parser.get_model_by_iri(dp_iri);
-      return clazz.add_data_property(op);
+      if (!!clazz && !!op) {
+        return clazz.add_data_property(op);
+      }
     };
 
     return ClassParser;
@@ -1095,11 +1117,12 @@
         iri = ele.attr('IRI');
         a_iri = ele.attr('abbreviatedIRI');
         if (!!iri && !_this.iri_is_created(iri)) {
+          iri = _this._get_fix_bug_iri(iri);
           _this._build_model(iri);
         }
         if (!!a_iri && !_this.iri_is_created(a_iri)) {
-          iri = _this._get_fix_bug_iri(iri);
-          return _this._get_default_mode_by_iri(iri);
+          a_iri = _this._get_fix_bug_iri(a_iri);
+          return _this._get_default_mode_by_iri(a_iri);
         }
       });
     };
@@ -1133,9 +1156,11 @@
       var parent, relation, sub;
       sub = this.get_model_by_iri(sub_iri);
       parent = this.get_model_by_iri(parent_iri);
-      relation = new OntologyDataPropertyParentSubRelation(parent, sub);
-      parent.add_relation(relation);
-      return sub.add_relation(relation);
+      if (!!sub && !!parent) {
+        relation = new OntologyDataPropertyParentSubRelation(parent, sub);
+        parent.add_relation(relation);
+        return sub.add_relation(relation);
+      }
     };
 
     DataPropertyParser.prototype._parse_equivalence_model = function() {
@@ -1160,9 +1185,11 @@
       var dp, other_dp, relation;
       dp = this.get_model_by_iri(iri);
       other_dp = this.get_model_by_iri(other_iri);
-      relation = new OntologyDataPropertyEquivalentRelation([dp, other_dp]);
-      dp.add_relation(relation);
-      return other_dp.add_relation(relation);
+      if (!!dp && !!other_dp) {
+        relation = new OntologyDataPropertyEquivalentRelation([dp, other_dp]);
+        dp.add_relation(relation);
+        return other_dp.add_relation(relation);
+      }
     };
 
     DataPropertyParser.prototype._parse_disjoint_model = function() {
@@ -1187,9 +1214,11 @@
       var dp, other_dp, relation;
       dp = this.get_model_by_iri(iri);
       other_dp = this.get_model_by_iri(other_iri);
-      relation = new OntologyDataPropertyDisjointRelation([dp, other_dp]);
-      dp.add_relation(relation);
-      return other_dp.add_relation(relation);
+      if (!!dp && !!other_dp) {
+        relation = new OntologyDataPropertyDisjointRelation([dp, other_dp]);
+        dp.add_relation(relation);
+        return other_dp.add_relation(relation);
+      }
     };
 
     DataPropertyParser.prototype._parse_related_domain_class = function() {
@@ -1213,9 +1242,11 @@
       var clazz, dp, relation;
       dp = this.get_model_by_iri(iri);
       clazz = this.owl_parser.class_parser.get_model_by_iri(class_iri);
-      relation = new OntologyDataPropertyDomainClassRelation(dp, clazz);
-      dp.add_relation(relation);
-      return clazz.add_relation(relation);
+      if (!!dp && !!clazz) {
+        relation = new OntologyDataPropertyDomainClassRelation(dp, clazz);
+        dp.add_relation(relation);
+        return clazz.add_relation(relation);
+      }
     };
 
     DataPropertyParser.prototype._parse_related_range_data_type = function() {
@@ -1239,9 +1270,11 @@
       var dp, dt, relation;
       dp = this.get_model_by_iri(dp_iri);
       dt = this.owl_parser.data_type_parser.get_model_by_iri(dt_iri);
-      relation = new OntologyDataPropertyRangeDataTypeRelation(dp, dt);
-      dp.add_relation(relation);
-      return dt.add_relation(relation);
+      if (!!dp && !!dt) {
+        relation = new OntologyDataPropertyRangeDataTypeRelation(dp, dt);
+        dp.add_relation(relation);
+        return dt.add_relation(relation);
+      }
     };
 
     DataPropertyParser.prototype._parse_related_characteristic = function() {
@@ -1325,11 +1358,12 @@
         iri = ele.attr('IRI');
         a_iri = ele.attr('abbreviatedIRI');
         if (!!iri && !_this.iri_is_created(iri)) {
+          iri = _this._get_fix_bug_iri(iri);
           _this._build_model(iri);
         }
         if (!!a_iri && !_this.iri_is_created(a_iri)) {
-          iri = _this._get_fix_bug_iri(iri);
-          return _this._get_default_mode_by_iri(iri);
+          a_iri = _this._get_fix_bug_iri(a_iri);
+          return _this._get_default_mode_by_iri(a_iri);
         }
       });
     };
@@ -1387,11 +1421,12 @@
         iri = ele.attr('IRI');
         a_iri = ele.attr('abbreviatedIRI');
         if (!!iri && !_this.iri_is_created(iri)) {
+          iri = _this._get_fix_bug_iri(iri);
           _this._build_model(iri);
         }
         if (!!a_iri && !_this.iri_is_created(a_iri)) {
-          iri = _this._get_fix_bug_iri(iri);
-          return _this._get_default_mode_by_iri(iri);
+          a_iri = _this._get_fix_bug_iri(a_iri);
+          return _this._get_default_mode_by_iri(a_iri);
         }
       });
     };
@@ -1421,9 +1456,11 @@
       var indi, other_indi, relation;
       indi = this.get_model_by_iri(iri);
       other_indi = this.get_model_by_iri(other_iri);
-      relation = new OntologyIndividualSameRelation([indi, other_indi]);
-      indi.add_relation(relation);
-      return other_indi.add_relation(relation);
+      if (!!indi && !!other_indi) {
+        relation = new OntologyIndividualSameRelation([indi, other_indi]);
+        indi.add_relation(relation);
+        return other_indi.add_relation(relation);
+      }
     };
 
     IndividualParser.prototype._parse_different_model = function() {
@@ -1442,9 +1479,11 @@
       var indi, other_indi, relation;
       indi = this.get_model_by_iri(iri);
       other_indi = this.get_model_by_iri(other_iri);
-      relation = new OntologyIndividualDifferentRelation([indi, other_indi]);
-      indi.add_relation(relation);
-      return other_indi.add_relation(relation);
+      if (!!indi && !!other_indi) {
+        relation = new OntologyIndividualDifferentRelation([indi, other_indi]);
+        indi.add_relation(relation);
+        return other_indi.add_relation(relation);
+      }
     };
 
     IndividualParser.prototype._parse_related_object_property_value = function() {
@@ -1468,8 +1507,10 @@
       indi = this.get_model_by_iri(indi_iri);
       value = this.get_model_by_iri(value_indi_iri);
       op = this.owl_parser.object_property_parser.get_model_by_iri(op_iri);
-      relation = new OntologyIndividualObjectPropertyValueRelation(indi, op, value);
-      return indi.add_relation(relation);
+      if (!!indi && !!op && !!value) {
+        relation = new OntologyIndividualObjectPropertyValueRelation(indi, op, value);
+        return indi.add_relation(relation);
+      }
     };
 
     IndividualParser.prototype._parse_related_data_property_value = function() {
@@ -1493,8 +1534,10 @@
       indi = this.get_model_by_iri(indi_iri);
       dp = this.owl_parser.data_property_parser.get_model_by_iri(dp_iri);
       data_type = this.owl_parser.data_type_parser.get_model_by_iri(data_type_iri);
-      relation = new OntologyIndividualDataPropertyValueRelation(indi, dp, data_type, value);
-      return indi.add_relation(relation);
+      if (!!indi && !!dp && !!data_type) {
+        relation = new OntologyIndividualDataPropertyValueRelation(indi, dp, data_type, value);
+        return indi.add_relation(relation);
+      }
     };
 
     return IndividualParser;
@@ -1571,11 +1614,12 @@
         iri = ele.attr('IRI');
         a_iri = ele.attr('abbreviatedIRI');
         if (!!iri && !_this.iri_is_created(iri)) {
+          iri = _this._get_fix_bug_iri(iri);
           _this._build_model(iri);
         }
         if (!!a_iri && !_this.iri_is_created(a_iri)) {
-          iri = _this._get_fix_bug_iri(iri);
-          return _this._get_default_mode_by_iri(iri);
+          a_iri = _this._get_fix_bug_iri(a_iri);
+          return _this._get_default_mode_by_iri(a_iri);
         }
       });
     };
@@ -1609,9 +1653,11 @@
       var parent, relation, sub;
       sub = this.get_model_by_iri(sub_iri);
       parent = this.get_model_by_iri(parent_iri);
-      relation = new OntologyObjectPropertyParentSubRelation(parent, sub);
-      parent.add_relation(relation);
-      return sub.add_relation(relation);
+      if (!!sub && !!parent) {
+        relation = new OntologyObjectPropertyParentSubRelation(parent, sub);
+        parent.add_relation(relation);
+        return sub.add_relation(relation);
+      }
     };
 
     ObjectPropertyParser.prototype._parse_equivalence_model = function() {
@@ -1636,9 +1682,11 @@
       var op, other_op, relation;
       op = this.get_model_by_iri(iri);
       other_op = this.get_model_by_iri(other_iri);
-      relation = new OntologyObjectPropertyEquivalentRelation([op, other_op]);
-      op.add_relation(relation);
-      return other_op.add_relation(relation);
+      if (!!op && !!other_op) {
+        relation = new OntologyObjectPropertyEquivalentRelation([op, other_op]);
+        op.add_relation(relation);
+        return other_op.add_relation(relation);
+      }
     };
 
     ObjectPropertyParser.prototype._parse_inverse_model = function() {
@@ -1663,9 +1711,11 @@
       var op, other_op, relation;
       op = this.get_model_by_iri(iri);
       other_op = this.get_model_by_iri(other_iri);
-      relation = new OntologyObjectPropertyInverseRelation([op, other_op]);
-      op.add_relation(relation);
-      return other_op.add_relation(relation);
+      if (!!op && !!other_op) {
+        relation = new OntologyObjectPropertyInverseRelation([op, other_op]);
+        op.add_relation(relation);
+        return other_op.add_relation(relation);
+      }
     };
 
     ObjectPropertyParser.prototype._parse_disjoint_model = function() {
@@ -1690,9 +1740,11 @@
       var op, other_op, relation;
       op = this.get_model_by_iri(iri);
       other_op = this.get_model_by_iri(other_iri);
-      relation = new OntologyObjectPropertyDisjointRelation([op, other_op]);
-      op.add_relation(relation);
-      return other_op.add_relation(relation);
+      if (!!op && !!other_op) {
+        relation = new OntologyObjectPropertyDisjointRelation([op, other_op]);
+        op.add_relation(relation);
+        return other_op.add_relation(relation);
+      }
     };
 
     ObjectPropertyParser.prototype._parse_related_domain_class = function() {
@@ -1716,9 +1768,11 @@
       var clazz, op, relation;
       op = this.get_model_by_iri(op_iri);
       clazz = this.owl_parser.class_parser.get_model_by_iri(class_iri);
-      relation = new OntologyObjectPropertyDomainClassRelation(op, clazz);
-      op.add_relation(relation);
-      return clazz.add_relation(relation);
+      if (!!op && !!clazz) {
+        relation = new OntologyObjectPropertyDomainClassRelation(op, clazz);
+        op.add_relation(relation);
+        return clazz.add_relation(relation);
+      }
     };
 
     ObjectPropertyParser.prototype._parse_realted_range_class = function() {
@@ -1742,9 +1796,11 @@
       var clazz, op, relation;
       op = this.get_model_by_iri(op_iri);
       clazz = this.owl_parser.class_parser.get_model_by_iri(class_iri);
-      relation = new OntologyObjectPropertyRangeClassRelation(op, clazz);
-      op.add_relation(relation);
-      return clazz.add_relation(relation);
+      if (!!op && !!clazz) {
+        relation = new OntologyObjectPropertyRangeClassRelation(op, clazz);
+        op.add_relation(relation);
+        return clazz.add_relation(relation);
+      }
     };
 
     ObjectPropertyParser.prototype._parse_related_characteristic = function() {

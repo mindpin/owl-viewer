@@ -1,5 +1,5 @@
 class ClassParser extends BaseParser
-  @DEFAULT_IRIS = ['owl:Thing']
+  @DEFAULT_IRIS = ['owl:Thing','owl:Nothing']
 
   constructor: (owl_parser) ->
     @owl_parser = owl_parser
@@ -36,10 +36,11 @@ class ClassParser extends BaseParser
       iri = ele.attr('IRI')
       a_iri = ele.attr('abbreviatedIRI')
       if !!iri && !@iri_is_created(iri)
+        iri = @_get_fix_bug_iri(iri)
         @_build_model(iri)
       if !!a_iri && !@iri_is_created(a_iri)
-        iri = @_get_fix_bug_iri(iri)
-        @_get_default_mode_by_iri(iri)
+        a_iri = @_get_fix_bug_iri(a_iri)
+        @_get_default_mode_by_iri(a_iri)
 
   _build_model: (iri)->
     clazz   = new OntologyClass(iri)
@@ -59,9 +60,11 @@ class ClassParser extends BaseParser
   _build_sub_and_parent_model: (sub_iri, parent_iri)->
     sub    = @get_model_by_iri(sub_iri)
     parent = @get_model_by_iri(parent_iri)
-    relation = new OntologyClassParentSubRelation(parent, sub)
-    parent.add_relation(relation)
-    sub.add_relation(relation)
+
+    if !!sub && !!parent
+      relation = new OntologyClassParentSubRelation(parent, sub)
+      parent.add_relation(relation)
+      sub.add_relation(relation)
 
   _parse_equivalence_model: ->
     @owl_parser.owl_doc.find('EquivalentClasses').each (i,dom)=>
@@ -76,9 +79,11 @@ class ClassParser extends BaseParser
   _build_equivalence_model: (iri, other_iri)->
     clazz       = @get_model_by_iri(iri)
     other_class = @get_model_by_iri(other_iri)
-    relation = new OntologyClassEquivalentRelation([clazz, other_class])
-    clazz.add_relation(relation)
-    other_class.add_relation(relation)
+
+    if !!clazz && !!other_class
+      relation = new OntologyClassEquivalentRelation([clazz, other_class])
+      clazz.add_relation(relation)
+      other_class.add_relation(relation)
 
   _parse_disjoint_model: ->
     @owl_parser.owl_doc.find('DisjointClasses').each (i,dom)=>
@@ -93,9 +98,10 @@ class ClassParser extends BaseParser
   _build_disjoint_model: (iri, other_iri)->
     clazz       = @get_model_by_iri(iri)
     other_class = @get_model_by_iri(other_iri)
-    relation = new OntologyClassDisjointRelation([clazz, other_class])
-    clazz.add_relation(relation)
-    other_class.add_relation(relation)
+    if !!clazz && !!other_class
+      relation = new OntologyClassDisjointRelation([clazz, other_class])
+      clazz.add_relation(relation)
+      other_class.add_relation(relation)
 
   _parse_related_individual: ->
     @owl_parser.owl_doc.find('ClassAssertion').each (i,dom)=>
@@ -109,9 +115,10 @@ class ClassParser extends BaseParser
     clazz      = @get_model_by_iri(class_iri)
     individual = @owl_parser.individual_parser.get_model_by_iri(individual_iri)
 
-    relation = new OntologyClassIndividualRelation(clazz, individual)
-    clazz.add_relation(relation)
-    individual.add_relation(relation)    
+    if !!clazz && !!individual
+      relation = new OntologyClassIndividualRelation(clazz, individual)
+      clazz.add_relation(relation)
+      individual.add_relation(relation)    
 
   _parse_related_object_property: ->
     @owl_parser.owl_doc.find('HasKey').each (i, dom)=>
@@ -126,7 +133,9 @@ class ClassParser extends BaseParser
   _build_related_object_property: (class_iri, op_iri)->
     clazz = @get_model_by_iri(class_iri)
     op    = @owl_parser.object_property_parser.get_model_by_iri(op_iri)
-    clazz.add_object_property(op)
+
+    if !!clazz && !!op
+      clazz.add_object_property(op)
 
   _parse_related_data_property: ->
     @owl_parser.owl_doc.find('HasKey').each (i, dom)=>
@@ -141,7 +150,9 @@ class ClassParser extends BaseParser
   _build_related_data_property: (class_iri, dp_iri)->
     clazz = @get_model_by_iri(class_iri)
     op    = @owl_parser.data_property_parser.get_model_by_iri(dp_iri)
-    clazz.add_data_property(op)
+
+    if !!clazz && !!op
+      clazz.add_data_property(op)
 
 jQuery.extend window,
   ClassParser: ClassParser
