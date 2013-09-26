@@ -18,6 +18,13 @@
       return sections[1];
     };
 
+    OntologyBase.prototype.get_relations_by_type = function(type) {
+      var _this = this;
+      return this.relations.filter(function(re) {
+        return re.type === type;
+      });
+    };
+
     return OntologyBase;
 
   })();

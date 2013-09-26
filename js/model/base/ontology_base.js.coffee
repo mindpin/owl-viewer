@@ -7,6 +7,9 @@ class OntologyBase
     sections = iri.split(':')
     return sections[1]
 
+  get_relations_by_type: (type) ->
+    @relations.filter (re) =>
+      re.type == type
 
 jQuery.extend window,
   OntologyBase: OntologyBase

@@ -154,6 +154,8 @@ describe "object_property parser", ->
       expect(relation.host).to.eql(individual_a)
       expect(relation.object_property).to.eql(top)
       expect(relation.value).to.eql(individual_a)
+
+      expect(relations).to.eql(individual_a.get_relations_by_type('object-property-value'))
       
     it "object-property-equivalent", ->
       opa = owl_parser.get_model_by_iri("#opa")
