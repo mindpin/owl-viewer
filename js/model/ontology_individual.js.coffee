@@ -20,5 +20,13 @@ class OntologyIndividual extends OntologyBase
 
     relations.length == 0
 
+  classes: () ->
+    return @attr_classes if !!@attr_classes
+    relations = @relations.filter (re) =>
+      re.type == "class-individual" && re.individual == this
+    @attr_classes = relations.map (re) =>
+      re.class
+    @attr_classes
+
 jQuery.extend window,
   OntologyIndividual: OntologyIndividual

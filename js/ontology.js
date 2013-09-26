@@ -437,27 +437,48 @@
     };
 
     OntologyClass.prototype.sub_classes = function() {
-      var relations, subs,
+      var relations,
         _this = this;
+      if (!!this.subs) {
+        return this.subs;
+      }
       relations = this.relations.filter(function(re) {
         return re.type === "parent-sub" && re.parent === _this;
       });
-      subs = relations.map(function(re) {
+      this.subs = relations.map(function(re) {
         return re.sub;
       });
-      return subs;
+      return this.subs;
     };
 
     OntologyClass.prototype.parent_classes = function() {
-      var parents, relations,
+      var relations,
         _this = this;
+      if (!!this.parents) {
+        return this.parents;
+      }
       relations = this.relations.filter(function(re) {
         return re.type === "parent-sub" && re.sub === _this;
       });
-      parents = relations.map(function(re) {
+      this.parents = relations.map(function(re) {
         return re.parent;
       });
-      return parents;
+      return this.parents;
+    };
+
+    OntologyClass.prototype.individuals = function() {
+      var relations,
+        _this = this;
+      if (!!this.attr_individuals) {
+        return this.attr_individuals;
+      }
+      relations = this.relations.filter(function(re) {
+        return re.type === "class-individual" && re["class"] === _this;
+      });
+      this.attr_individuals = relations.map(function(re) {
+        return re.individual;
+      });
+      return this.attr_individuals;
     };
 
     return OntologyClass;
@@ -542,6 +563,21 @@
         return re.type === "class-individual";
       });
       return relations.length === 0;
+    };
+
+    OntologyIndividual.prototype.classes = function() {
+      var relations,
+        _this = this;
+      if (!!this.attr_classes) {
+        return this.attr_classes;
+      }
+      relations = this.relations.filter(function(re) {
+        return re.type === "class-individual" && re.individual === _this;
+      });
+      this.attr_classes = relations.map(function(re) {
+        return re["class"];
+      });
+      return this.attr_classes;
     };
 
     return OntologyIndividual;

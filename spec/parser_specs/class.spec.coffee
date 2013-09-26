@@ -122,7 +122,9 @@ describe "class parser", ->
       expect(class_b_relations[1]).to.eql(individual_bb_relation)
       expect(class_b_relations[1].individual).to.eql(individual_bb_relation.individual)
       expect(class_b_relations[1].class).to.eql(individual_bb_relation.class)
-      
+      expect(class_b.individuals()).to.eql([individual_b, individual_bb])
+      expect(individual_b.classes()).to.eql([class_b])
+      expect(individual_bb.classes()).to.eql([class_b])
 
   describe "class2.owl", ->
     ontology   = null
