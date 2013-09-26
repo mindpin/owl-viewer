@@ -1,0 +1,503 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE Ontology [
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY xml "http://www.w3.org/XML/1998/namespace" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://localhost:8080/ontology/untitled-ontology-161"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     ontologyIRI="http://localhost:8080/ontology/untitled-ontology-161">
+    <Prefix name="" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#Bar"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Foo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#In"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Library"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Module"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#NonIO"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Out"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#op1"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#op2"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#op3"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#op4"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#op9"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#op9a"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#dp1"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#dp2"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#dp2a"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#dp3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#input-1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#input-1a"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#input-2"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#input-3"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#input-4"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#input-5"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#lib-1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#lib-2"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#Library"/>
+        <Class IRI="#Module"/>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="#Library"/>
+        <Class IRI="#NonIO"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Module"/>
+        <Class IRI="#NonIO"/>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#In"/>
+        <Class IRI="#NonIO"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#NonIO"/>
+        <Class IRI="#Out"/>
+    </DisjointClasses>
+    <DisjointUnion>
+        <Class IRI="#Library"/>
+        <Class IRI="#Bar"/>
+        <Class IRI="#Foo"/>
+    </DisjointUnion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="#input-2"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#In"/>
+        <NamedIndividual IRI="#input-3"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#In"/>
+        <NamedIndividual IRI="#input-4"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="#input-4"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Library"/>
+        <NamedIndividual IRI="#lib-1"/>
+    </ClassAssertion>
+    <SameIndividual>
+        <NamedIndividual IRI="#input-1"/>
+        <NamedIndividual IRI="#input-1a"/>
+    </SameIndividual>
+    <DifferentIndividuals>
+        <NamedIndividual IRI="#input-1"/>
+        <NamedIndividual IRI="#input-3"/>
+    </DifferentIndividuals>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="#op1"/>
+        <NamedIndividual IRI="#input-1"/>
+        <NamedIndividual IRI="#input-2"/>
+    </ObjectPropertyAssertion>
+    <NegativeObjectPropertyAssertion>
+        <ObjectProperty IRI="#op3"/>
+        <NamedIndividual IRI="#input-1"/>
+        <NamedIndividual IRI="#input-5"/>
+    </NegativeObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="#dp2"/>
+        <NamedIndividual IRI="#input-1"/>
+        <Literal datatypeIRI="&xsd;boolean">false</Literal>
+    </DataPropertyAssertion>
+    <NegativeDataPropertyAssertion>
+        <DataProperty IRI="#dp3"/>
+        <NamedIndividual IRI="#input-1"/>
+        <Literal datatypeIRI="&xsd;integer">22</Literal>
+    </NegativeDataPropertyAssertion>
+    <EquivalentObjectProperties>
+        <ObjectProperty IRI="#op1"/>
+        <ObjectProperty IRI="#op3"/>
+    </EquivalentObjectProperties>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#op1"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#op1"/>
+        <ObjectProperty IRI="#op2"/>
+    </InverseObjectProperties>
+    <IrreflexiveObjectProperty>
+        <ObjectProperty IRI="#op1"/>
+    </IrreflexiveObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#op1"/>
+        <Class IRI="#Foo"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#op1"/>
+        <Class IRI="#Bar"/>
+    </ObjectPropertyRange>
+    <DisjointObjectProperties>
+        <ObjectProperty IRI="#op1"/>
+        <ObjectProperty IRI="#op4"/>
+    </DisjointObjectProperties>
+    <SubObjectPropertyOf>
+        <ObjectPropertyChain>
+            <ObjectProperty IRI="#op9a"/>
+            <ObjectProperty IRI="#op9a"/>
+        </ObjectPropertyChain>
+        <ObjectProperty IRI="#op9"/>
+    </SubObjectPropertyOf>
+    <EquivalentDataProperties>
+        <DataProperty IRI="#dp2"/>
+        <DataProperty IRI="#dp2a"/>
+    </EquivalentDataProperties>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#dp2"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#dp2"/>
+    </FunctionalDataProperty>
+    <DataPropertyDomain>
+        <DataProperty IRI="#dp2"/>
+        <Class IRI="#Foo"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#dp2"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DisjointDataProperties>
+        <DataProperty IRI="#dp2"/>
+        <DataProperty IRI="#dp3"/>
+    </DisjointDataProperties>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#In</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">class-评论的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:isDefinedBy"/>
+        <IRI>#In</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">class-被定义标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#In</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">class-标签的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>#In</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">class-同时参考的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:backwardCompatibleWith"/>
+        <IRI>#In</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">class-向后兼容的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:deprecated"/>
+        <IRI>#In</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">class-旧版本弃用的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:incompatibleWith"/>
+        <IRI>#In</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">class-不兼容的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:priorVersion"/>
+        <IRI>#In</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">class-先前版本标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:versionInfo"/>
+        <IRI>#In</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">class-当前版本的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#dp2</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dp-评论标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:isDefinedBy"/>
+        <IRI>#dp2</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dp-被定义的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#dp2</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dp-标签的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>#dp2</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dp-同时参考标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:backwardCompatibleWith"/>
+        <IRI>#dp2</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dp-向下兼容标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:deprecated"/>
+        <IRI>#dp2</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dp-过时标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:incompatibleWith"/>
+        <IRI>#dp2</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dp-不兼容标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:priorVersion"/>
+        <IRI>#dp2</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dp-先前版本标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:versionInfo"/>
+        <IRI>#dp2</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dp-当前版本标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#input-1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">关于输入一的评论</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:isDefinedBy"/>
+        <IRI>#input-1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">被另一项概念定义</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#input-1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">第一项输入</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>#input-1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">其它输入</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:backwardCompatibleWith"/>
+        <IRI>#input-1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">向后兼容的软件</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:deprecated"/>
+        <IRI>#input-1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">过时的软件</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:incompatibleWith"/>
+        <IRI>#input-1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">不兼容的软件</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:priorVersion"/>
+        <IRI>#input-1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">0.0.2</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:versionInfo"/>
+        <IRI>#input-1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">1.0.0</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#op1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">op-评论的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:isDefinedBy"/>
+        <IRI>#op1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">op-被定义标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#op1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">op-标签的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <IRI>#op1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">op-参考其它的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:backwardCompatibleWith"/>
+        <IRI>#op1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">op-向后兼容标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:deprecated"/>
+        <IRI>#op1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">op-过时的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:incompatibleWith"/>
+        <IRI>#op1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">op-不兼容标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:priorVersion"/>
+        <IRI>#op1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">op-先前版本标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:versionInfo"/>
+        <IRI>#op1</IRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">op-版本信息标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AbbreviatedIRI>rdfs:comment</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">anno-评论的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:isDefinedBy"/>
+        <AbbreviatedIRI>rdfs:comment</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">anno-被定义的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <AbbreviatedIRI>rdfs:comment</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">anno-标签的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <AbbreviatedIRI>rdfs:comment</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">anno-同时参阅的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:backwardCompatibleWith"/>
+        <AbbreviatedIRI>rdfs:comment</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">anno-向后兼容的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:deprecated"/>
+        <AbbreviatedIRI>rdfs:comment</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">anno-过时的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:incompatibleWith"/>
+        <AbbreviatedIRI>rdfs:comment</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">anno-不兼容的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:priorVersion"/>
+        <AbbreviatedIRI>rdfs:comment</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">anno-先前版本的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:versionInfo"/>
+        <AbbreviatedIRI>rdfs:comment</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">anno-当前版本的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <AbbreviatedIRI>xsd:boolean</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dt-评论的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:isDefinedBy"/>
+        <AbbreviatedIRI>xsd:boolean</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dt-被定义的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <AbbreviatedIRI>xsd:boolean</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dt-标签的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:seeAlso"/>
+        <AbbreviatedIRI>xsd:boolean</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dt-同时参考的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:backwardCompatibleWith"/>
+        <AbbreviatedIRI>xsd:boolean</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dt-向下兼容标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:deprecated"/>
+        <AbbreviatedIRI>xsd:boolean</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dt-过时的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:incompatibleWith"/>
+        <AbbreviatedIRI>xsd:boolean</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dt-不兼容的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:priorVersion"/>
+        <AbbreviatedIRI>xsd:boolean</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dt-先前版本的标注</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="owl:versionInfo"/>
+        <AbbreviatedIRI>xsd:boolean</AbbreviatedIRI>
+        <Literal xml:lang="zh" datatypeIRI="&rdf;PlainLiteral">dt-当前版本的标注</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 3.4.2) http://owlapi.sourceforge.net -->
